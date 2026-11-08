@@ -1,0 +1,681 @@
+obs_id,operation,label,department,basis,observer,observed_min
+TS-fin_press-01,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,217.4
+TS-fin_press-02,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,254.5
+TS-fin_press-03,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,267.3
+TS-fin_press-04,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,203.1
+TS-fin_press-05,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,238.8
+TS-fin_press-06,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,202.5
+TS-fin_press-07,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,234.8
+TS-fin_press-08,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,231.6
+TS-fin_press-09,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,229.8
+TS-fin_press-10,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,212.9
+TS-fin_press-11,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,252.8
+TS-fin_press-12,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,186.3
+TS-fin_press-13,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,228.2
+TS-fin_press-14,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,220.9
+TS-fin_press-15,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,214.9
+TS-fin_press-16,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,202.6
+TS-fin_press-17,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,227.7
+TS-fin_press-18,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,213.6
+TS-fin_press-19,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,203.4
+TS-fin_press-20,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,236.3
+TS-fin_press-21,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,215.3
+TS-fin_press-22,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,254.8
+TS-fin_press-23,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,218.0
+TS-fin_press-24,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,243.4
+TS-fin_press-25,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,182.4
+TS-fin_press-26,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,226.3
+TS-fin_press-27,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,222.4
+TS-fin_press-28,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,254.1
+TS-fin_press-29,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,229.5
+TS-fin_press-30,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,257.2
+TS-fin_press-31,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,251.7
+TS-fin_press-32,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,247.6
+TS-fin_press-33,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,270.6
+TS-fin_press-34,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,219.0
+TS-fin_press-35,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,239.9
+TS-fin_press-36,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,281.2
+TS-fin_press-37,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,234.3
+TS-fin_press-38,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,193.4
+TS-fin_press-39,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),A,224.6
+TS-fin_press-40,fin_press,Fin press job (3 EVA),evaporator,per job (3 EVA),B,222.2
+TS-boxing-01,boxing,Boxing (modules + end panels),evaporator,per EVA,A,109.2
+TS-boxing-02,boxing,Boxing (modules + end panels),evaporator,per EVA,B,137.2
+TS-boxing-03,boxing,Boxing (modules + end panels),evaporator,per EVA,A,103.4
+TS-boxing-04,boxing,Boxing (modules + end panels),evaporator,per EVA,B,98.3
+TS-boxing-05,boxing,Boxing (modules + end panels),evaporator,per EVA,A,145.1
+TS-boxing-06,boxing,Boxing (modules + end panels),evaporator,per EVA,B,100.1
+TS-boxing-07,boxing,Boxing (modules + end panels),evaporator,per EVA,A,90.5
+TS-boxing-08,boxing,Boxing (modules + end panels),evaporator,per EVA,B,91.5
+TS-boxing-09,boxing,Boxing (modules + end panels),evaporator,per EVA,A,81.5
+TS-boxing-10,boxing,Boxing (modules + end panels),evaporator,per EVA,B,89.6
+TS-boxing-11,boxing,Boxing (modules + end panels),evaporator,per EVA,A,113.4
+TS-boxing-12,boxing,Boxing (modules + end panels),evaporator,per EVA,B,115.4
+TS-boxing-13,boxing,Boxing (modules + end panels),evaporator,per EVA,A,95.1
+TS-boxing-14,boxing,Boxing (modules + end panels),evaporator,per EVA,B,122.8
+TS-boxing-15,boxing,Boxing (modules + end panels),evaporator,per EVA,A,87.3
+TS-boxing-16,boxing,Boxing (modules + end panels),evaporator,per EVA,B,115.2
+TS-boxing-17,boxing,Boxing (modules + end panels),evaporator,per EVA,A,103.7
+TS-boxing-18,boxing,Boxing (modules + end panels),evaporator,per EVA,B,101.7
+TS-boxing-19,boxing,Boxing (modules + end panels),evaporator,per EVA,A,81.9
+TS-boxing-20,boxing,Boxing (modules + end panels),evaporator,per EVA,B,97.3
+TS-boxing-21,boxing,Boxing (modules + end panels),evaporator,per EVA,A,111.8
+TS-boxing-22,boxing,Boxing (modules + end panels),evaporator,per EVA,B,99.4
+TS-boxing-23,boxing,Boxing (modules + end panels),evaporator,per EVA,A,86.2
+TS-boxing-24,boxing,Boxing (modules + end panels),evaporator,per EVA,B,86.1
+TS-boxing-25,boxing,Boxing (modules + end panels),evaporator,per EVA,A,98.1
+TS-boxing-26,boxing,Boxing (modules + end panels),evaporator,per EVA,B,80.1
+TS-boxing-27,boxing,Boxing (modules + end panels),evaporator,per EVA,A,96.3
+TS-boxing-28,boxing,Boxing (modules + end panels),evaporator,per EVA,B,125.7
+TS-boxing-29,boxing,Boxing (modules + end panels),evaporator,per EVA,A,81.6
+TS-boxing-30,boxing,Boxing (modules + end panels),evaporator,per EVA,B,101.2
+TS-boxing-31,boxing,Boxing (modules + end panels),evaporator,per EVA,A,103.2
+TS-boxing-32,boxing,Boxing (modules + end panels),evaporator,per EVA,B,110.5
+TS-boxing-33,boxing,Boxing (modules + end panels),evaporator,per EVA,A,110.6
+TS-boxing-34,boxing,Boxing (modules + end panels),evaporator,per EVA,B,93.4
+TS-boxing-35,boxing,Boxing (modules + end panels),evaporator,per EVA,A,93.9
+TS-boxing-36,boxing,Boxing (modules + end panels),evaporator,per EVA,B,99.9
+TS-boxing-37,boxing,Boxing (modules + end panels),evaporator,per EVA,A,102.6
+TS-boxing-38,boxing,Boxing (modules + end panels),evaporator,per EVA,B,103.8
+TS-boxing-39,boxing,Boxing (modules + end panels),evaporator,per EVA,A,91.4
+TS-boxing-40,boxing,Boxing (modules + end panels),evaporator,per EVA,B,115.1
+TS-trim_tubes-01,trim_tubes,Trim Tubes,evaporator,per EVA,A,39.4
+TS-trim_tubes-02,trim_tubes,Trim Tubes,evaporator,per EVA,B,32.4
+TS-trim_tubes-03,trim_tubes,Trim Tubes,evaporator,per EVA,A,43.7
+TS-trim_tubes-04,trim_tubes,Trim Tubes,evaporator,per EVA,B,40.4
+TS-trim_tubes-05,trim_tubes,Trim Tubes,evaporator,per EVA,A,36.7
+TS-trim_tubes-06,trim_tubes,Trim Tubes,evaporator,per EVA,B,32.7
+TS-trim_tubes-07,trim_tubes,Trim Tubes,evaporator,per EVA,A,38.3
+TS-trim_tubes-08,trim_tubes,Trim Tubes,evaporator,per EVA,B,47.1
+TS-trim_tubes-09,trim_tubes,Trim Tubes,evaporator,per EVA,A,47.7
+TS-trim_tubes-10,trim_tubes,Trim Tubes,evaporator,per EVA,B,48.2
+TS-trim_tubes-11,trim_tubes,Trim Tubes,evaporator,per EVA,A,33.5
+TS-trim_tubes-12,trim_tubes,Trim Tubes,evaporator,per EVA,B,38.3
+TS-trim_tubes-13,trim_tubes,Trim Tubes,evaporator,per EVA,A,46.3
+TS-trim_tubes-14,trim_tubes,Trim Tubes,evaporator,per EVA,B,32.2
+TS-trim_tubes-15,trim_tubes,Trim Tubes,evaporator,per EVA,A,36.4
+TS-trim_tubes-16,trim_tubes,Trim Tubes,evaporator,per EVA,B,37.8
+TS-trim_tubes-17,trim_tubes,Trim Tubes,evaporator,per EVA,A,37.5
+TS-trim_tubes-18,trim_tubes,Trim Tubes,evaporator,per EVA,B,44.0
+TS-trim_tubes-19,trim_tubes,Trim Tubes,evaporator,per EVA,A,41.1
+TS-trim_tubes-20,trim_tubes,Trim Tubes,evaporator,per EVA,B,35.5
+TS-trim_tubes-21,trim_tubes,Trim Tubes,evaporator,per EVA,A,33.4
+TS-trim_tubes-22,trim_tubes,Trim Tubes,evaporator,per EVA,B,36.6
+TS-trim_tubes-23,trim_tubes,Trim Tubes,evaporator,per EVA,A,39.7
+TS-trim_tubes-24,trim_tubes,Trim Tubes,evaporator,per EVA,B,28.6
+TS-trim_tubes-25,trim_tubes,Trim Tubes,evaporator,per EVA,A,42.6
+TS-trim_tubes-26,trim_tubes,Trim Tubes,evaporator,per EVA,B,34.4
+TS-trim_tubes-27,trim_tubes,Trim Tubes,evaporator,per EVA,A,35.4
+TS-trim_tubes-28,trim_tubes,Trim Tubes,evaporator,per EVA,B,37.2
+TS-trim_tubes-29,trim_tubes,Trim Tubes,evaporator,per EVA,A,46.5
+TS-trim_tubes-30,trim_tubes,Trim Tubes,evaporator,per EVA,B,33.5
+TS-trim_tubes-31,trim_tubes,Trim Tubes,evaporator,per EVA,A,31.8
+TS-trim_tubes-32,trim_tubes,Trim Tubes,evaporator,per EVA,B,45.5
+TS-trim_tubes-33,trim_tubes,Trim Tubes,evaporator,per EVA,A,33.2
+TS-trim_tubes-34,trim_tubes,Trim Tubes,evaporator,per EVA,B,49.0
+TS-trim_tubes-35,trim_tubes,Trim Tubes,evaporator,per EVA,A,39.6
+TS-trim_tubes-36,trim_tubes,Trim Tubes,evaporator,per EVA,B,38.9
+TS-trim_tubes-37,trim_tubes,Trim Tubes,evaporator,per EVA,A,45.4
+TS-trim_tubes-38,trim_tubes,Trim Tubes,evaporator,per EVA,B,39.2
+TS-trim_tubes-39,trim_tubes,Trim Tubes,evaporator,per EVA,A,45.9
+TS-trim_tubes-40,trim_tubes,Trim Tubes,evaporator,per EVA,B,32.8
+TS-weld_hairpins-01,weld_hairpins,Weld Hairpins,evaporator,per coil,A,204.1
+TS-weld_hairpins-02,weld_hairpins,Weld Hairpins,evaporator,per coil,B,249.6
+TS-weld_hairpins-03,weld_hairpins,Weld Hairpins,evaporator,per coil,A,233.3
+TS-weld_hairpins-04,weld_hairpins,Weld Hairpins,evaporator,per coil,B,174.0
+TS-weld_hairpins-05,weld_hairpins,Weld Hairpins,evaporator,per coil,A,216.1
+TS-weld_hairpins-06,weld_hairpins,Weld Hairpins,evaporator,per coil,B,219.6
+TS-weld_hairpins-07,weld_hairpins,Weld Hairpins,evaporator,per coil,A,239.9
+TS-weld_hairpins-08,weld_hairpins,Weld Hairpins,evaporator,per coil,B,237.5
+TS-weld_hairpins-09,weld_hairpins,Weld Hairpins,evaporator,per coil,A,257.2
+TS-weld_hairpins-10,weld_hairpins,Weld Hairpins,evaporator,per coil,B,214.7
+TS-weld_hairpins-11,weld_hairpins,Weld Hairpins,evaporator,per coil,A,200.9
+TS-weld_hairpins-12,weld_hairpins,Weld Hairpins,evaporator,per coil,B,192.6
+TS-weld_hairpins-13,weld_hairpins,Weld Hairpins,evaporator,per coil,A,189.7
+TS-weld_hairpins-14,weld_hairpins,Weld Hairpins,evaporator,per coil,B,208.8
+TS-weld_hairpins-15,weld_hairpins,Weld Hairpins,evaporator,per coil,A,193.5
+TS-weld_hairpins-16,weld_hairpins,Weld Hairpins,evaporator,per coil,B,213.9
+TS-weld_hairpins-17,weld_hairpins,Weld Hairpins,evaporator,per coil,A,203.7
+TS-weld_hairpins-18,weld_hairpins,Weld Hairpins,evaporator,per coil,B,228.4
+TS-weld_hairpins-19,weld_hairpins,Weld Hairpins,evaporator,per coil,A,191.0
+TS-weld_hairpins-20,weld_hairpins,Weld Hairpins,evaporator,per coil,B,193.1
+TS-weld_hairpins-21,weld_hairpins,Weld Hairpins,evaporator,per coil,A,199.1
+TS-weld_hairpins-22,weld_hairpins,Weld Hairpins,evaporator,per coil,B,209.0
+TS-weld_hairpins-23,weld_hairpins,Weld Hairpins,evaporator,per coil,A,182.1
+TS-weld_hairpins-24,weld_hairpins,Weld Hairpins,evaporator,per coil,B,213.3
+TS-weld_hairpins-25,weld_hairpins,Weld Hairpins,evaporator,per coil,A,220.5
+TS-weld_hairpins-26,weld_hairpins,Weld Hairpins,evaporator,per coil,B,212.4
+TS-weld_hairpins-27,weld_hairpins,Weld Hairpins,evaporator,per coil,A,233.3
+TS-weld_hairpins-28,weld_hairpins,Weld Hairpins,evaporator,per coil,B,238.5
+TS-weld_hairpins-29,weld_hairpins,Weld Hairpins,evaporator,per coil,A,189.6
+TS-weld_hairpins-30,weld_hairpins,Weld Hairpins,evaporator,per coil,B,194.4
+TS-weld_hairpins-31,weld_hairpins,Weld Hairpins,evaporator,per coil,A,236.2
+TS-weld_hairpins-32,weld_hairpins,Weld Hairpins,evaporator,per coil,B,198.8
+TS-weld_hairpins-33,weld_hairpins,Weld Hairpins,evaporator,per coil,A,191.7
+TS-weld_hairpins-34,weld_hairpins,Weld Hairpins,evaporator,per coil,B,181.1
+TS-weld_hairpins-35,weld_hairpins,Weld Hairpins,evaporator,per coil,A,249.3
+TS-weld_hairpins-36,weld_hairpins,Weld Hairpins,evaporator,per coil,B,258.2
+TS-weld_hairpins-37,weld_hairpins,Weld Hairpins,evaporator,per coil,A,232.9
+TS-weld_hairpins-38,weld_hairpins,Weld Hairpins,evaporator,per coil,B,200.1
+TS-weld_hairpins-39,weld_hairpins,Weld Hairpins,evaporator,per coil,A,206.9
+TS-weld_hairpins-40,weld_hairpins,Weld Hairpins,evaporator,per coil,B,185.0
+TS-steeking-01,steeking,Steeking,evaporator,per EVA,A,371.1
+TS-steeking-02,steeking,Steeking,evaporator,per EVA,B,424.3
+TS-steeking-03,steeking,Steeking,evaporator,per EVA,A,535.2
+TS-steeking-04,steeking,Steeking,evaporator,per EVA,B,497.3
+TS-steeking-05,steeking,Steeking,evaporator,per EVA,A,487.8
+TS-steeking-06,steeking,Steeking,evaporator,per EVA,B,317.2
+TS-steeking-07,steeking,Steeking,evaporator,per EVA,A,541.2
+TS-steeking-08,steeking,Steeking,evaporator,per EVA,B,368.0
+TS-steeking-09,steeking,Steeking,evaporator,per EVA,A,388.9
+TS-steeking-10,steeking,Steeking,evaporator,per EVA,B,519.3
+TS-steeking-11,steeking,Steeking,evaporator,per EVA,A,411.9
+TS-steeking-12,steeking,Steeking,evaporator,per EVA,B,479.6
+TS-steeking-13,steeking,Steeking,evaporator,per EVA,A,426.0
+TS-steeking-14,steeking,Steeking,evaporator,per EVA,B,512.5
+TS-steeking-15,steeking,Steeking,evaporator,per EVA,A,459.4
+TS-steeking-16,steeking,Steeking,evaporator,per EVA,B,306.9
+TS-steeking-17,steeking,Steeking,evaporator,per EVA,A,272.4
+TS-steeking-18,steeking,Steeking,evaporator,per EVA,B,449.9
+TS-steeking-19,steeking,Steeking,evaporator,per EVA,A,376.4
+TS-steeking-20,steeking,Steeking,evaporator,per EVA,B,485.6
+TS-steeking-21,steeking,Steeking,evaporator,per EVA,A,442.6
+TS-steeking-22,steeking,Steeking,evaporator,per EVA,B,408.6
+TS-steeking-23,steeking,Steeking,evaporator,per EVA,A,523.3
+TS-steeking-24,steeking,Steeking,evaporator,per EVA,B,437.9
+TS-steeking-25,steeking,Steeking,evaporator,per EVA,A,518.3
+TS-steeking-26,steeking,Steeking,evaporator,per EVA,B,344.3
+TS-steeking-27,steeking,Steeking,evaporator,per EVA,A,487.3
+TS-steeking-28,steeking,Steeking,evaporator,per EVA,B,355.5
+TS-steeking-29,steeking,Steeking,evaporator,per EVA,A,379.7
+TS-steeking-30,steeking,Steeking,evaporator,per EVA,B,413.4
+TS-steeking-31,steeking,Steeking,evaporator,per EVA,A,319.9
+TS-steeking-32,steeking,Steeking,evaporator,per EVA,B,323.6
+TS-steeking-33,steeking,Steeking,evaporator,per EVA,A,545.4
+TS-steeking-34,steeking,Steeking,evaporator,per EVA,B,487.0
+TS-steeking-35,steeking,Steeking,evaporator,per EVA,A,300.4
+TS-steeking-36,steeking,Steeking,evaporator,per EVA,B,316.7
+TS-steeking-37,steeking,Steeking,evaporator,per EVA,A,281.5
+TS-steeking-38,steeking,Steeking,evaporator,per EVA,B,517.4
+TS-steeking-39,steeking,Steeking,evaporator,per EVA,A,382.9
+TS-steeking-40,steeking,Steeking,evaporator,per EVA,B,362.3
+TS-weld_return_bends-01,weld_return_bends,Weld Return Bends,evaporator,per coil,A,133.6
+TS-weld_return_bends-02,weld_return_bends,Weld Return Bends,evaporator,per coil,B,144.6
+TS-weld_return_bends-03,weld_return_bends,Weld Return Bends,evaporator,per coil,A,141.1
+TS-weld_return_bends-04,weld_return_bends,Weld Return Bends,evaporator,per coil,B,195.0
+TS-weld_return_bends-05,weld_return_bends,Weld Return Bends,evaporator,per coil,A,151.0
+TS-weld_return_bends-06,weld_return_bends,Weld Return Bends,evaporator,per coil,B,143.1
+TS-weld_return_bends-07,weld_return_bends,Weld Return Bends,evaporator,per coil,A,156.4
+TS-weld_return_bends-08,weld_return_bends,Weld Return Bends,evaporator,per coil,B,139.7
+TS-weld_return_bends-09,weld_return_bends,Weld Return Bends,evaporator,per coil,A,142.5
+TS-weld_return_bends-10,weld_return_bends,Weld Return Bends,evaporator,per coil,B,114.5
+TS-weld_return_bends-11,weld_return_bends,Weld Return Bends,evaporator,per coil,A,227.6
+TS-weld_return_bends-12,weld_return_bends,Weld Return Bends,evaporator,per coil,B,148.0
+TS-weld_return_bends-13,weld_return_bends,Weld Return Bends,evaporator,per coil,A,105.9
+TS-weld_return_bends-14,weld_return_bends,Weld Return Bends,evaporator,per coil,B,135.9
+TS-weld_return_bends-15,weld_return_bends,Weld Return Bends,evaporator,per coil,A,165.9
+TS-weld_return_bends-16,weld_return_bends,Weld Return Bends,evaporator,per coil,B,168.2
+TS-weld_return_bends-17,weld_return_bends,Weld Return Bends,evaporator,per coil,A,149.1
+TS-weld_return_bends-18,weld_return_bends,Weld Return Bends,evaporator,per coil,B,199.1
+TS-weld_return_bends-19,weld_return_bends,Weld Return Bends,evaporator,per coil,A,143.3
+TS-weld_return_bends-20,weld_return_bends,Weld Return Bends,evaporator,per coil,B,147.0
+TS-weld_return_bends-21,weld_return_bends,Weld Return Bends,evaporator,per coil,A,154.9
+TS-weld_return_bends-22,weld_return_bends,Weld Return Bends,evaporator,per coil,B,156.3
+TS-weld_return_bends-23,weld_return_bends,Weld Return Bends,evaporator,per coil,A,145.8
+TS-weld_return_bends-24,weld_return_bends,Weld Return Bends,evaporator,per coil,B,147.6
+TS-weld_return_bends-25,weld_return_bends,Weld Return Bends,evaporator,per coil,A,155.8
+TS-weld_return_bends-26,weld_return_bends,Weld Return Bends,evaporator,per coil,B,137.4
+TS-weld_return_bends-27,weld_return_bends,Weld Return Bends,evaporator,per coil,A,148.7
+TS-weld_return_bends-28,weld_return_bends,Weld Return Bends,evaporator,per coil,B,120.8
+TS-weld_return_bends-29,weld_return_bends,Weld Return Bends,evaporator,per coil,A,132.0
+TS-weld_return_bends-30,weld_return_bends,Weld Return Bends,evaporator,per coil,B,142.3
+TS-weld_return_bends-31,weld_return_bends,Weld Return Bends,evaporator,per coil,A,135.8
+TS-weld_return_bends-32,weld_return_bends,Weld Return Bends,evaporator,per coil,B,154.8
+TS-weld_return_bends-33,weld_return_bends,Weld Return Bends,evaporator,per coil,A,153.5
+TS-weld_return_bends-34,weld_return_bends,Weld Return Bends,evaporator,per coil,B,125.7
+TS-weld_return_bends-35,weld_return_bends,Weld Return Bends,evaporator,per coil,A,143.3
+TS-weld_return_bends-36,weld_return_bends,Weld Return Bends,evaporator,per coil,B,147.2
+TS-weld_return_bends-37,weld_return_bends,Weld Return Bends,evaporator,per coil,A,137.9
+TS-weld_return_bends-38,weld_return_bends,Weld Return Bends,evaporator,per coil,B,151.9
+TS-weld_return_bends-39,weld_return_bends,Weld Return Bends,evaporator,per coil,A,132.8
+TS-weld_return_bends-40,weld_return_bends,Weld Return Bends,evaporator,per coil,B,130.1
+TS-expansion-01,expansion,Hydraulic Expanding,evaporator,per coil,A,84.4
+TS-expansion-02,expansion,Hydraulic Expanding,evaporator,per coil,B,120.3
+TS-expansion-03,expansion,Hydraulic Expanding,evaporator,per coil,A,76.2
+TS-expansion-04,expansion,Hydraulic Expanding,evaporator,per coil,B,84.3
+TS-expansion-05,expansion,Hydraulic Expanding,evaporator,per coil,A,102.8
+TS-expansion-06,expansion,Hydraulic Expanding,evaporator,per coil,B,88.6
+TS-expansion-07,expansion,Hydraulic Expanding,evaporator,per coil,A,88.8
+TS-expansion-08,expansion,Hydraulic Expanding,evaporator,per coil,B,94.6
+TS-expansion-09,expansion,Hydraulic Expanding,evaporator,per coil,A,87.1
+TS-expansion-10,expansion,Hydraulic Expanding,evaporator,per coil,B,81.7
+TS-expansion-11,expansion,Hydraulic Expanding,evaporator,per coil,A,81.8
+TS-expansion-12,expansion,Hydraulic Expanding,evaporator,per coil,B,86.7
+TS-expansion-13,expansion,Hydraulic Expanding,evaporator,per coil,A,93.0
+TS-expansion-14,expansion,Hydraulic Expanding,evaporator,per coil,B,95.6
+TS-expansion-15,expansion,Hydraulic Expanding,evaporator,per coil,A,90.5
+TS-expansion-16,expansion,Hydraulic Expanding,evaporator,per coil,B,94.9
+TS-expansion-17,expansion,Hydraulic Expanding,evaporator,per coil,A,89.7
+TS-expansion-18,expansion,Hydraulic Expanding,evaporator,per coil,B,75.0
+TS-expansion-19,expansion,Hydraulic Expanding,evaporator,per coil,A,76.6
+TS-expansion-20,expansion,Hydraulic Expanding,evaporator,per coil,B,78.6
+TS-expansion-21,expansion,Hydraulic Expanding,evaporator,per coil,A,86.8
+TS-expansion-22,expansion,Hydraulic Expanding,evaporator,per coil,B,77.8
+TS-expansion-23,expansion,Hydraulic Expanding,evaporator,per coil,A,97.3
+TS-expansion-24,expansion,Hydraulic Expanding,evaporator,per coil,B,89.4
+TS-expansion-25,expansion,Hydraulic Expanding,evaporator,per coil,A,87.8
+TS-expansion-26,expansion,Hydraulic Expanding,evaporator,per coil,B,83.5
+TS-expansion-27,expansion,Hydraulic Expanding,evaporator,per coil,A,103.4
+TS-expansion-28,expansion,Hydraulic Expanding,evaporator,per coil,B,92.0
+TS-expansion-29,expansion,Hydraulic Expanding,evaporator,per coil,A,74.1
+TS-expansion-30,expansion,Hydraulic Expanding,evaporator,per coil,B,82.2
+TS-expansion-31,expansion,Hydraulic Expanding,evaporator,per coil,A,77.0
+TS-expansion-32,expansion,Hydraulic Expanding,evaporator,per coil,B,75.5
+TS-expansion-33,expansion,Hydraulic Expanding,evaporator,per coil,A,85.2
+TS-expansion-34,expansion,Hydraulic Expanding,evaporator,per coil,B,79.4
+TS-expansion-35,expansion,Hydraulic Expanding,evaporator,per coil,A,77.9
+TS-expansion-36,expansion,Hydraulic Expanding,evaporator,per coil,B,83.5
+TS-expansion-37,expansion,Hydraulic Expanding,evaporator,per coil,A,80.8
+TS-expansion-38,expansion,Hydraulic Expanding,evaporator,per coil,B,68.8
+TS-expansion-39,expansion,Hydraulic Expanding,evaporator,per coil,A,79.6
+TS-expansion-40,expansion,Hydraulic Expanding,evaporator,per coil,B,85.9
+TS-prepare_headers-01,prepare_headers,Prepare Headers,evaporator,per EVA,A,92.1
+TS-prepare_headers-02,prepare_headers,Prepare Headers,evaporator,per EVA,B,105.8
+TS-prepare_headers-03,prepare_headers,Prepare Headers,evaporator,per EVA,A,112.4
+TS-prepare_headers-04,prepare_headers,Prepare Headers,evaporator,per EVA,B,112.0
+TS-prepare_headers-05,prepare_headers,Prepare Headers,evaporator,per EVA,A,123.3
+TS-prepare_headers-06,prepare_headers,Prepare Headers,evaporator,per EVA,B,119.9
+TS-prepare_headers-07,prepare_headers,Prepare Headers,evaporator,per EVA,A,116.5
+TS-prepare_headers-08,prepare_headers,Prepare Headers,evaporator,per EVA,B,105.8
+TS-prepare_headers-09,prepare_headers,Prepare Headers,evaporator,per EVA,A,137.7
+TS-prepare_headers-10,prepare_headers,Prepare Headers,evaporator,per EVA,B,125.7
+TS-prepare_headers-11,prepare_headers,Prepare Headers,evaporator,per EVA,A,116.8
+TS-prepare_headers-12,prepare_headers,Prepare Headers,evaporator,per EVA,B,135.3
+TS-prepare_headers-13,prepare_headers,Prepare Headers,evaporator,per EVA,A,118.2
+TS-prepare_headers-14,prepare_headers,Prepare Headers,evaporator,per EVA,B,97.0
+TS-prepare_headers-15,prepare_headers,Prepare Headers,evaporator,per EVA,A,170.0
+TS-prepare_headers-16,prepare_headers,Prepare Headers,evaporator,per EVA,B,129.3
+TS-prepare_headers-17,prepare_headers,Prepare Headers,evaporator,per EVA,A,110.7
+TS-prepare_headers-18,prepare_headers,Prepare Headers,evaporator,per EVA,B,99.7
+TS-prepare_headers-19,prepare_headers,Prepare Headers,evaporator,per EVA,A,101.6
+TS-prepare_headers-20,prepare_headers,Prepare Headers,evaporator,per EVA,B,108.9
+TS-prepare_headers-21,prepare_headers,Prepare Headers,evaporator,per EVA,A,121.3
+TS-prepare_headers-22,prepare_headers,Prepare Headers,evaporator,per EVA,B,117.6
+TS-prepare_headers-23,prepare_headers,Prepare Headers,evaporator,per EVA,A,136.8
+TS-prepare_headers-24,prepare_headers,Prepare Headers,evaporator,per EVA,B,128.4
+TS-prepare_headers-25,prepare_headers,Prepare Headers,evaporator,per EVA,A,122.9
+TS-prepare_headers-26,prepare_headers,Prepare Headers,evaporator,per EVA,B,98.5
+TS-prepare_headers-27,prepare_headers,Prepare Headers,evaporator,per EVA,A,118.5
+TS-prepare_headers-28,prepare_headers,Prepare Headers,evaporator,per EVA,B,143.7
+TS-prepare_headers-29,prepare_headers,Prepare Headers,evaporator,per EVA,A,100.6
+TS-prepare_headers-30,prepare_headers,Prepare Headers,evaporator,per EVA,B,88.5
+TS-prepare_headers-31,prepare_headers,Prepare Headers,evaporator,per EVA,A,118.2
+TS-prepare_headers-32,prepare_headers,Prepare Headers,evaporator,per EVA,B,130.1
+TS-prepare_headers-33,prepare_headers,Prepare Headers,evaporator,per EVA,A,124.3
+TS-prepare_headers-34,prepare_headers,Prepare Headers,evaporator,per EVA,B,129.3
+TS-prepare_headers-35,prepare_headers,Prepare Headers,evaporator,per EVA,A,101.4
+TS-prepare_headers-36,prepare_headers,Prepare Headers,evaporator,per EVA,B,131.8
+TS-prepare_headers-37,prepare_headers,Prepare Headers,evaporator,per EVA,A,80.5
+TS-prepare_headers-38,prepare_headers,Prepare Headers,evaporator,per EVA,B,129.4
+TS-prepare_headers-39,prepare_headers,Prepare Headers,evaporator,per EVA,A,122.4
+TS-prepare_headers-40,prepare_headers,Prepare Headers,evaporator,per EVA,B,107.6
+TS-header_welding-01,header_welding,Header Welding,evaporator,per coil,A,346.6
+TS-header_welding-02,header_welding,Header Welding,evaporator,per coil,B,424.6
+TS-header_welding-03,header_welding,Header Welding,evaporator,per coil,A,419.9
+TS-header_welding-04,header_welding,Header Welding,evaporator,per coil,B,434.2
+TS-header_welding-05,header_welding,Header Welding,evaporator,per coil,A,395.4
+TS-header_welding-06,header_welding,Header Welding,evaporator,per coil,B,359.8
+TS-header_welding-07,header_welding,Header Welding,evaporator,per coil,A,356.0
+TS-header_welding-08,header_welding,Header Welding,evaporator,per coil,B,382.0
+TS-header_welding-09,header_welding,Header Welding,evaporator,per coil,A,357.2
+TS-header_welding-10,header_welding,Header Welding,evaporator,per coil,B,277.9
+TS-header_welding-11,header_welding,Header Welding,evaporator,per coil,A,275.1
+TS-header_welding-12,header_welding,Header Welding,evaporator,per coil,B,381.0
+TS-header_welding-13,header_welding,Header Welding,evaporator,per coil,A,383.8
+TS-header_welding-14,header_welding,Header Welding,evaporator,per coil,B,446.2
+TS-header_welding-15,header_welding,Header Welding,evaporator,per coil,A,339.7
+TS-header_welding-16,header_welding,Header Welding,evaporator,per coil,B,401.7
+TS-header_welding-17,header_welding,Header Welding,evaporator,per coil,A,379.4
+TS-header_welding-18,header_welding,Header Welding,evaporator,per coil,B,470.8
+TS-header_welding-19,header_welding,Header Welding,evaporator,per coil,A,310.3
+TS-header_welding-20,header_welding,Header Welding,evaporator,per coil,B,317.8
+TS-header_welding-21,header_welding,Header Welding,evaporator,per coil,A,404.8
+TS-header_welding-22,header_welding,Header Welding,evaporator,per coil,B,240.5
+TS-header_welding-23,header_welding,Header Welding,evaporator,per coil,A,507.5
+TS-header_welding-24,header_welding,Header Welding,evaporator,per coil,B,401.2
+TS-header_welding-25,header_welding,Header Welding,evaporator,per coil,A,405.3
+TS-header_welding-26,header_welding,Header Welding,evaporator,per coil,B,419.6
+TS-header_welding-27,header_welding,Header Welding,evaporator,per coil,A,385.4
+TS-header_welding-28,header_welding,Header Welding,evaporator,per coil,B,367.7
+TS-header_welding-29,header_welding,Header Welding,evaporator,per coil,A,320.0
+TS-header_welding-30,header_welding,Header Welding,evaporator,per coil,B,327.2
+TS-header_welding-31,header_welding,Header Welding,evaporator,per coil,A,346.6
+TS-header_welding-32,header_welding,Header Welding,evaporator,per coil,B,378.5
+TS-header_welding-33,header_welding,Header Welding,evaporator,per coil,A,492.1
+TS-header_welding-34,header_welding,Header Welding,evaporator,per coil,B,462.5
+TS-header_welding-35,header_welding,Header Welding,evaporator,per coil,A,318.9
+TS-header_welding-36,header_welding,Header Welding,evaporator,per coil,B,435.4
+TS-header_welding-37,header_welding,Header Welding,evaporator,per coil,A,425.4
+TS-header_welding-38,header_welding,Header Welding,evaporator,per coil,B,439.3
+TS-header_welding-39,header_welding,Header Welding,evaporator,per coil,A,356.4
+TS-header_welding-40,header_welding,Header Welding,evaporator,per coil,B,322.4
+TS-wash-01,wash,Wash Bay,evaporator,per EVA,A,40.8
+TS-wash-02,wash,Wash Bay,evaporator,per EVA,B,47.3
+TS-wash-03,wash,Wash Bay,evaporator,per EVA,A,41.2
+TS-wash-04,wash,Wash Bay,evaporator,per EVA,B,44.3
+TS-wash-05,wash,Wash Bay,evaporator,per EVA,A,38.2
+TS-wash-06,wash,Wash Bay,evaporator,per EVA,B,48.7
+TS-wash-07,wash,Wash Bay,evaporator,per EVA,A,39.7
+TS-wash-08,wash,Wash Bay,evaporator,per EVA,B,60.7
+TS-wash-09,wash,Wash Bay,evaporator,per EVA,A,37.8
+TS-wash-10,wash,Wash Bay,evaporator,per EVA,B,54.9
+TS-wash-11,wash,Wash Bay,evaporator,per EVA,A,44.6
+TS-wash-12,wash,Wash Bay,evaporator,per EVA,B,38.6
+TS-wash-13,wash,Wash Bay,evaporator,per EVA,A,32.4
+TS-wash-14,wash,Wash Bay,evaporator,per EVA,B,42.6
+TS-wash-15,wash,Wash Bay,evaporator,per EVA,A,41.8
+TS-wash-16,wash,Wash Bay,evaporator,per EVA,B,46.6
+TS-wash-17,wash,Wash Bay,evaporator,per EVA,A,50.3
+TS-wash-18,wash,Wash Bay,evaporator,per EVA,B,52.4
+TS-wash-19,wash,Wash Bay,evaporator,per EVA,A,50.7
+TS-wash-20,wash,Wash Bay,evaporator,per EVA,B,38.9
+TS-wash-21,wash,Wash Bay,evaporator,per EVA,A,42.5
+TS-wash-22,wash,Wash Bay,evaporator,per EVA,B,45.0
+TS-wash-23,wash,Wash Bay,evaporator,per EVA,A,44.5
+TS-wash-24,wash,Wash Bay,evaporator,per EVA,B,34.2
+TS-wash-25,wash,Wash Bay,evaporator,per EVA,A,51.5
+TS-wash-26,wash,Wash Bay,evaporator,per EVA,B,38.6
+TS-wash-27,wash,Wash Bay,evaporator,per EVA,A,52.9
+TS-wash-28,wash,Wash Bay,evaporator,per EVA,B,45.7
+TS-wash-29,wash,Wash Bay,evaporator,per EVA,A,41.6
+TS-wash-30,wash,Wash Bay,evaporator,per EVA,B,44.4
+TS-wash-31,wash,Wash Bay,evaporator,per EVA,A,40.5
+TS-wash-32,wash,Wash Bay,evaporator,per EVA,B,57.7
+TS-wash-33,wash,Wash Bay,evaporator,per EVA,A,42.1
+TS-wash-34,wash,Wash Bay,evaporator,per EVA,B,41.2
+TS-wash-35,wash,Wash Bay,evaporator,per EVA,A,39.0
+TS-wash-36,wash,Wash Bay,evaporator,per EVA,B,39.6
+TS-wash-37,wash,Wash Bay,evaporator,per EVA,A,47.6
+TS-wash-38,wash,Wash Bay,evaporator,per EVA,B,47.1
+TS-wash-39,wash,Wash Bay,evaporator,per EVA,A,56.1
+TS-wash-40,wash,Wash Bay,evaporator,per EVA,B,57.5
+TS-pressure_test-01,pressure_test,Pressure Test,evaporator,per EVA,A,74.2
+TS-pressure_test-02,pressure_test,Pressure Test,evaporator,per EVA,B,79.9
+TS-pressure_test-03,pressure_test,Pressure Test,evaporator,per EVA,A,73.0
+TS-pressure_test-04,pressure_test,Pressure Test,evaporator,per EVA,B,92.4
+TS-pressure_test-05,pressure_test,Pressure Test,evaporator,per EVA,A,78.8
+TS-pressure_test-06,pressure_test,Pressure Test,evaporator,per EVA,B,87.1
+TS-pressure_test-07,pressure_test,Pressure Test,evaporator,per EVA,A,80.0
+TS-pressure_test-08,pressure_test,Pressure Test,evaporator,per EVA,B,86.7
+TS-pressure_test-09,pressure_test,Pressure Test,evaporator,per EVA,A,88.3
+TS-pressure_test-10,pressure_test,Pressure Test,evaporator,per EVA,B,89.7
+TS-pressure_test-11,pressure_test,Pressure Test,evaporator,per EVA,A,96.5
+TS-pressure_test-12,pressure_test,Pressure Test,evaporator,per EVA,B,71.5
+TS-pressure_test-13,pressure_test,Pressure Test,evaporator,per EVA,A,107.9
+TS-pressure_test-14,pressure_test,Pressure Test,evaporator,per EVA,B,100.4
+TS-pressure_test-15,pressure_test,Pressure Test,evaporator,per EVA,A,85.9
+TS-pressure_test-16,pressure_test,Pressure Test,evaporator,per EVA,B,84.4
+TS-pressure_test-17,pressure_test,Pressure Test,evaporator,per EVA,A,87.1
+TS-pressure_test-18,pressure_test,Pressure Test,evaporator,per EVA,B,112.4
+TS-pressure_test-19,pressure_test,Pressure Test,evaporator,per EVA,A,73.8
+TS-pressure_test-20,pressure_test,Pressure Test,evaporator,per EVA,B,92.5
+TS-pressure_test-21,pressure_test,Pressure Test,evaporator,per EVA,A,83.2
+TS-pressure_test-22,pressure_test,Pressure Test,evaporator,per EVA,B,87.4
+TS-pressure_test-23,pressure_test,Pressure Test,evaporator,per EVA,A,82.1
+TS-pressure_test-24,pressure_test,Pressure Test,evaporator,per EVA,B,76.3
+TS-pressure_test-25,pressure_test,Pressure Test,evaporator,per EVA,A,132.6
+TS-pressure_test-26,pressure_test,Pressure Test,evaporator,per EVA,B,72.9
+TS-pressure_test-27,pressure_test,Pressure Test,evaporator,per EVA,A,87.1
+TS-pressure_test-28,pressure_test,Pressure Test,evaporator,per EVA,B,94.0
+TS-pressure_test-29,pressure_test,Pressure Test,evaporator,per EVA,A,78.8
+TS-pressure_test-30,pressure_test,Pressure Test,evaporator,per EVA,B,75.5
+TS-pressure_test-31,pressure_test,Pressure Test,evaporator,per EVA,A,91.3
+TS-pressure_test-32,pressure_test,Pressure Test,evaporator,per EVA,B,79.0
+TS-pressure_test-33,pressure_test,Pressure Test,evaporator,per EVA,A,92.3
+TS-pressure_test-34,pressure_test,Pressure Test,evaporator,per EVA,B,107.9
+TS-pressure_test-35,pressure_test,Pressure Test,evaporator,per EVA,A,100.1
+TS-pressure_test-36,pressure_test,Pressure Test,evaporator,per EVA,B,108.5
+TS-pressure_test-37,pressure_test,Pressure Test,evaporator,per EVA,A,124.3
+TS-pressure_test-38,pressure_test,Pressure Test,evaporator,per EVA,B,88.2
+TS-pressure_test-39,pressure_test,Pressure Test,evaporator,per EVA,A,107.3
+TS-pressure_test-40,pressure_test,Pressure Test,evaporator,per EVA,B,133.7
+TS-press_brake-01,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,38.4
+TS-press_brake-02,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,37.0
+TS-press_brake-03,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,39.9
+TS-press_brake-04,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,37.1
+TS-press_brake-05,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,42.6
+TS-press_brake-06,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,37.6
+TS-press_brake-07,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,34.4
+TS-press_brake-08,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,36.4
+TS-press_brake-09,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,38.5
+TS-press_brake-10,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,34.4
+TS-press_brake-11,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,39.0
+TS-press_brake-12,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,34.6
+TS-press_brake-13,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,29.1
+TS-press_brake-14,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,38.3
+TS-press_brake-15,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,36.6
+TS-press_brake-16,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,38.9
+TS-press_brake-17,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,42.1
+TS-press_brake-18,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,36.6
+TS-press_brake-19,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,54.6
+TS-press_brake-20,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,41.4
+TS-press_brake-21,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,33.4
+TS-press_brake-22,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,46.5
+TS-press_brake-23,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,37.5
+TS-press_brake-24,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,41.2
+TS-press_brake-25,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,38.7
+TS-press_brake-26,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,37.0
+TS-press_brake-27,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,41.4
+TS-press_brake-28,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,40.2
+TS-press_brake-29,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,49.6
+TS-press_brake-30,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,43.2
+TS-press_brake-31,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,24.3
+TS-press_brake-32,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,28.5
+TS-press_brake-33,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,37.1
+TS-press_brake-34,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,33.3
+TS-press_brake-35,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,36.4
+TS-press_brake-36,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,37.5
+TS-press_brake-37,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,34.2
+TS-press_brake-38,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,37.9
+TS-press_brake-39,press_brake,Plenum: Press Brake,sheet_metal,per EVA,A,35.8
+TS-press_brake-40,press_brake,Plenum: Press Brake,sheet_metal,per EVA,B,45.5
+TS-flat_welding-01,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,81.8
+TS-flat_welding-02,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,83.2
+TS-flat_welding-03,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,100.1
+TS-flat_welding-04,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,76.8
+TS-flat_welding-05,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,89.0
+TS-flat_welding-06,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,79.5
+TS-flat_welding-07,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,79.7
+TS-flat_welding-08,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,92.1
+TS-flat_welding-09,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,96.1
+TS-flat_welding-10,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,87.5
+TS-flat_welding-11,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,114.7
+TS-flat_welding-12,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,78.5
+TS-flat_welding-13,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,92.8
+TS-flat_welding-14,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,98.6
+TS-flat_welding-15,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,67.5
+TS-flat_welding-16,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,82.5
+TS-flat_welding-17,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,99.3
+TS-flat_welding-18,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,110.4
+TS-flat_welding-19,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,76.4
+TS-flat_welding-20,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,86.5
+TS-flat_welding-21,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,94.0
+TS-flat_welding-22,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,67.4
+TS-flat_welding-23,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,76.5
+TS-flat_welding-24,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,80.9
+TS-flat_welding-25,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,96.5
+TS-flat_welding-26,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,51.1
+TS-flat_welding-27,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,95.8
+TS-flat_welding-28,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,77.1
+TS-flat_welding-29,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,102.0
+TS-flat_welding-30,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,81.4
+TS-flat_welding-31,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,121.5
+TS-flat_welding-32,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,104.4
+TS-flat_welding-33,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,71.5
+TS-flat_welding-34,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,85.6
+TS-flat_welding-35,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,87.8
+TS-flat_welding-36,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,95.5
+TS-flat_welding-37,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,100.2
+TS-flat_welding-38,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,88.9
+TS-flat_welding-39,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,A,85.2
+TS-flat_welding-40,flat_welding,Plenum: Flat Welding,sheet_metal,per EVA,B,84.5
+TS-plenum_assembly-01,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,56.3
+TS-plenum_assembly-02,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,77.7
+TS-plenum_assembly-03,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,78.7
+TS-plenum_assembly-04,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,76.1
+TS-plenum_assembly-05,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,50.3
+TS-plenum_assembly-06,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,49.2
+TS-plenum_assembly-07,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,88.0
+TS-plenum_assembly-08,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,61.0
+TS-plenum_assembly-09,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,69.3
+TS-plenum_assembly-10,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,74.1
+TS-plenum_assembly-11,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,51.1
+TS-plenum_assembly-12,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,54.9
+TS-plenum_assembly-13,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,59.9
+TS-plenum_assembly-14,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,65.7
+TS-plenum_assembly-15,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,75.8
+TS-plenum_assembly-16,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,57.8
+TS-plenum_assembly-17,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,57.0
+TS-plenum_assembly-18,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,61.5
+TS-plenum_assembly-19,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,82.2
+TS-plenum_assembly-20,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,45.3
+TS-plenum_assembly-21,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,55.1
+TS-plenum_assembly-22,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,39.0
+TS-plenum_assembly-23,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,54.5
+TS-plenum_assembly-24,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,75.7
+TS-plenum_assembly-25,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,69.3
+TS-plenum_assembly-26,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,54.7
+TS-plenum_assembly-27,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,64.5
+TS-plenum_assembly-28,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,40.0
+TS-plenum_assembly-29,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,45.1
+TS-plenum_assembly-30,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,57.3
+TS-plenum_assembly-31,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,60.1
+TS-plenum_assembly-32,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,65.8
+TS-plenum_assembly-33,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,58.1
+TS-plenum_assembly-34,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,57.1
+TS-plenum_assembly-35,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,53.1
+TS-plenum_assembly-36,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,65.0
+TS-plenum_assembly-37,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,66.7
+TS-plenum_assembly-38,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,52.7
+TS-plenum_assembly-39,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,A,73.4
+TS-plenum_assembly-40,plenum_assembly,Plenum Assembly,sheet_metal,per EVA,B,49.6
+TS-drip_tray_weld-01,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,121.2
+TS-drip_tray_weld-02,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,89.8
+TS-drip_tray_weld-03,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,111.0
+TS-drip_tray_weld-04,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,84.2
+TS-drip_tray_weld-05,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,117.1
+TS-drip_tray_weld-06,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,85.5
+TS-drip_tray_weld-07,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,146.8
+TS-drip_tray_weld-08,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,94.8
+TS-drip_tray_weld-09,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,80.7
+TS-drip_tray_weld-10,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,93.2
+TS-drip_tray_weld-11,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,102.3
+TS-drip_tray_weld-12,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,86.3
+TS-drip_tray_weld-13,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,91.5
+TS-drip_tray_weld-14,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,122.5
+TS-drip_tray_weld-15,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,83.0
+TS-drip_tray_weld-16,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,129.9
+TS-drip_tray_weld-17,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,117.3
+TS-drip_tray_weld-18,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,82.7
+TS-drip_tray_weld-19,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,87.3
+TS-drip_tray_weld-20,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,124.4
+TS-drip_tray_weld-21,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,108.5
+TS-drip_tray_weld-22,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,93.5
+TS-drip_tray_weld-23,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,96.0
+TS-drip_tray_weld-24,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,115.4
+TS-drip_tray_weld-25,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,80.4
+TS-drip_tray_weld-26,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,99.3
+TS-drip_tray_weld-27,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,104.3
+TS-drip_tray_weld-28,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,116.3
+TS-drip_tray_weld-29,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,80.5
+TS-drip_tray_weld-30,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,117.1
+TS-drip_tray_weld-31,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,78.2
+TS-drip_tray_weld-32,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,114.7
+TS-drip_tray_weld-33,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,79.7
+TS-drip_tray_weld-34,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,83.9
+TS-drip_tray_weld-35,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,95.7
+TS-drip_tray_weld-36,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,117.4
+TS-drip_tray_weld-37,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,93.4
+TS-drip_tray_weld-38,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,130.6
+TS-drip_tray_weld-39,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,A,131.2
+TS-drip_tray_weld-40,drip_tray_weld,Drip Tray: Weld,sheet_metal,per EVA,B,93.2
+TS-drip_tray_assembly-01,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,47.9
+TS-drip_tray_assembly-02,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,37.3
+TS-drip_tray_assembly-03,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,40.0
+TS-drip_tray_assembly-04,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,36.7
+TS-drip_tray_assembly-05,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,49.2
+TS-drip_tray_assembly-06,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,41.8
+TS-drip_tray_assembly-07,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,42.7
+TS-drip_tray_assembly-08,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,55.0
+TS-drip_tray_assembly-09,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,39.3
+TS-drip_tray_assembly-10,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,45.3
+TS-drip_tray_assembly-11,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,40.8
+TS-drip_tray_assembly-12,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,30.2
+TS-drip_tray_assembly-13,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,36.6
+TS-drip_tray_assembly-14,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,44.4
+TS-drip_tray_assembly-15,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,43.4
+TS-drip_tray_assembly-16,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,59.5
+TS-drip_tray_assembly-17,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,38.8
+TS-drip_tray_assembly-18,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,48.9
+TS-drip_tray_assembly-19,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,41.5
+TS-drip_tray_assembly-20,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,34.6
+TS-drip_tray_assembly-21,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,41.2
+TS-drip_tray_assembly-22,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,54.7
+TS-drip_tray_assembly-23,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,57.6
+TS-drip_tray_assembly-24,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,39.9
+TS-drip_tray_assembly-25,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,42.7
+TS-drip_tray_assembly-26,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,57.3
+TS-drip_tray_assembly-27,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,44.8
+TS-drip_tray_assembly-28,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,50.2
+TS-drip_tray_assembly-29,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,56.7
+TS-drip_tray_assembly-30,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,35.5
+TS-drip_tray_assembly-31,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,38.3
+TS-drip_tray_assembly-32,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,40.9
+TS-drip_tray_assembly-33,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,36.9
+TS-drip_tray_assembly-34,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,47.4
+TS-drip_tray_assembly-35,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,47.2
+TS-drip_tray_assembly-36,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,37.9
+TS-drip_tray_assembly-37,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,52.5
+TS-drip_tray_assembly-38,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,42.7
+TS-drip_tray_assembly-39,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,A,34.4
+TS-drip_tray_assembly-40,drip_tray_assembly,Drip Tray Assembly,sheet_metal,per EVA,B,42.2
+TS-complete_assembly-01,complete_assembly,Complete Assembly,assembly,per EVA,A,165.1
+TS-complete_assembly-02,complete_assembly,Complete Assembly,assembly,per EVA,B,178.9
+TS-complete_assembly-03,complete_assembly,Complete Assembly,assembly,per EVA,A,156.8
+TS-complete_assembly-04,complete_assembly,Complete Assembly,assembly,per EVA,B,178.8
+TS-complete_assembly-05,complete_assembly,Complete Assembly,assembly,per EVA,A,96.7
+TS-complete_assembly-06,complete_assembly,Complete Assembly,assembly,per EVA,B,158.0
+TS-complete_assembly-07,complete_assembly,Complete Assembly,assembly,per EVA,A,160.1
+TS-complete_assembly-08,complete_assembly,Complete Assembly,assembly,per EVA,B,142.3
+TS-complete_assembly-09,complete_assembly,Complete Assembly,assembly,per EVA,A,138.7
+TS-complete_assembly-10,complete_assembly,Complete Assembly,assembly,per EVA,B,158.3
+TS-complete_assembly-11,complete_assembly,Complete Assembly,assembly,per EVA,A,144.7
+TS-complete_assembly-12,complete_assembly,Complete Assembly,assembly,per EVA,B,183.6
+TS-complete_assembly-13,complete_assembly,Complete Assembly,assembly,per EVA,A,144.7
+TS-complete_assembly-14,complete_assembly,Complete Assembly,assembly,per EVA,B,160.7
+TS-complete_assembly-15,complete_assembly,Complete Assembly,assembly,per EVA,A,152.7
+TS-complete_assembly-16,complete_assembly,Complete Assembly,assembly,per EVA,B,151.5
+TS-complete_assembly-17,complete_assembly,Complete Assembly,assembly,per EVA,A,128.0
+TS-complete_assembly-18,complete_assembly,Complete Assembly,assembly,per EVA,B,179.3
+TS-complete_assembly-19,complete_assembly,Complete Assembly,assembly,per EVA,A,135.3
+TS-complete_assembly-20,complete_assembly,Complete Assembly,assembly,per EVA,B,140.4
+TS-complete_assembly-21,complete_assembly,Complete Assembly,assembly,per EVA,A,140.4
+TS-complete_assembly-22,complete_assembly,Complete Assembly,assembly,per EVA,B,126.1
+TS-complete_assembly-23,complete_assembly,Complete Assembly,assembly,per EVA,A,174.4
+TS-complete_assembly-24,complete_assembly,Complete Assembly,assembly,per EVA,B,180.1
+TS-complete_assembly-25,complete_assembly,Complete Assembly,assembly,per EVA,A,142.9
+TS-complete_assembly-26,complete_assembly,Complete Assembly,assembly,per EVA,B,130.6
+TS-complete_assembly-27,complete_assembly,Complete Assembly,assembly,per EVA,A,140.4
+TS-complete_assembly-28,complete_assembly,Complete Assembly,assembly,per EVA,B,139.0
+TS-complete_assembly-29,complete_assembly,Complete Assembly,assembly,per EVA,A,155.2
+TS-complete_assembly-30,complete_assembly,Complete Assembly,assembly,per EVA,B,120.3
+TS-complete_assembly-31,complete_assembly,Complete Assembly,assembly,per EVA,A,127.8
+TS-complete_assembly-32,complete_assembly,Complete Assembly,assembly,per EVA,B,158.3
+TS-complete_assembly-33,complete_assembly,Complete Assembly,assembly,per EVA,A,170.6
+TS-complete_assembly-34,complete_assembly,Complete Assembly,assembly,per EVA,B,155.3
+TS-complete_assembly-35,complete_assembly,Complete Assembly,assembly,per EVA,A,142.4
+TS-complete_assembly-36,complete_assembly,Complete Assembly,assembly,per EVA,B,126.2
+TS-complete_assembly-37,complete_assembly,Complete Assembly,assembly,per EVA,A,144.2
+TS-complete_assembly-38,complete_assembly,Complete Assembly,assembly,per EVA,B,154.6
+TS-complete_assembly-39,complete_assembly,Complete Assembly,assembly,per EVA,A,163.3
+TS-complete_assembly-40,complete_assembly,Complete Assembly,assembly,per EVA,B,138.7

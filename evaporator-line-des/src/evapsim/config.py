@@ -157,6 +157,10 @@ class LineConfig:
         """Coefficient of variation of the operation time (0 in deterministic mode)."""
         return 0.0 if self.deterministic else float(self.operations[op].get("cv", 0.0))
 
+    def op_family(self, op: str) -> str:
+        """Distribution family of the operation time."""
+        return str(self.operations[op].get("distribution", "lognormal"))
+
     def lead_time_mean_min(self, key: str) -> float:
         """Mean calendar delay ``key`` in working minutes (NOT time-scaled)."""
         return float(self.raw["lead_times"][key]["mean_days"]) * self.day_min
@@ -257,6 +261,8 @@ def validate(cfg: LineConfig) -> None:
         else:
             need(float(o.get("mean_min", -1)) > 0, f"operation {name}: mean_min must be > 0")
         need(0 <= float(o.get("cv", 0)) <= 2, f"operation {name}: cv must be in [0, 2]")
+        need(o.get("distribution", "lognormal") in ("lognormal", "gamma", "weibull"),
+             f"operation {name}: distribution must be lognormal, gamma or weibull")
     required_ops = {"boxing", "trim_tubes", "weld_hairpins", "steeking", "weld_return_bends",
                     "expansion", "prepare_headers", "header_welding", "wash", "pressure_test",
                     "press_brake", "flat_welding", "plenum_assembly", "drip_tray_weld",

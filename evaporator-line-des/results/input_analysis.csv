@@ -1,0 +1,52 @@
+operation,label,basis,n,sample_mean_min,sample_cv,mean_ci95_low,mean_ci95_high,distribution,aic,delta_aic,ks_stat,ks_pvalue,ks_pass,fitted_mean_min,fitted_cv,selected
+fin_press,Fin press job (3 EVA),per job (3 EVA),40,229.1825,0.0989,221.9319,236.4331,lognormal,366.169,0.108,0.0673,0.9879,True,229.1872,0.0984,True
+fin_press,Fin press job (3 EVA),per job (3 EVA),40,229.1825,0.0989,221.9319,236.4331,gamma,366.061,0.0,0.0677,0.9871,True,229.1825,0.0978,False
+fin_press,Fin press job (3 EVA),per job (3 EVA),40,229.1825,0.0989,221.9319,236.4331,weibull,369.9031,3.8421,0.1015,0.7663,True,228.5217,0.1117,False
+boxing,Boxing (modules + end panels),per EVA,40,101.7775,0.1432,97.1171,106.4379,lognormal,326.9816,0.0,0.1152,0.6221,True,101.7557,0.1366,True
+boxing,Boxing (modules + end panels),per EVA,40,101.7775,0.1432,97.1171,106.4379,gamma,328.0231,1.0415,0.1249,0.5205,True,101.7775,0.1374,False
+boxing,Boxing (modules + end panels),per EVA,40,101.7775,0.1432,97.1171,106.4379,weibull,338.9065,11.9249,0.1703,0.175,True,101.0384,0.1746,False
+trim_tubes,Trim Tubes,per EVA,40,38.96,0.1399,37.2164,40.7036,lognormal,251.2461,0.0,0.1057,0.7233,True,38.9599,0.1385,True
+trim_tubes,Trim Tubes,per EVA,40,38.96,0.1399,37.2164,40.7036,gamma,251.3883,0.1422,0.1071,0.7087,True,38.96,0.1377,False
+trim_tubes,Trim Tubes,per EVA,40,38.96,0.1399,37.2164,40.7036,weibull,254.7831,3.537,0.1337,0.4343,True,38.9058,0.151,False
+weld_hairpins,Weld Hairpins,per coil,40,212.35,0.1053,205.1972,219.5028,lognormal,363.6834,0.0,0.1042,0.7387,True,212.3414,0.103,True
+weld_hairpins,Weld Hairpins,per coil,40,212.35,0.1053,205.1972,219.5028,gamma,364.0618,0.3784,0.1026,0.7553,True,212.35,0.103,False
+weld_hairpins,Weld Hairpins,per coil,40,212.35,0.1053,205.1972,219.5028,weibull,370.0206,6.3372,0.1251,0.5178,True,211.7485,0.1205,False
+steeking,Steeking,per EVA,40,419.4725,0.193,393.5751,445.3699,lognormal,469.4852,2.2261,0.1304,0.466,True,419.6861,0.1998,False
+steeking,Steeking,per EVA,40,419.4725,0.193,393.5751,445.3699,gamma,468.684,1.4249,0.1288,0.4812,True,419.4725,0.1946,False
+steeking,Steeking,per EVA,40,419.4725,0.193,393.5751,445.3699,weibull,467.2591,0.0,0.1101,0.6767,True,420.2465,0.1907,True
+weld_return_bends,Weld Return Bends,per coil,40,147.6525,0.1461,140.7528,154.5522,lognormal,355.8734,0.0,0.1843,0.1161,True,147.5976,0.1351,True
+weld_return_bends,Weld Return Bends,per coil,40,147.6525,0.1461,140.7528,154.5522,gamma,357.6093,1.7359,0.1944,0.0847,True,147.6525,0.1371,False
+weld_return_bends,Weld Return Bends,per coil,40,147.6525,0.1461,140.7528,154.5522,weibull,374.3848,18.5114,0.2554,0.0087,False,145.9218,0.1938,False
+expansion,Hydraulic Expanding,per coil,40,85.9775,0.1116,82.9101,89.0449,lognormal,293.2907,0.0,0.0739,0.9696,True,85.9642,0.1056,True
+expansion,Hydraulic Expanding,per coil,40,85.9775,0.1116,82.9101,89.0449,gamma,294.4649,1.1742,0.0815,0.9335,True,85.9775,0.1066,False
+expansion,Hydraulic Expanding,per coil,40,85.9775,0.1116,82.9101,89.0449,weibull,309.8275,16.5368,0.1613,0.2238,True,85.1227,0.1496,False
+prepare_headers,Prepare Headers,per EVA,40,117.2625,0.143,111.9004,122.6246,lognormal,341.4761,0.1262,0.1097,0.681,True,117.2701,0.1423,True
+prepare_headers,Prepare Headers,per EVA,40,117.2625,0.143,111.9004,122.6246,gamma,341.3499,0.0,0.1003,0.7788,True,117.2625,0.1409,False
+prepare_headers,Prepare Headers,per EVA,40,117.2625,0.143,111.9004,122.6246,weibull,348.0153,6.6654,0.1071,0.7081,True,116.4469,0.1687,False
+header_welding,Header Welding,per coil,40,380.4025,0.1556,361.4772,399.3278,lognormal,444.8285,0.9511,0.0933,0.8451,True,380.5351,0.1602,True
+header_welding,Header Welding,per coil,40,380.4025,0.1556,361.4772,399.3278,gamma,443.8774,0.0,0.0831,0.9237,True,380.4025,0.1567,False
+header_welding,Header Welding,per coil,40,380.4025,0.1556,361.4772,399.3278,weibull,443.9649,0.0875,0.0741,0.9688,True,379.766,0.1633,False
+wash,Wash Bay,per EVA,40,45.045,0.148,42.9122,47.1778,lognormal,266.0993,0.0,0.0989,0.7925,True,45.0407,0.1445,True
+wash,Wash Bay,per EVA,40,45.045,0.148,42.9122,47.1778,gamma,266.606,0.5066,0.1063,0.7167,True,45.045,0.1441,False
+wash,Wash Bay,per EVA,40,45.045,0.148,42.9122,47.1778,weibull,273.1286,7.0292,0.1277,0.4917,True,44.8739,0.1679,False
+pressure_test,Pressure Test,per EVA,40,91.125,0.1716,86.1242,96.1258,lognormal,330.2045,0.0,0.1297,0.472,True,91.0771,0.1597,True
+pressure_test,Pressure Test,per EVA,40,91.125,0.1716,86.1242,96.1258,gamma,332.013,1.8085,0.1417,0.3638,True,91.125,0.1617,False
+pressure_test,Pressure Test,per EVA,40,91.125,0.1716,86.1242,96.1258,weibull,343.9717,13.7672,0.1833,0.1198,True,90.4869,0.2059,False
+press_brake,Plenum: Press Brake,per EVA,40,38.1675,0.1403,36.4555,39.8795,lognormal,250.8058,0.4484,0.1437,0.3472,True,38.1729,0.1407,True
+press_brake,Plenum: Press Brake,per EVA,40,38.1675,0.1403,36.4555,39.8795,gamma,250.3574,0.0,0.1349,0.423,True,38.1675,0.1388,False
+press_brake,Plenum: Press Brake,per EVA,40,38.1675,0.1403,36.4555,39.8795,weibull,257.4185,7.0611,0.1635,0.2107,True,37.8776,0.168,False
+flat_welding,Plenum: Flat Welding,per EVA,40,88.02,0.1533,83.7034,92.3366,lognormal,326.8128,1.1449,0.1051,0.73,True,88.055,0.1583,True
+flat_welding,Plenum: Flat Welding,per EVA,40,88.02,0.1533,83.7034,92.3366,gamma,325.668,0.0,0.0996,0.7863,True,88.02,0.1545,False
+flat_welding,Plenum: Flat Welding,per EVA,40,88.02,0.1533,83.7034,92.3366,weibull,327.4184,1.7504,0.1123,0.6531,True,87.6834,0.1678,False
+plenum_assembly,Plenum Assembly,per EVA,40,61.2175,0.1901,57.4963,64.9387,lognormal,312.2685,0.2147,0.0782,0.9512,True,61.2299,0.1914,True
+plenum_assembly,Plenum Assembly,per EVA,40,61.2175,0.1901,57.4963,64.9387,gamma,312.0538,0.0,0.0841,0.9171,True,61.2175,0.1881,False
+plenum_assembly,Plenum Assembly,per EVA,40,61.2175,0.1901,57.4963,64.9387,weibull,314.976,2.9223,0.1184,0.5874,True,61.1006,0.2023,False
+drip_tray_weld,Drip Tray: Weld,per EVA,40,102.02,0.1762,96.2711,107.7689,lognormal,344.8041,0.0,0.1316,0.4539,True,102.0012,0.1717,True
+drip_tray_weld,Drip Tray: Weld,per EVA,40,102.02,0.1762,96.2711,107.7689,gamma,345.5032,0.6991,0.1408,0.3709,True,102.02,0.1711,False
+drip_tray_weld,Drip Tray: Weld,per EVA,40,102.02,0.1762,96.2711,107.7689,weibull,351.0949,6.2909,0.1633,0.2121,True,101.7513,0.1932,False
+drip_tray_assembly,Drip Tray Assembly,per EVA,40,43.8725,0.1651,41.5566,46.1884,lognormal,272.2973,0.0,0.1103,0.6739,True,43.8665,0.1609,True
+drip_tray_assembly,Drip Tray Assembly,per EVA,40,43.8725,0.1651,41.5566,46.1884,gamma,272.8943,0.5969,0.1206,0.5645,True,43.8725,0.1603,False
+drip_tray_assembly,Drip Tray Assembly,per EVA,40,43.8725,0.1651,41.5566,46.1884,weibull,279.1279,6.8306,0.155,0.2634,True,43.7287,0.1842,False
+complete_assembly,Complete Assembly,per EVA,40,149.635,0.126,143.6043,155.6657,lognormal,353.8057,1.7931,0.0999,0.7826,True,149.6704,0.1297,True
+complete_assembly,Complete Assembly,per EVA,40,149.635,0.126,143.6043,155.6657,gamma,352.763,0.7505,0.0923,0.8538,True,149.635,0.1272,False
+complete_assembly,Complete Assembly,per EVA,40,149.635,0.126,143.6043,155.6657,weibull,352.0125,0.0,0.1329,0.4419,True,149.4357,0.1323,False

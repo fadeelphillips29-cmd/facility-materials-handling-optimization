@@ -63,6 +63,8 @@ fin_press:
 
 # Operations. Time per EVA is either `mean_min`, or n_ops * t_op_min + handling_min.
 # For crew resources `mean_min` is the ELAPSED time with `crew_basis` operators.
+# `distribution` (lognormal | gamma | weibull, default lognormal) is the family
+# selected in the input analysis; mean and CV are the stated values.
 operations:
   boxing:
     step: 5
@@ -98,6 +100,7 @@ operations:
     mean_min: 420
     crew_basis: 2
     cv: 0.20
+    distribution: weibull              # selected by the Phase 3 rule (lognormal dAIC = 2.2)
     source: estimate
   weld_return_bends:
     step: 8

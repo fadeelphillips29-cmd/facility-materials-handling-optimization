@@ -1,0 +1,3 @@
+state,scenario,throughput_per_day,line_lead_time_min,other_delays_min,va_time_s,va_ratio_line_pct,door_to_door_lead_time_days,va_ratio_door_pct,wip
+current,S0,231.0969,37.8686,2.8892,451.6463,19.8778,5.0789,0.3088,18.9605
+future,S5,268.2198,49.1874,1.4249,451.751,15.3071,5.1025,0.3074,28.6138

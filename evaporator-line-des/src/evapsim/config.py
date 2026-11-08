@@ -311,8 +311,8 @@ def validate(cfg: LineConfig) -> None:
     if rw.rework_share > 0:
         if rw.test_station not in ids or rw.rework_station not in ids:
             errs.append("rework stations must be valid station ids")
-        elif rw.rework_station >= rw.test_station:
-            errs.append("rework_station must be upstream of test_station")
+        elif not 2 <= rw.rework_station < rw.test_station:
+            errs.append("rework_station must be >= 2 and upstream of test_station")
     if not 0 <= rw.rework_share <= 1:
         errs.append("rework.rework_share must be in [0, 1]")
     if cfg.sim.days < 1 or cfg.sim.warmup_days < 0:

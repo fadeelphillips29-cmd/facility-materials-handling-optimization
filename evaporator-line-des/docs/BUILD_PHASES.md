@@ -473,6 +473,10 @@ README and docs from `results/*.csv`.
 - After the Phase 7 change to the CONWIP gate, `baseline_wip_by_stage.csv`
   still showed the old stage name `waiting_card`. Every result was regenerated
   in one pipeline run before the documentation was written.
-- `make all` was run from a fresh clone (see the final section of the README
-  for the runtime), and the regenerated CSVs were compared with the committed
-  ones.
+**Verification evidence.** `make all` ran from a fresh clone in a new
+virtual environment and finished with exit code 0 in 15 min 43 s on 4 cores.
+Ruff reported "All checks passed!" and pytest reported 48 passed. Every
+regenerated CSV, figure, data file and generated document was **byte-identical**
+to the committed version. Only the run times in `run_metadata.json` and the
+notebook's execution timestamps differed. GitHub Actions is green on Python
+3.11 and 3.12 (ruff, pytest, pipeline smoke test).

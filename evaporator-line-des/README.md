@@ -342,7 +342,7 @@ python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\
 make setup          # requirements + editable install
 make test           # ruff-clean code, 48 tests
 make quick          # whole pipeline with 30 replications -> results/quick/
-make all            # full pipeline (300 replications) + report + notebook
+make all            # full pipeline (300 replications) + report + notebook (~16 min, 4 cores)
 make dashboard      # http://localhost:8501
 ```
 

@@ -1,0 +1,7 @@
+{
+  "baseline": {
+    "base_seed": 20260415,
+    "replications": 500,
+    "runtime_s": 59.4
+  }
+}

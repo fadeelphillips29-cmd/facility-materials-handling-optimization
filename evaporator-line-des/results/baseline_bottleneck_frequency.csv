@@ -1,0 +1,8 @@
+station_id,station,count,share,share_busy_plus_blocked_rule
+1,Tube Cut & Bend,0,0.0,1.0
+2,Fin-Pack Assembly,0,0.0,0.0
+3,Tube Expansion,0,0.0,0.0
+4,Header Brazing,500,1.0,0.0
+5,Pressure & Leak Test,0,0.0,0.0
+6,Casing & Final Assembly,0,0.0,0.0
+7,Inspection & Packing,0,0.0,0.0

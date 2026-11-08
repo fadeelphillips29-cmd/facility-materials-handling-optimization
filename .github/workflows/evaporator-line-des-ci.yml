@@ -1,0 +1,46 @@
+# Runs the CI of the evaporator-line-des project, which lives in a sub-folder of
+# this repository. The project also carries its own .github/workflows/ci.yml
+# for use when it is published as a standalone repository.
+name: evaporator-line-des CI
+
+on:
+  push:
+    paths:
+      - "evaporator-line-des/**"
+      - ".github/workflows/evaporator-line-des-ci.yml"
+  pull_request:
+    paths:
+      - "evaporator-line-des/**"
+      - ".github/workflows/evaporator-line-des-ci.yml"
+
+defaults:
+  run:
+    working-directory: evaporator-line-des
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: evaporator-line-des/requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+      - name: Ruff
+        run: ruff check .
+      - name: Pytest
+        run: pytest
+      - name: Pipeline smoke test (10 replications)
+        run: |
+          python -m evapsim baseline --quick --reps 10
+          python -m evapsim validate --quick

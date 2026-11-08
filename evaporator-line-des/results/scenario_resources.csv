@@ -1,0 +1,241 @@
+scenario,resource,label,servers,busy,starved,blocked,down,changeover,active,mean_wait_min,demand_eva_per_week
+S0,steeking_crew,Steeking crew,1.0,0.52323,0.47677,0.0,0.0,0.0,0.52323,573.86204,3.0
+S0,header_welder,Header welder,1.0,0.48206,0.51794,0.0,0.0,0.0,0.48206,384.74233,3.0
+S0,hairpin_welder,Hairpin welder,1.0,0.26926,0.73074,0.0,0.0,0.0,0.26926,258.68976,3.0
+S0,fin_press_operator,Fin press / boxing operator,1.0,0.19604,0.78047,0.0,0.00784,0.01566,0.21953,96.13786,3.0
+S0,assembly_crew,Final assembly crew,1.0,0.18714,0.81286,0.0,0.0,0.0,0.18714,156.69461,3.0
+S0,return_bend_welder,Return-bend welder,1.0,0.17946,0.82054,0.0,0.0,0.0,0.17946,143.96565,3.0
+S0,header_prep_operator,Header preparation,1.0,0.14963,0.85037,0.0,0.0,0.0,0.14963,133.41778,3.0
+S0,sm_assembly_operator,Sheet-metal assembler,1.0,0.13076,0.86924,0.0,0.0,0.0,0.13076,57.40474,3.0
+S0,drip_tray_welder,Drip-tray welder,1.0,0.12467,0.87533,0.0,0.0,0.0,0.12467,106.18584,3.0
+S0,test_bay,Pressure-test bay,1.0,0.11678,0.88322,0.0,0.0,0.0,0.11678,87.96054,3.0
+S0,flat_welder,Flat welder,1.0,0.11207,0.88793,0.0,0.0,0.0,0.11207,90.66427,3.0
+S0,expander,Hydraulic expander,1.0,0.10836,0.89164,0.0,0.0,0.0,0.10836,87.08399,3.0
+S0,wash_bay,Wash bay,1.0,0.05609,0.94391,0.0,0.0,0.0,0.05609,45.01477,3.0
+S0,press_brake_operator,Press brake,1.0,0.04988,0.95012,0.0,0.0,0.0,0.04988,40.16327,3.0
+S0,trim_operator,Tube trimmer,1.0,0.04983,0.95017,0.0,0.0,0.0,0.04983,41.51878,3.0
+S1,header_welder,Header welder,1.0,0.48188,0.51812,0.0,0.0,0.0,0.48188,424.82578,3.0
+S1,steeking_crew,Steeking crew,1.0,0.41052,0.58948,0.0,0.0,0.0,0.41052,396.73466,3.0
+S1,hairpin_welder,Hairpin welder,1.0,0.26926,0.73074,0.0,0.0,0.0,0.26926,258.68976,3.0
+S1,fin_press_operator,Fin press / boxing operator,1.0,0.19604,0.78047,0.0,0.00784,0.01566,0.21953,96.13786,3.0
+S1,assembly_crew,Final assembly crew,1.0,0.18714,0.81286,0.0,0.0,0.0,0.18714,158.25307,3.0
+S1,return_bend_welder,Return-bend welder,1.0,0.17944,0.82056,0.0,0.0,0.0,0.17944,143.98345,3.0
+S1,header_prep_operator,Header preparation,1.0,0.14963,0.85037,0.0,0.0,0.0,0.14963,133.41778,3.0
+S1,sm_assembly_operator,Sheet-metal assembler,1.0,0.13076,0.86924,0.0,0.0,0.0,0.13076,57.40474,3.0
+S1,drip_tray_welder,Drip-tray welder,1.0,0.12467,0.87533,0.0,0.0,0.0,0.12467,106.18584,3.0
+S1,test_bay,Pressure-test bay,1.0,0.11678,0.88322,0.0,0.0,0.0,0.11678,87.86751,3.0
+S1,flat_welder,Flat welder,1.0,0.11207,0.88793,0.0,0.0,0.0,0.11207,90.66427,3.0
+S1,expander,Hydraulic expander,1.0,0.10834,0.89166,0.0,0.0,0.0,0.10834,87.07826,3.0
+S1,wash_bay,Wash bay,1.0,0.05612,0.94388,0.0,0.0,0.0,0.05612,45.0183,3.0
+S1,press_brake_operator,Press brake,1.0,0.04988,0.95012,0.0,0.0,0.0,0.04988,40.16327,3.0
+S1,trim_operator,Tube trimmer,1.0,0.04983,0.95017,0.0,0.0,0.0,0.04983,41.51878,3.0
+S2,header_welder,Header welder,1.0,0.48189,0.51811,0.0,0.0,0.0,0.48189,420.93355,3.0
+S2,steeking_crew,Steeking crew,1.0,0.41871,0.58129,0.0,0.0,0.0,0.41871,408.38257,3.0
+S2,hairpin_welder,Hairpin welder,1.0,0.26926,0.73074,0.0,0.0,0.0,0.26926,258.68976,3.0
+S2,fin_press_operator,Fin press / boxing operator,1.0,0.19604,0.78047,0.0,0.00784,0.01566,0.21953,96.13786,3.0
+S2,assembly_crew,Final assembly crew,1.0,0.18714,0.81286,0.0,0.0,0.0,0.18714,158.21266,3.0
+S2,return_bend_welder,Return-bend welder,1.0,0.17944,0.82056,0.0,0.0,0.0,0.17944,143.98541,3.0
+S2,header_prep_operator,Header preparation,1.0,0.14963,0.85037,0.0,0.0,0.0,0.14963,133.41778,3.0
+S2,sm_assembly_operator,Sheet-metal assembler,1.0,0.13076,0.86924,0.0,0.0,0.0,0.13076,57.40474,3.0
+S2,drip_tray_welder,Drip-tray welder,1.0,0.12467,0.87533,0.0,0.0,0.0,0.12467,106.18584,3.0
+S2,test_bay,Pressure-test bay,1.0,0.11678,0.88322,0.0,0.0,0.0,0.11678,87.86669,3.0
+S2,flat_welder,Flat welder,1.0,0.11207,0.88793,0.0,0.0,0.0,0.11207,90.66427,3.0
+S2,expander,Hydraulic expander,1.0,0.10835,0.89165,0.0,0.0,0.0,0.10835,87.0777,3.0
+S2,wash_bay,Wash bay,1.0,0.05612,0.94388,0.0,0.0,0.0,0.05612,45.01588,3.0
+S2,press_brake_operator,Press brake,1.0,0.04988,0.95012,0.0,0.0,0.0,0.04988,40.16327,3.0
+S2,trim_operator,Tube trimmer,1.0,0.04983,0.95017,0.0,0.0,0.0,0.04983,41.51878,3.0
+S3,steeking_crew,Steeking crew,1.0,0.52323,0.47677,0.0,0.0,0.0,0.52323,573.86204,3.0
+S3,hairpin_welder,Hairpin welder,1.0,0.26926,0.73074,0.0,0.0,0.0,0.26926,258.68976,3.0
+S3,header_welder,Header welder,2.0,0.24098,0.75902,0.0,0.0,0.0,0.24098,113.3869,3.0
+S3,fin_press_operator,Fin press / boxing operator,1.0,0.19604,0.78047,0.0,0.00784,0.01566,0.21953,96.13786,3.0
+S3,assembly_crew,Final assembly crew,1.0,0.18708,0.81292,0.0,0.0,0.0,0.18708,157.21797,3.0
+S3,return_bend_welder,Return-bend welder,1.0,0.17946,0.82054,0.0,0.0,0.0,0.17946,143.96565,3.0
+S3,header_prep_operator,Header preparation,1.0,0.14963,0.85037,0.0,0.0,0.0,0.14963,133.41778,3.0
+S3,sm_assembly_operator,Sheet-metal assembler,1.0,0.13076,0.86924,0.0,0.0,0.0,0.13076,57.40474,3.0
+S3,drip_tray_welder,Drip-tray welder,1.0,0.12467,0.87533,0.0,0.0,0.0,0.12467,106.18584,3.0
+S3,test_bay,Pressure-test bay,1.0,0.11679,0.88321,0.0,0.0,0.0,0.11679,88.43418,3.0
+S3,flat_welder,Flat welder,1.0,0.11207,0.88793,0.0,0.0,0.0,0.11207,90.66427,3.0
+S3,expander,Hydraulic expander,1.0,0.10836,0.89164,0.0,0.0,0.0,0.10836,87.08399,3.0
+S3,wash_bay,Wash bay,1.0,0.05611,0.94389,0.0,0.0,0.0,0.05611,45.00348,3.0
+S3,press_brake_operator,Press brake,1.0,0.04988,0.95012,0.0,0.0,0.0,0.04988,40.16327,3.0
+S3,trim_operator,Tube trimmer,1.0,0.04983,0.95017,0.0,0.0,0.0,0.04983,41.51878,3.0
+S4,steeking_crew,Steeking crew,1.0,0.52323,0.47677,0.0,0.0,0.0,0.52323,573.86204,3.0
+S4,header_welder,Header welder,1.0,0.48206,0.51794,0.0,0.0,0.0,0.48206,384.74233,3.0
+S4,hairpin_welder,Hairpin welder,1.0,0.26926,0.73074,0.0,0.0,0.0,0.26926,258.68976,3.0
+S4,fin_press_operator,Fin press / boxing operator,1.0,0.19281,0.79714,0.0,0.0013,0.00875,0.20286,93.13541,3.0
+S4,assembly_crew,Final assembly crew,1.0,0.18714,0.81286,0.0,0.0,0.0,0.18714,156.69461,3.0
+S4,return_bend_welder,Return-bend welder,1.0,0.17946,0.82054,0.0,0.0,0.0,0.17946,143.96565,3.0
+S4,header_prep_operator,Header preparation,1.0,0.14963,0.85037,0.0,0.0,0.0,0.14963,133.41778,3.0
+S4,sm_assembly_operator,Sheet-metal assembler,1.0,0.13076,0.86924,0.0,0.0,0.0,0.13076,57.40474,3.0
+S4,drip_tray_welder,Drip-tray welder,1.0,0.12467,0.87533,0.0,0.0,0.0,0.12467,106.18584,3.0
+S4,test_bay,Pressure-test bay,1.0,0.11678,0.88322,0.0,0.0,0.0,0.11678,87.96054,3.0
+S4,flat_welder,Flat welder,1.0,0.11207,0.88793,0.0,0.0,0.0,0.11207,90.66427,3.0
+S4,expander,Hydraulic expander,1.0,0.10836,0.89164,0.0,0.0,0.0,0.10836,87.08399,3.0
+S4,wash_bay,Wash bay,1.0,0.05609,0.94391,0.0,0.0,0.0,0.05609,45.01477,3.0
+S4,press_brake_operator,Press brake,1.0,0.04988,0.95012,0.0,0.0,0.0,0.04988,40.16327,3.0
+S4,trim_operator,Tube trimmer,1.0,0.04983,0.95017,0.0,0.0,0.0,0.04983,41.51878,3.0
+S5,steeking_crew,Steeking crew,1.0,0.5235,0.4765,0.0,0.0,0.0,0.5235,359.23611,3.0
+S5,header_welder,Header welder,1.0,0.48151,0.51849,0.0,0.0,0.0,0.48151,41.85936,3.0
+S5,hairpin_welder,Hairpin welder,1.0,0.26925,0.73075,0.0,0.0,0.0,0.26925,218.67352,3.0
+S5,fin_press_operator,Fin press / boxing operator,1.0,0.19604,0.78047,0.0,0.00784,0.01566,0.21953,96.13786,3.0
+S5,assembly_crew,Final assembly crew,1.0,0.18702,0.81298,0.0,0.0,0.0,0.18702,15.24792,3.0
+S5,return_bend_welder,Return-bend welder,1.0,0.17952,0.82048,0.0,0.0,0.0,0.17952,0.02251,3.0
+S5,header_prep_operator,Header preparation,1.0,0.14963,0.85037,0.0,0.0,0.0,0.14963,133.41778,3.0
+S5,sm_assembly_operator,Sheet-metal assembler,1.0,0.13077,0.86923,0.0,0.0,0.0,0.13077,3.03941,3.0
+S5,drip_tray_welder,Drip-tray welder,1.0,0.12467,0.87533,0.0,0.0,0.0,0.12467,106.18584,3.0
+S5,test_bay,Pressure-test bay,1.0,0.11673,0.88327,0.0,0.0,0.0,0.11673,1.99033,3.0
+S5,flat_welder,Flat welder,1.0,0.11206,0.88794,0.0,0.0,0.0,0.11206,50.61473,3.0
+S5,expander,Hydraulic expander,1.0,0.10838,0.89162,0.0,0.0,0.0,0.10838,0.0,3.0
+S5,wash_bay,Wash bay,1.0,0.05604,0.94396,0.0,0.0,0.0,0.05604,0.0,3.0
+S5,press_brake_operator,Press brake,1.0,0.04988,0.95012,0.0,0.0,0.0,0.04988,40.16327,3.0
+S5,trim_operator,Tube trimmer,1.0,0.04983,0.95017,0.0,0.0,0.0,0.04983,41.51878,3.0
+S6,steeking_crew,Steeking crew,1.0,0.41051,0.58949,0.0,0.0,0.0,0.41051,392.36266,3.0
+S6,hairpin_welder,Hairpin welder,1.0,0.26928,0.73072,0.0,0.0,0.0,0.26928,256.09148,3.0
+S6,header_welder,Header welder,2.0,0.24077,0.75923,0.0,0.0,0.0,0.24077,114.58427,3.0
+S6,fin_press_operator,Fin press / boxing operator,1.0,0.19606,0.78045,0.0,0.00784,0.01566,0.21955,95.57774,3.0
+S6,assembly_crew,Final assembly crew,1.0,0.18706,0.81294,0.0,0.0,0.0,0.18706,161.12735,3.0
+S6,return_bend_welder,Return-bend welder,1.0,0.17945,0.82055,0.0,0.0,0.0,0.17945,143.9892,3.0
+S6,header_prep_operator,Header preparation,1.0,0.14965,0.85035,0.0,0.0,0.0,0.14965,132.58371,3.0
+S6,sm_assembly_operator,Sheet-metal assembler,1.0,0.13076,0.86924,0.0,0.0,0.0,0.13076,57.40474,3.0
+S6,drip_tray_welder,Drip-tray welder,1.0,0.12467,0.87533,0.0,0.0,0.0,0.12467,106.18584,3.0
+S6,test_bay,Pressure-test bay,1.0,0.11679,0.88321,0.0,0.0,0.0,0.11679,88.26728,3.0
+S6,flat_welder,Flat welder,1.0,0.11207,0.88793,0.0,0.0,0.0,0.11207,90.66427,3.0
+S6,expander,Hydraulic expander,1.0,0.10835,0.89165,0.0,0.0,0.0,0.10835,87.07584,3.0
+S6,wash_bay,Wash bay,1.0,0.0561,0.9439,0.0,0.0,0.0,0.0561,45.00338,3.0
+S6,press_brake_operator,Press brake,1.0,0.04988,0.95012,0.0,0.0,0.0,0.04988,40.16327,3.0
+S6,trim_operator,Tube trimmer,1.0,0.04984,0.95016,0.0,0.0,0.0,0.04984,41.40789,3.0
+S7,steeking_crew,Steeking crew,1.0,0.41077,0.58923,0.0,0.0,0.0,0.41077,183.23684,3.0
+S7,hairpin_welder,Hairpin welder,1.0,0.26925,0.73075,0.0,0.0,0.0,0.26925,218.32476,3.0
+S7,header_welder,Header welder,2.0,0.24078,0.75922,0.0,0.0,0.0,0.24078,0.42609,3.0
+S7,fin_press_operator,Fin press / boxing operator,1.0,0.19604,0.78046,0.0,0.00784,0.01566,0.21954,96.07059,3.0
+S7,assembly_crew,Final assembly crew,1.0,0.18694,0.81306,0.0,0.0,0.0,0.18694,19.48611,3.0
+S7,return_bend_welder,Return-bend welder,1.0,0.17962,0.82038,0.0,0.0,0.0,0.17962,0.10717,3.0
+S7,header_prep_operator,Header preparation,1.0,0.14963,0.85037,0.0,0.0,0.0,0.14963,133.32349,3.0
+S7,sm_assembly_operator,Sheet-metal assembler,1.0,0.13077,0.86923,0.0,0.0,0.0,0.13077,3.03941,3.0
+S7,drip_tray_welder,Drip-tray welder,1.0,0.12467,0.87533,0.0,0.0,0.0,0.12467,106.18584,3.0
+S7,test_bay,Pressure-test bay,1.0,0.11669,0.88331,0.0,0.0,0.0,0.11669,0.73307,3.0
+S7,flat_welder,Flat welder,1.0,0.11206,0.88794,0.0,0.0,0.0,0.11206,50.61473,3.0
+S7,expander,Hydraulic expander,1.0,0.10847,0.89153,0.0,0.0,0.0,0.10847,0.00023,3.0
+S7,wash_bay,Wash bay,1.0,0.05604,0.94396,0.0,0.0,0.0,0.05604,0.07932,3.0
+S7,press_brake_operator,Press brake,1.0,0.04988,0.95012,0.0,0.0,0.0,0.04988,40.16327,3.0
+S7,trim_operator,Tube trimmer,1.0,0.04984,0.95016,0.0,0.0,0.0,0.04984,41.50842,3.0
+S0,steeking_crew,Steeking crew,1.0,0.87142,0.12858,0.0,0.0,0.0,0.87142,1209.02081,5.0
+S0,header_welder,Header welder,1.0,0.80258,0.19742,0.0,0.0,0.0,0.80258,420.80123,5.0
+S0,hairpin_welder,Hairpin welder,1.0,0.44878,0.55122,0.0,0.0,0.0,0.44878,337.02488,5.0
+S0,fin_press_operator,Fin press / boxing operator,1.0,0.3269,0.63378,0.0,0.0132,0.02612,0.36622,120.56664,5.0
+S0,assembly_crew,Final assembly crew,1.0,0.31124,0.68876,0.0,0.0,0.0,0.31124,165.93142,5.0
+S0,return_bend_welder,Return-bend welder,1.0,0.29917,0.70083,0.0,0.0,0.0,0.29917,144.02657,5.0
+S0,header_prep_operator,Header preparation,1.0,0.24943,0.75057,0.0,0.0,0.0,0.24943,154.47272,5.0
+S0,sm_assembly_operator,Sheet-metal assembler,1.0,0.21804,0.78196,0.0,0.0,0.0,0.21804,61.22765,5.0
+S0,drip_tray_welder,Drip-tray welder,1.0,0.20775,0.79225,0.0,0.0,0.0,0.20775,118.12914,5.0
+S0,test_bay,Pressure-test bay,1.0,0.19448,0.80552,0.0,0.0,0.0,0.19448,87.16875,5.0
+S0,flat_welder,Flat welder,1.0,0.18693,0.81307,0.0,0.0,0.0,0.18693,95.49963,5.0
+S0,expander,Hydraulic expander,1.0,0.18061,0.81939,0.0,0.0,0.0,0.18061,87.03886,5.0
+S0,wash_bay,Wash bay,1.0,0.09342,0.90658,0.0,0.0,0.0,0.09342,45.00385,5.0
+S0,press_brake_operator,Press brake,1.0,0.08315,0.91685,0.0,0.0,0.0,0.08315,41.28436,5.0
+S0,trim_operator,Tube trimmer,1.0,0.08314,0.91686,0.0,0.0,0.0,0.08314,43.55357,5.0
+S1,header_welder,Header welder,1.0,0.80292,0.19708,0.0,0.0,0.0,0.80292,634.53368,5.0
+S1,steeking_crew,Steeking crew,1.0,0.68384,0.31616,0.0,0.0,0.0,0.68384,576.33357,5.0
+S1,hairpin_welder,Hairpin welder,1.0,0.44878,0.55122,0.0,0.0,0.0,0.44878,337.02488,5.0
+S1,fin_press_operator,Fin press / boxing operator,1.0,0.3269,0.63378,0.0,0.0132,0.02612,0.36622,120.56664,5.0
+S1,assembly_crew,Final assembly crew,1.0,0.31156,0.68844,0.0,0.0,0.0,0.31156,168.33175,5.0
+S1,return_bend_welder,Return-bend welder,1.0,0.2995,0.7005,0.0,0.0,0.0,0.2995,144.06408,5.0
+S1,header_prep_operator,Header preparation,1.0,0.24943,0.75057,0.0,0.0,0.0,0.24943,154.47272,5.0
+S1,sm_assembly_operator,Sheet-metal assembler,1.0,0.21804,0.78196,0.0,0.0,0.0,0.21804,61.22765,5.0
+S1,drip_tray_welder,Drip-tray welder,1.0,0.20775,0.79225,0.0,0.0,0.0,0.20775,118.12914,5.0
+S1,test_bay,Pressure-test bay,1.0,0.19452,0.80548,0.0,0.0,0.0,0.19452,87.06138,5.0
+S1,flat_welder,Flat welder,1.0,0.18693,0.81307,0.0,0.0,0.0,0.18693,95.49963,5.0
+S1,expander,Hydraulic expander,1.0,0.18079,0.81921,0.0,0.0,0.0,0.18079,87.01687,5.0
+S1,wash_bay,Wash bay,1.0,0.09348,0.90652,0.0,0.0,0.0,0.09348,45.0027,5.0
+S1,press_brake_operator,Press brake,1.0,0.08315,0.91685,0.0,0.0,0.0,0.08315,41.28436,5.0
+S1,trim_operator,Tube trimmer,1.0,0.08314,0.91686,0.0,0.0,0.0,0.08314,43.55357,5.0
+S2,header_welder,Header welder,1.0,0.80292,0.19708,0.0,0.0,0.0,0.80292,615.92045,5.0
+S2,steeking_crew,Steeking crew,1.0,0.69755,0.30245,0.0,0.0,0.0,0.69755,605.6567,5.0
+S2,hairpin_welder,Hairpin welder,1.0,0.44878,0.55122,0.0,0.0,0.0,0.44878,337.02488,5.0
+S2,fin_press_operator,Fin press / boxing operator,1.0,0.3269,0.63378,0.0,0.0132,0.02612,0.36622,120.56664,5.0
+S2,assembly_crew,Final assembly crew,1.0,0.31156,0.68844,0.0,0.0,0.0,0.31156,168.29261,5.0
+S2,return_bend_welder,Return-bend welder,1.0,0.2995,0.7005,0.0,0.0,0.0,0.2995,144.06634,5.0
+S2,header_prep_operator,Header preparation,1.0,0.24943,0.75057,0.0,0.0,0.0,0.24943,154.47272,5.0
+S2,sm_assembly_operator,Sheet-metal assembler,1.0,0.21804,0.78196,0.0,0.0,0.0,0.21804,61.22765,5.0
+S2,drip_tray_welder,Drip-tray welder,1.0,0.20775,0.79225,0.0,0.0,0.0,0.20775,118.12914,5.0
+S2,test_bay,Pressure-test bay,1.0,0.19451,0.80549,0.0,0.0,0.0,0.19451,87.05905,5.0
+S2,flat_welder,Flat welder,1.0,0.18693,0.81307,0.0,0.0,0.0,0.18693,95.49963,5.0
+S2,expander,Hydraulic expander,1.0,0.18077,0.81923,0.0,0.0,0.0,0.18077,87.02355,5.0
+S2,wash_bay,Wash bay,1.0,0.09348,0.90652,0.0,0.0,0.0,0.09348,45.00273,5.0
+S2,press_brake_operator,Press brake,1.0,0.08315,0.91685,0.0,0.0,0.0,0.08315,41.28436,5.0
+S2,trim_operator,Tube trimmer,1.0,0.08314,0.91686,0.0,0.0,0.0,0.08314,43.55357,5.0
+S3,steeking_crew,Steeking crew,1.0,0.87142,0.12858,0.0,0.0,0.0,0.87142,1209.02081,5.0
+S3,hairpin_welder,Hairpin welder,1.0,0.44878,0.55122,0.0,0.0,0.0,0.44878,337.02488,5.0
+S3,header_welder,Header welder,2.0,0.40135,0.59865,0.0,0.0,0.0,0.40135,114.06269,5.0
+S3,fin_press_operator,Fin press / boxing operator,1.0,0.3269,0.63378,0.0,0.0132,0.02612,0.36622,120.56664,5.0
+S3,assembly_crew,Final assembly crew,1.0,0.31141,0.68859,0.0,0.0,0.0,0.31141,166.43608,5.0
+S3,return_bend_welder,Return-bend welder,1.0,0.29917,0.70083,0.0,0.0,0.0,0.29917,144.02657,5.0
+S3,header_prep_operator,Header preparation,1.0,0.24943,0.75057,0.0,0.0,0.0,0.24943,154.47272,5.0
+S3,sm_assembly_operator,Sheet-metal assembler,1.0,0.21804,0.78196,0.0,0.0,0.0,0.21804,61.22765,5.0
+S3,drip_tray_welder,Drip-tray welder,1.0,0.20775,0.79225,0.0,0.0,0.0,0.20775,118.12914,5.0
+S3,test_bay,Pressure-test bay,1.0,0.19443,0.80557,0.0,0.0,0.0,0.19443,88.33988,5.0
+S3,flat_welder,Flat welder,1.0,0.18693,0.81307,0.0,0.0,0.0,0.18693,95.49963,5.0
+S3,expander,Hydraulic expander,1.0,0.18061,0.81939,0.0,0.0,0.0,0.18061,87.03886,5.0
+S3,wash_bay,Wash bay,1.0,0.09344,0.90656,0.0,0.0,0.0,0.09344,44.99662,5.0
+S3,press_brake_operator,Press brake,1.0,0.08315,0.91685,0.0,0.0,0.0,0.08315,41.28436,5.0
+S3,trim_operator,Tube trimmer,1.0,0.08314,0.91686,0.0,0.0,0.0,0.08314,43.55357,5.0
+S4,steeking_crew,Steeking crew,1.0,0.87142,0.12858,0.0,0.0,0.0,0.87142,1209.02081,5.0
+S4,header_welder,Header welder,1.0,0.80258,0.19742,0.0,0.0,0.0,0.80258,420.80123,5.0
+S4,hairpin_welder,Hairpin welder,1.0,0.44878,0.55122,0.0,0.0,0.0,0.44878,337.02488,5.0
+S4,fin_press_operator,Fin press / boxing operator,1.0,0.32152,0.66178,0.0,0.00213,0.01457,0.33822,114.65755,5.0
+S4,assembly_crew,Final assembly crew,1.0,0.31124,0.68876,0.0,0.0,0.0,0.31124,165.93142,5.0
+S4,return_bend_welder,Return-bend welder,1.0,0.29917,0.70083,0.0,0.0,0.0,0.29917,144.02657,5.0
+S4,header_prep_operator,Header preparation,1.0,0.24943,0.75057,0.0,0.0,0.0,0.24943,154.47272,5.0
+S4,sm_assembly_operator,Sheet-metal assembler,1.0,0.21804,0.78196,0.0,0.0,0.0,0.21804,61.22765,5.0
+S4,drip_tray_welder,Drip-tray welder,1.0,0.20775,0.79225,0.0,0.0,0.0,0.20775,118.12914,5.0
+S4,test_bay,Pressure-test bay,1.0,0.19448,0.80552,0.0,0.0,0.0,0.19448,87.16875,5.0
+S4,flat_welder,Flat welder,1.0,0.18693,0.81307,0.0,0.0,0.0,0.18693,95.49963,5.0
+S4,expander,Hydraulic expander,1.0,0.18061,0.81939,0.0,0.0,0.0,0.18061,87.03886,5.0
+S4,wash_bay,Wash bay,1.0,0.09342,0.90658,0.0,0.0,0.0,0.09342,45.00385,5.0
+S4,press_brake_operator,Press brake,1.0,0.08315,0.91685,0.0,0.0,0.0,0.08315,41.28436,5.0
+S4,trim_operator,Tube trimmer,1.0,0.08314,0.91686,0.0,0.0,0.0,0.08314,43.55357,5.0
+S5,steeking_crew,Steeking crew,1.0,0.87149,0.12851,0.0,0.0,0.0,0.87149,995.236,5.0
+S5,header_welder,Header welder,1.0,0.80265,0.19735,0.0,0.0,0.0,0.80265,76.66233,5.0
+S5,hairpin_welder,Hairpin welder,1.0,0.4488,0.5512,0.0,0.0,0.0,0.4488,296.95614,5.0
+S5,fin_press_operator,Fin press / boxing operator,1.0,0.3269,0.63378,0.0,0.0132,0.02612,0.36622,120.56664,5.0
+S5,assembly_crew,Final assembly crew,1.0,0.31146,0.68854,0.0,0.0,0.0,0.31146,21.36334,5.0
+S5,return_bend_welder,Return-bend welder,1.0,0.29928,0.70072,0.0,0.0,0.0,0.29928,0.04435,5.0
+S5,header_prep_operator,Header preparation,1.0,0.24943,0.75057,0.0,0.0,0.0,0.24943,154.47272,5.0
+S5,sm_assembly_operator,Sheet-metal assembler,1.0,0.21803,0.78197,0.0,0.0,0.0,0.21803,5.20517,5.0
+S5,drip_tray_welder,Drip-tray welder,1.0,0.20775,0.79225,0.0,0.0,0.0,0.20775,118.12914,5.0
+S5,test_bay,Pressure-test bay,1.0,0.19446,0.80554,0.0,0.0,0.0,0.19446,2.40942,5.0
+S5,flat_welder,Flat welder,1.0,0.18693,0.81307,0.0,0.0,0.0,0.18693,55.41501,5.0
+S5,expander,Hydraulic expander,1.0,0.18069,0.81931,0.0,0.0,0.0,0.18069,5e-05,5.0
+S5,wash_bay,Wash bay,1.0,0.09345,0.90655,0.0,0.0,0.0,0.09345,0.0,5.0
+S5,press_brake_operator,Press brake,1.0,0.08315,0.91685,0.0,0.0,0.0,0.08315,41.28436,5.0
+S5,trim_operator,Tube trimmer,1.0,0.08314,0.91686,0.0,0.0,0.0,0.08314,43.55357,5.0
+S6,steeking_crew,Steeking crew,1.0,0.68369,0.31631,0.0,0.0,0.0,0.68369,429.14416,5.0
+S6,hairpin_welder,Hairpin welder,1.0,0.44872,0.55128,0.0,0.0,0.0,0.44872,256.6719,5.0
+S6,header_welder,Header welder,2.0,0.40138,0.59862,0.0,0.0,0.0,0.40138,115.97473,5.0
+S6,fin_press_operator,Fin press / boxing operator,1.0,0.32677,0.63391,0.0,0.01321,0.02612,0.36609,103.76682,5.0
+S6,assembly_crew,Final assembly crew,1.0,0.31158,0.68842,0.0,0.0,0.0,0.31158,171.91329,5.0
+S6,return_bend_welder,Return-bend welder,1.0,0.2994,0.7006,0.0,0.0,0.0,0.2994,144.05335,5.0
+S6,header_prep_operator,Header preparation,1.0,0.24925,0.75075,0.0,0.0,0.0,0.24925,130.53623,5.0
+S6,sm_assembly_operator,Sheet-metal assembler,1.0,0.21804,0.78196,0.0,0.0,0.0,0.21804,61.22765,5.0
+S6,drip_tray_welder,Drip-tray welder,1.0,0.20775,0.79225,0.0,0.0,0.0,0.20775,118.12914,5.0
+S6,test_bay,Pressure-test bay,1.0,0.19454,0.80546,0.0,0.0,0.0,0.19454,88.05987,5.0
+S6,flat_welder,Flat welder,1.0,0.18693,0.81307,0.0,0.0,0.0,0.18693,95.49963,5.0
+S6,expander,Hydraulic expander,1.0,0.18071,0.81929,0.0,0.0,0.0,0.18071,87.03146,5.0
+S6,wash_bay,Wash bay,1.0,0.09346,0.90654,0.0,0.0,0.0,0.09346,44.99638,5.0
+S6,press_brake_operator,Press brake,1.0,0.08315,0.91685,0.0,0.0,0.0,0.08315,41.28436,5.0
+S6,trim_operator,Tube trimmer,1.0,0.08305,0.91695,0.0,0.0,0.0,0.08305,40.9627,5.0
+S7,steeking_crew,Steeking crew,1.0,0.68374,0.31626,0.0,0.0,0.0,0.68374,352.74702,5.0
+S7,hairpin_welder,Hairpin welder,1.0,0.44879,0.55121,0.0,0.0,0.0,0.44879,273.1961,5.0
+S7,header_welder,Header welder,2.0,0.40161,0.59839,0.0,0.0,0.0,0.40161,0.64383,5.0
+S7,fin_press_operator,Fin press / boxing operator,1.0,0.32688,0.6338,0.0,0.0132,0.02612,0.3662,116.10632,5.0
+S7,assembly_crew,Final assembly crew,1.0,0.31158,0.68842,0.0,0.0,0.0,0.31158,28.0176,5.0
+S7,return_bend_welder,Return-bend welder,1.0,0.29941,0.70059,0.0,0.0,0.0,0.29941,0.13988,5.0
+S7,header_prep_operator,Header preparation,1.0,0.2494,0.7506,0.0,0.0,0.0,0.2494,147.77484,5.0
+S7,sm_assembly_operator,Sheet-metal assembler,1.0,0.21803,0.78197,0.0,0.0,0.0,0.21803,5.20517,5.0
+S7,drip_tray_welder,Drip-tray welder,1.0,0.20775,0.79225,0.0,0.0,0.0,0.20775,118.12914,5.0
+S7,test_bay,Pressure-test bay,1.0,0.19457,0.80543,0.0,0.0,0.0,0.19457,0.88038,5.0
+S7,flat_welder,Flat welder,1.0,0.18693,0.81307,0.0,0.0,0.0,0.18693,55.41501,5.0
+S7,expander,Hydraulic expander,1.0,0.18077,0.81923,0.0,0.0,0.0,0.18077,0.00019,5.0
+S7,wash_bay,Wash bay,1.0,0.09351,0.90649,0.0,0.0,0.0,0.09351,0.08063,5.0
+S7,press_brake_operator,Press brake,1.0,0.08315,0.91685,0.0,0.0,0.0,0.08315,41.28436,5.0
+S7,trim_operator,Tube trimmer,1.0,0.08314,0.91686,0.0,0.0,0.0,0.08314,42.83167,5.0

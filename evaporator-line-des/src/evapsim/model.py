@@ -3,15 +3,15 @@
 Structure (per work order of B EVA, see docs/MODEL_DESCRIPTION.md)
 ------------------------------------------------------------------
 arrival → engineering drawing release (delay) → procure sheet metal and tubing
-(delays started at release) → [CONWIP card, if used] → parallel branches:
+(delays started at release) → parallel branches:
 
-* fin press job (setup + punch B EVA, shared operator) → boxing (same operator,
-  needs tubing)
-* tubing → trim tubes → weld hairpins (circuits)
-* tubing → prepare headers
+* fin press job (setup + punch B EVA, shared operator), started at release
 * sheet metal → press brake → flat welding → plenum assembly (shared assembler)
 * sheet metal → external drip-tray bend & punch (lot delay) → weld → assembly
   (shared assembler)
+* tubing arrives → [CONWIP card, if used: shop-floor release of the coil line] →
+  boxing (fin-press operator, after the EVA's fins), trim tubes → weld hairpins
+  (circuits), prepare headers
 
 coil route per EVA: JOIN(fin pack, boxed module, circuits) → steeking (crew) →
 return bends → expansion → JOIN(headers) → header welding → wash ↔ pressure
@@ -47,7 +47,7 @@ OPS = ["boxing", "trim_tubes", "weld_hairpins", "steeking", "weld_return_bends",
        "complete_assembly"]
 DELAYS = ["engineering_release", "procurement_sheet_metal", "procurement_tubing",
           "drip_tray_external"]
-STAGES = ["engineering", "waiting_card", "prep", "coil_line", "coating", "final_assembly"]
+STAGES = ["engineering", "awaiting_material", "prep", "coil_line", "coating", "final_assembly"]
 MAX_TESTS = 10
 
 
@@ -74,6 +74,7 @@ class Order:
     u_test: np.ndarray       # (B, MAX_TESTS) uniforms for test outcomes
     z_rework: np.ndarray     # (B, MAX_TESTS) normals for rework times
     release: float = math.nan
+    tube_arrival: float = math.nan
     card: float = math.nan
     completion: float = math.nan
     done: int = 0
@@ -238,22 +239,27 @@ class EvaporatorModel:
         sheet = env.timeout(self._delay(o, "procurement_sheet_metal"))
         tube = env.timeout(self._delay(o, "procurement_tubing"))
         for eva in o.evas:
-            self._stage(eva, "waiting_card")
+            self._stage(eva, "awaiting_material")
+        g = {k: Gate(env, B, tb) for k in ("fins", "box", "trim", "hp", "hdr", "stk", "rb", "ex",
+                                           "hw", "wash", "test", "pb", "fw", "pa", "dtw", "dta")}
+        punched = [env.event() for _ in range(B)]
+        # fin press (step 3, in parallel with procurement) and sheet metal are not gated
+        env.process(self._fin_press_job(o, g["fins"], punched))
+        env.process(self._drip_tray_lot(o, sheet, g))
+        for i in range(B):
+            env.process(self._plenum(o, i, sheet, g))
+        # shop-floor release of the coil line: tubing kitted + CONWIP card (if used)
+        yield tube
+        o.tube_arrival = env.now
         if self.conwip is not None:
             yield self.conwip.get(1)
         o.card = env.now
         for eva in o.evas:
             self._stage(eva, "prep")
-        g = {k: Gate(env, B, tb) for k in ("fins", "box", "trim", "hp", "hdr", "stk", "rb", "ex",
-                                           "hw", "wash", "test", "pb", "fw", "pa", "dtw", "dta")}
-        punched = [env.event() for _ in range(B)]
-        env.process(self._fin_press_job(o, g["fins"], punched))
-        env.process(self._drip_tray_lot(o, sheet, g))
         for i in range(B):
-            env.process(self._boxing(o, i, punched[i], tube, g["box"]))
-            env.process(self._tubes(o, i, tube, g))
-            env.process(self._headers(o, i, tube, g["hdr"]))
-            env.process(self._plenum(o, i, sheet, g))
+            env.process(self._boxing(o, i, punched[i], g["box"]))
+            env.process(self._tubes(o, i, g))
+            env.process(self._headers(o, i, g["hdr"]))
             env.process(self._coil(o, i, g))
 
     def _fin_press_job(self, o: Order, gate: Gate, punched: list[simpy.Event]):  # generator
@@ -311,22 +317,19 @@ class EvaporatorModel:
                 yield from res.hold(fp["t_r"], CHANGEOVER, "fin_press")
                 self.reel_left = fp["R"]
 
-    def _boxing(self, o: Order, i: int, punched: simpy.Event, tube: simpy.Event,
-                gate: Gate):  # generator
-        yield punched & tube
+    def _boxing(self, o: Order, i: int, punched: simpy.Event, gate: Gate):  # generator
+        yield punched
         yield from self._work(o, i, "boxing")
         gate.done(i)
 
-    def _tubes(self, o: Order, i: int, tube: simpy.Event, g: dict[str, Gate]):  # generator
-        yield tube
+    def _tubes(self, o: Order, i: int, g: dict[str, Gate]):  # generator
         yield from self._work(o, i, "trim_tubes")
         g["trim"].done(i)
         yield g["trim"].event(i)
         yield from self._work(o, i, "weld_hairpins")
         g["hp"].done(i)
 
-    def _headers(self, o: Order, i: int, tube: simpy.Event, gate: Gate):  # generator
-        yield tube
+    def _headers(self, o: Order, i: int, gate: Gate):  # generator
         yield from self._work(o, i, "prepare_headers")
         gate.done(i)
 
@@ -437,7 +440,9 @@ class EvaporatorModel:
             done = not math.isnan(o.completion)
             lt = o.completion - o.arrival if done else math.nan
             orows.append({
-                "order": o.oid, "arrival": o.arrival, "release": o.release, "card": o.card,
+                "order": o.oid, "arrival": o.arrival, "release": o.release,
+                "tube_arrival": o.tube_arrival, "card": o.card,
+                "card_wait_min": o.card - o.tube_arrival,
                 "completion": o.completion, "lead_time_min": lt,
                 "lead_time_days": lt / cfg.day_min, "due": o.arrival + due,
                 "on_time": bool(done and o.completion <= o.arrival + due),

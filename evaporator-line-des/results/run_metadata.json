@@ -4,6 +4,16 @@
     "replications": 300,
     "runtime_s": 9.5
   },
+  "scenarios": {
+    "replications": 300,
+    "runtime_s": 175.9
+  },
+  "sensitivity": {
+    "replications": 100
+  },
+  "sweep": {
+    "replications": 100
+  },
   "uncertainty": {
     "case_reps": 100,
     "inner": 10,

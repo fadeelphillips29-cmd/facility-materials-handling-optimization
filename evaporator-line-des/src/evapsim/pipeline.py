@@ -244,6 +244,7 @@ def step_uncertainty(quick: bool = False, workers: int | None = None) -> None:
                         **variance_decomposition(r[m].to_numpy(), r["outer"].to_numpy())})
     pd.concat(rows).round(5).to_csv(out / "uncertainty_nested_replications.csv", index=False)
     pd.DataFrame(dec).round(6).to_csv(out / "variance_decomposition.csv", index=False)
+    bottleneck_under_uncertainty(out, fig)
 
     n = n_reps(cfg, quick)
     two = apply_overrides(cfg, {"input_uncertainty": {"enabled": True}})
@@ -312,3 +313,69 @@ def step_validate(quick: bool = False, workers: int | None = None) -> None:
     log(f"calibration: min-change value {float(sel['value'].iloc[0]) if len(sel) else 'none'}, "
         f"best fit {float(grid[grid['best_fit']]['value'].iloc[0])}")
     write_meta(out, "validate", {"replications": n})
+
+
+def step_scenarios(quick: bool = False, reps: int | None = None,
+                   workers: int | None = None) -> None:
+    """Phase 7: scenarios S0-S6 at each scenario demand level."""
+    from .scenarios import run_and_save
+
+    cfg = load_config()
+    out, fig = out_dirs(quick)
+    n = n_reps(cfg, quick, reps)
+    t0 = time.time()
+    run_and_save(n, out, fig, workers, log=print)
+    write_meta(out, "scenarios", {"replications": n, "runtime_s": round(time.time() - t0, 1)})
+
+
+def step_sweep(quick: bool = False, reps: int | None = None,
+               workers: int | None = None) -> None:
+    """Phase 7: demand sweep (hockey stick)."""
+    from .sensitivity import demand_sweep
+
+    cfg = load_config()
+    out, fig = out_dirs(quick)
+    n = n_reps(cfg, quick, reps, kind="sensitivity_replications")
+    demand_sweep(n, out, fig, workers, log=print)
+    write_meta(out, "sweep", {"replications": n})
+
+
+def step_sensitivity(quick: bool = False, reps: int | None = None,
+                     workers: int | None = None) -> None:
+    """Phase 7: one-at-a-time sensitivity + distribution-family robustness."""
+    from .sensitivity import run_sensitivity
+
+    cfg = load_config()
+    out, fig = out_dirs(quick)
+    n = n_reps(cfg, quick, reps, kind="sensitivity_replications")
+    run_sensitivity(n, out, fig, workers, log=print)
+    write_meta(out, "sensitivity", {"replications": n})
+
+
+def step_vsm(quick: bool = False, reps: int | None = None, workers: int | None = None) -> None:
+    """Phase 8: current/future-state VSM diagrams (docs/vsm_*.png)."""
+    from .vsm import build
+
+    cfg = load_config()
+    out, fig = out_dirs(quick)
+    n = n_reps(cfg, quick, reps)
+    target = DOCS_DIR if not quick else fig
+    df = build(out, n, workers=workers, out_dir=target)
+    log("vsm:\n" + df[["state", "order_lead_time_days", "va_ratio"]].round(3)
+        .to_string(index=False))
+
+
+def bottleneck_under_uncertainty(out: Path, fig: Path) -> pd.DataFrame:
+    """Bottleneck frequency vs the sampled steeking mean (from the nested design)."""
+    cfg = load_config()
+    d = pd.read_csv(out / "uncertainty_nested_replications.csv")
+    t = d.groupby(["demand", "outer"]).agg(
+        theta_steeking=("theta_steeking", "first"),
+        share_header_bottleneck=("bottleneck", lambda x: float((x == "header_welder").mean()))
+    ).reset_index().rename(columns={"demand": "demand_eva_per_week"})
+    loads = eq.resource_loads(cfg).set_index("resource")
+    switch = float(loads.loc["header_welder", "min_per_eva_with_rework"]) / cfg.tsf
+    t["analytic_switch_min"] = switch
+    t.round(5).to_csv(out / "uncertainty_bottleneck.csv", index=False)
+    plots.bottleneck_vs_theta(t, switch, fig / "uncertainty_bottleneck.png")
+    return t

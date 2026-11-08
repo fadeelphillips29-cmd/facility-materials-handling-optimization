@@ -9,6 +9,10 @@ input        Phase 3 input analysis (distribution fitting)
 baseline     Phase 5 baseline Monte Carlo + convergence
 validate     Phase 6 validation vs data/observed_weekly_output.csv + Kingman check
 uncertainty  Phase 5 two-level Monte Carlo, variance decomposition, steeking cases
+scenarios    Phase 7 scenarios S0-S6 at each scenario demand (paired vs S0)
+sweep        Phase 7 demand sweep (lead-time hockey stick)
+sensitivity  Phase 7 one-at-a-time sensitivity (tornado) + distribution robustness
+vsm          Phase 8 current/future-state value stream maps
 report       regenerate README/docs tables from config and results
 """
 
@@ -80,6 +84,34 @@ def _validate(args: argparse.Namespace) -> None:
     from .pipeline import step_validate
 
     step_validate(args.quick, args.workers)
+
+
+@step("scenarios")
+def _scenarios(args: argparse.Namespace) -> None:
+    from .pipeline import step_scenarios
+
+    step_scenarios(args.quick, args.reps, args.workers)
+
+
+@step("sweep")
+def _sweep(args: argparse.Namespace) -> None:
+    from .pipeline import step_sweep
+
+    step_sweep(args.quick, args.reps, args.workers)
+
+
+@step("sensitivity")
+def _sensitivity(args: argparse.Namespace) -> None:
+    from .pipeline import step_sensitivity
+
+    step_sensitivity(args.quick, args.reps, args.workers)
+
+
+@step("vsm")
+def _vsm(args: argparse.Namespace) -> None:
+    from .pipeline import step_vsm
+
+    step_vsm(args.quick, args.reps, args.workers)
 
 
 @step("report")

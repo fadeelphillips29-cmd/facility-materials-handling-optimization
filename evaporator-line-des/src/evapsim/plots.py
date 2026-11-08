@@ -391,3 +391,185 @@ def validation_figure(obs: pd.DataFrame, obs_lt: np.ndarray, sim_th: np.ndarray,
                  fontsize=13, fontweight="bold", color=INK)
     fig.tight_layout()
     return save(fig, path)
+
+
+# ------------------------------------------------------------------ scenarios
+SCEN_COLORS = {"S0": NEUTRAL, "S1": SERIES[0], "S2": SERIES[1], "S3": SERIES[2],
+               "S4": SERIES[3], "S5": SERIES[4], "S6": SERIES[6], "S7": SERIES[5]}
+
+
+def scenario_figure(summary: pd.DataFrame, paired: pd.DataFrame, path: Path) -> Path:
+    """Mean order lead time per scenario (left) and paired difference vs S0 (right), per demand."""
+    apply_style()
+    demands = sorted(summary["demand_eva_per_week"].unique())
+    fig, axes = plt.subplots(len(demands), 2, figsize=(14, 3.6 * len(demands)), squeeze=False)
+    for k, d in enumerate(demands):
+        s = summary[summary["demand_eva_per_week"] == d]
+        y = np.arange(len(s))[::-1]
+        ax = axes[k, 0]
+        m = s["lt_mean_days_mean"].to_numpy()
+        ax.barh(y, m, xerr=m - s["lt_mean_days_ci_low"].to_numpy(),
+                color=[SCEN_COLORS[x] for x in s["scenario"]], height=0.62,
+                error_kw={"ecolor": INK, "lw": 1})
+        for yi, v in zip(y, m, strict=True):
+            ax.text(v + 0.3, yi, f"{v:.1f}", va="center", fontsize=8.5, color=INK_2)
+        ax.set_yticks(y, [f"{a} {b}" for a, b in zip(s["scenario"], s["name"], strict=True)],
+                      fontsize=8.5)
+        ax.set_xlabel("Mean order lead time (working days, 95% CI)")
+        ax.set_title(f"Order lead time at {d:g} EVA/week", loc="left")
+        ax.grid(axis="y", visible=False)
+        ax.set_xlim(0, m.max() * 1.15)
+        p = paired[(paired["demand_eva_per_week"] == d) & (paired["metric"] == "lt_mean_days")]
+        p = p.set_index("scenario").loc[[x for x in s["scenario"] if x != "S0"]]
+        ax = axes[k, 1]
+        yy = np.arange(len(p))[::-1]
+        ax.axvline(0, color=AXIS, lw=1)
+        for yi, (sid, r) in zip(yy, p.iterrows(), strict=True):
+            ax.plot([r["diff_ci_low"], r["diff_ci_high"]], [yi, yi], color=INK_2, lw=1.6)
+            ax.plot(r["diff_mean"], yi, "o", ms=8, mec=SCEN_COLORS[sid], mew=1.6,
+                    color=SCEN_COLORS[sid] if r["significant"] else SURFACE)
+            ax.text(max(r["diff_ci_high"], 0) + 0.25, yi,
+                    f"{r['diff_mean']:+.2f} d ({r['rel_change_pct']:+.1f}%)", va="center",
+                    fontsize=8.5, color=INK_2)
+        ax.set_yticks(yy, list(p.index))
+        lo = min(0, p["diff_ci_low"].min())
+        ax.set_xlim(lo * 1.25 - 0.5, max(0.5, p["diff_ci_high"].max()) + abs(lo) * 0.6 + 1)
+        ax.set_xlabel("Paired difference vs S0 (days; filled = significant at 95%)")
+        ax.set_title(f"Lead-time change vs baseline at {d:g} EVA/week", loc="left")
+        ax.grid(axis="y", visible=False)
+    fig.tight_layout()
+    return save(fig, path)
+
+
+def scenario_bottleneck_figure(bf: pd.DataFrame, cfg, path: Path) -> Path:
+    """Share of replications in which each resource is the bottleneck, per scenario & demand."""
+    apply_style()
+    demands = sorted(bf["demand_eva_per_week"].unique())
+    res_order = list(dict.fromkeys(bf.sort_values("share", ascending=False)["resource"]))
+    colors = {r: SERIES[i % len(SERIES)] for i, r in enumerate(res_order)}
+    fig, axes = plt.subplots(1, len(demands), figsize=(6.5 * len(demands), 4.2), squeeze=False)
+    for k, d in enumerate(demands):
+        ax = axes[0, k]
+        sub = bf[bf["demand_eva_per_week"] == d]
+        scen = list(dict.fromkeys(sub["scenario"]))
+        y = np.arange(len(scen))[::-1]
+        left = np.zeros(len(scen))
+        for r in res_order:
+            v = np.array([float(sub[(sub.scenario == s) & (sub.resource == r)]["share"].sum())
+                          for s in scen]) * 100
+            if v.sum() == 0:
+                continue
+            ax.barh(y, v, left=left, color=colors[r], height=0.6, edgecolor=SURFACE, lw=1.2,
+                    label=cfg.resource_label(r))
+            for yi, lft, w in zip(y, left, v, strict=True):
+                if w >= 12:
+                    ax.text(lft + w / 2, yi, f"{w:.0f}%", ha="center", va="center",
+                            fontsize=8, color="white")
+            left += v
+        ax.set_yticks(y, scen)
+        ax.set_xlim(0, 100)
+        ax.set_xlabel("Replications in which the resource is the bottleneck (%)")
+        ax.set_title(f"Bottleneck by scenario at {d:g} EVA/week", loc="left")
+        ax.grid(axis="y", visible=False)
+    h, lab = axes[0, -1].get_legend_handles_labels()
+    for a in axes[0, :-1]:
+        hh, ll = a.get_legend_handles_labels()
+        for x, y_ in zip(hh, ll, strict=True):
+            if y_ not in lab:
+                h.append(x)
+                lab.append(y_)
+    fig.legend(h, lab, loc="lower center", ncol=len(lab), bbox_to_anchor=(0.5, -0.04))
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
+    return save(fig, path)
+
+
+def demand_curve(df: pd.DataFrame, cfg, path: Path) -> Path:
+    """The lead-time 'hockey stick': mean and P90 order lead time vs demand per scenario."""
+    apply_style()
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13.5, 4.8))
+    for sid, g in df.groupby("scenario", sort=False):
+        c = SCEN_COLORS.get(sid, INK_2) if sid != "S0" else INK
+        ax1.plot(g["demand_eva_per_week"], g["lt_mean_days_mean"], "-o", color=c, ms=5,
+                 mec=SURFACE, label=f"{sid} {g['name'].iloc[0]} (mean)")
+        ax1.plot(g["demand_eva_per_week"], g["lt_p90_days_mean"], "--", color=c, lw=1.2)
+        ax2.plot(g["demand_eva_per_week"], g["throughput_eva_week_mean"], "-o", color=c, ms=5,
+                 mec=SURFACE, label=sid)
+    cap = cfg.week_min / cfg.op_mean_min("steeking")
+    for ax in (ax1, ax2):
+        ax.axvline(cap, color=CRITICAL, lw=1.2)
+        ax.set_xlabel("Demand (EVA/week)")
+    ax1.text(cap, ax1.get_ylim()[1] * 0.97, f" S0 steeking capacity {cap:.2f}/wk",
+             color=CRITICAL, fontsize=8.5, va="top")
+    due = cfg.raw["demand"]["due_date_weeks"] * cfg.raw["calendar"]["days_per_week"]
+    ax1.axhline(due, color=INK_2, lw=1)
+    ax1.text(df["demand_eva_per_week"].min(), due, f" due date {due:g} d", fontsize=8.5,
+             color=INK_2, va="bottom")
+    ax1.set_ylabel("Order lead time (working days)")
+    ax1.set_title("Lead time vs demand (solid = mean, dashed = P90)", loc="left")
+    ax1.legend(loc="upper left", fontsize=8)
+    lim = [df["demand_eva_per_week"].min(), df["demand_eva_per_week"].max()]
+    ax2.plot(lim, lim, color=AXIS, lw=1)
+    ax2.set_ylabel("Throughput (EVA/week)")
+    ax2.set_title("Throughput vs demand (diagonal = demand met)", loc="left")
+    ax2.legend(loc="upper left", fontsize=8)
+    fig.tight_layout()
+    return save(fig, path)
+
+
+def tornado(df: pd.DataFrame, path: Path, n: int, top: int = 12) -> Path:
+    """Tornado of the change in mean order lead time per factor (one panel per demand)."""
+    apply_style()
+    demands = sorted(df["demand_eva_per_week"].unique())
+    fig, axes = plt.subplots(1, len(demands), figsize=(7.2 * len(demands), 0.42 * top + 1.8),
+                             squeeze=False)
+    for k, d in enumerate(demands):
+        ax = axes[0, k]
+        sub = df[df["demand_eva_per_week"] == d]
+        order = list(dict.fromkeys(sub["factor"]))[:top]
+        lab = {r.factor: r.label for r in sub.itertuples()}
+        y = np.arange(len(order))[::-1]
+        for lvl, c, name in (("low", SERIES[0], "-10% (crew -1)"),
+                             ("high", SERIES[1], "+10% (crew +1)")):
+            s = sub[sub["level"] == lvl].set_index("factor").loc[order]
+            ax.barh(y, s["lt_diff"], color=c, height=0.62, label=name)
+            ax.errorbar(s["lt_diff"], y, xerr=[s["lt_diff"] - s["lt_ci_low"],
+                                               s["lt_ci_high"] - s["lt_diff"]],
+                        fmt="none", ecolor=INK_2, elinewidth=0.8)
+        ax.axvline(0, color=INK_2, lw=1)
+        ax.set_yticks(y, [lab[f] for f in order], fontsize=8.5)
+        ax.grid(axis="y", visible=False)
+        lim = np.nanpercentile(np.abs(sub["lt_diff"]), 100)
+        clip = min(lim, max(5 * np.nanmedian(np.abs(sub.groupby("factor")["lt_diff"].max())),
+                            3.0))
+        if lim > clip * 1.5:
+            ax.set_xlim(-clip * 1.6, clip * 1.6)
+            for yi, f in zip(y, order, strict=True):
+                for lvl in ("low", "high"):
+                    v = float(sub[(sub.factor == f) & (sub.level == lvl)]["lt_diff"].iloc[0])
+                    if abs(v) > clip * 1.6:
+                        ax.text(np.sign(v) * clip * 1.55, yi, f"{v:+.0f} d →" if v > 0 else
+                                f"← {v:+.0f} d", ha="right" if v > 0 else "left",
+                                va="center", fontsize=8, color=INK)
+        ax.set_xlabel(f"Change in mean order lead time (days; paired, 95% CI, n={n})")
+        ax.set_title(f"Sensitivity of order lead time at {d:g} EVA/week", loc="left")
+        ax.legend(loc="lower right", fontsize=8)
+    fig.tight_layout()
+    return save(fig, path)
+
+
+def bottleneck_vs_theta(t: pd.DataFrame, switch: float, path: Path) -> Path:
+    """Share of replications with header welding as bottleneck vs sampled steeking mean."""
+    apply_style()
+    fig, ax = plt.subplots(figsize=(9, 3.8))
+    for k, (d, g) in enumerate(t.groupby("demand_eva_per_week")):
+        ax.plot(g["theta_steeking"], g["share_header_bottleneck"] * 100, "o", ms=6,
+                mfc=SERIES[k], mec=SURFACE, label=f"{d:g} EVA/week")
+    ax.axvline(switch, color=CRITICAL, lw=1.2)
+    ax.text(switch, 50, f"  analytic switch point\n  {switch:.0f} min/EVA", color=CRITICAL,
+            fontsize=8.5, va="center")
+    ax.set_xlabel("Sampled steeking mean, outer loop (min/EVA at 2 operators)")
+    ax.set_ylabel("Replications with header welding\nas bottleneck (%)")
+    ax.set_title("Bottleneck shift under input uncertainty (10 inner replications per point)",
+                 loc="left")
+    ax.legend(loc="upper right")
+    return save(fig, path)

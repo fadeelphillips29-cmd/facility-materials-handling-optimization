@@ -1,0 +1,9 @@
+scenario,name,description
+S0,Baseline,"Current state: 2-person steeking crew, 1 header welder, push release, transfer batch 3."
+S1,3rd steeking operator,Steeking crew 2 -> 3 (eta 0.85): elapsed 420 -> 329 min/EVA.
+S2,Steeking standard work / fixtures,Standard work and lacing fixtures cut steeking time by 20% (420 -> 336 min/EVA).
+S3,2nd header-welding station,A second header-welding station and welder (2 parallel servers).
+S4,Fin press OEE 70% -> 85%,"SMED (setup -40%) plus TPM and quality package: MTBF 540, MTTR 10, P 0.985, Q 0.99, 2-min reel change (OEE 85.0%)."
+S5,One-piece flow (transfer batch 1),EVA move individually between stations (process lot stays 3).
+S6,Combined: S1 + S3 + CONWIP,"3rd steeker, 2nd header welder and CONWIP release of the coil line (limit 3 work orders)."
+S7,Recommended: S6 + one-piece flow,Extension beyond the brief: S6 capacity package plus transfer batch 1 (S5).

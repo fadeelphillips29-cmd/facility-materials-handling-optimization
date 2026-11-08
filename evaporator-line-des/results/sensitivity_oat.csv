@@ -1,0 +1,101 @@
+demand_eva_per_week,factor,label,level,lt_base_days,lt_days,lt_diff,lt_ci_low,lt_ci_high,lt_rel_pct,lt_significant,th_diff,max_resource_load,unstable,swing
+3.0,steeking_crew,Steeking crew (2 ± 1),high,23.08336,22.43067,-0.65269,-0.6638,-0.64158,-2.82753,True,-0.00154,0.48312,False,13.06011
+3.0,steeking_crew,Steeking crew (2 ± 1),low,23.08336,35.49078,12.40742,11.60793,13.20691,53.7505,True,-0.17192,1.05,True,13.06011
+3.0,lead_times.procurement_tubing,Procure tubing lead time,high,23.08336,23.9931,0.90974,0.89627,0.92321,3.94111,True,-0.00096,0.525,False,1.8261
+3.0,lead_times.procurement_tubing,Procure tubing lead time,low,23.08336,22.167,-0.91636,-0.92936,-0.90336,-3.96979,True,-0.00212,0.525,False,1.8261
+3.0,steeking,Steeking time,high,23.08336,23.4391,0.35574,0.34785,0.36364,1.54113,True,0.00019,0.5775,False,0.67797
+3.0,steeking,Steeking time,low,23.08336,22.76113,-0.32223,-0.3292,-0.31525,-1.39592,True,-0.00154,0.48312,False,0.67797
+3.0,lead_times.coating,Powder coating / galvanising lead time,high,23.08336,23.38736,0.304,0.30025,0.30775,1.31697,True,0.00173,0.525,False,0.60594
+3.0,lead_times.coating,Powder coating / galvanising lead time,low,23.08336,22.78142,-0.30194,-0.30627,-0.29761,-1.30804,True,-0.00192,0.525,False,0.60594
+3.0,header_welding,Header Welding time,high,23.08336,23.37074,0.28738,0.28226,0.29251,1.24498,True,0.00135,0.53113,False,0.5511
+3.0,header_welding,Header Welding time,low,23.08336,22.81965,-0.26371,-0.26803,-0.25939,-1.14244,True,-0.00135,0.525,False,0.5511
+3.0,weld_hairpins,Weld Hairpins time,high,23.08336,23.21989,0.13653,0.1339,0.13915,0.59146,True,0.00038,0.525,False,0.2707
+3.0,weld_hairpins,Weld Hairpins time,low,23.08336,22.94918,-0.13417,-0.13684,-0.13151,-0.58126,True,-0.00096,0.525,False,0.2707
+3.0,lead_times.engineering_release,Engineering drawing release lead time,high,23.08336,23.18362,0.10026,0.09516,0.10535,0.43432,True,0.00058,0.525,False,0.1999
+3.0,lead_times.engineering_release,Engineering drawing release lead time,low,23.08336,22.98372,-0.09964,-0.10201,-0.09727,-0.43165,True,-0.00058,0.525,False,0.1999
+3.0,complete_assembly,Complete Assembly time,high,23.08336,23.18229,0.09893,0.09625,0.10161,0.42858,True,0.00038,0.525,False,0.19556
+3.0,complete_assembly,Complete Assembly time,low,23.08336,22.98673,-0.09663,-0.09936,-0.0939,-0.4186,True,-0.00077,0.525,False,0.19556
+3.0,weld_return_bends,Weld Return Bends time,high,23.08336,23.1734,0.09004,0.08942,0.09067,0.39008,True,0.00038,0.525,False,0.17968
+3.0,weld_return_bends,Weld Return Bends time,low,23.08336,22.99372,-0.08964,-0.09192,-0.08736,-0.38833,True,-0.00058,0.525,False,0.17968
+3.0,pressure_test,Pressure Test time,high,23.08336,23.14236,0.059,0.05784,0.06017,0.25561,True,0.00058,0.525,False,0.11615
+3.0,pressure_test,Pressure Test time,low,23.08336,23.02621,-0.05715,-0.05919,-0.0551,-0.24757,True,0.0,0.525,False,0.11615
+3.0,expansion,Hydraulic Expanding time,high,23.08336,23.12825,0.04489,0.04429,0.04548,0.19447,True,0.00019,0.525,False,0.08903
+3.0,expansion,Hydraulic Expanding time,low,23.08336,23.03922,-0.04414,-0.04556,-0.04272,-0.19122,True,0.0,0.525,False,0.08903
+3.0,wash,Wash Bay time,high,23.08336,23.1129,0.02954,0.0284,0.03068,0.12797,True,0.00038,0.525,False,0.05788
+3.0,wash,Wash Bay time,low,23.08336,23.05502,-0.02834,-0.02947,-0.0272,-0.12275,True,0.00019,0.525,False,0.05788
+3.0,trim_tubes,Trim Tubes time,high,23.08336,23.1084,0.02504,0.02486,0.02521,0.10846,True,0.00038,0.525,False,0.04967
+3.0,trim_tubes,Trim Tubes time,low,23.08336,23.05873,-0.02463,-0.02541,-0.02386,-0.10672,True,0.0,0.525,False,0.04967
+3.0,lead_times.drip_tray_external,Drip tray: external bend & punch lead time,high,23.08336,23.08406,0.0007,0.0,0.0014,0.00304,True,0.0,0.525,False,0.00093
+3.0,lead_times.drip_tray_external,Drip tray: external bend & punch lead time,low,23.08336,23.08314,-0.00022,-0.00067,0.00022,-0.00097,False,0.0,0.525,False,0.00093
+3.0,lead_times.procurement_sheet_metal,Procure sheet metal (cut to size) lead time,high,23.08336,23.08364,0.00028,-4e-05,0.0006,0.00122,False,0.0,0.525,False,0.00041
+3.0,lead_times.procurement_sheet_metal,Procure sheet metal (cut to size) lead time,low,23.08336,23.08323,-0.00013,-0.00039,0.00013,-0.00056,False,0.0,0.525,False,0.00041
+3.0,drip_tray_weld,Drip Tray: Weld time,high,23.08336,23.08337,1e-05,-1e-05,4e-05,6e-05,False,0.0,0.525,False,3e-05
+3.0,drip_tray_weld,Drip Tray: Weld time,low,23.08336,23.08335,-1e-05,-4e-05,1e-05,-6e-05,False,0.0,0.525,False,3e-05
+3.0,drip_tray_assembly,Drip Tray Assembly time,high,23.08336,23.08336,1e-05,-1e-05,2e-05,2e-05,False,0.0,0.525,False,1e-05
+3.0,drip_tray_assembly,Drip Tray Assembly time,low,23.08336,23.08335,-1e-05,-2e-05,1e-05,-2e-05,False,0.0,0.525,False,1e-05
+3.0,boxing,Boxing (modules + end panels) time,high,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,boxing,Boxing (modules + end panels) time,low,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,fin_press.mtbf_min,Fin press MTBF,high,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,fin_press.mtbf_min,Fin press MTBF,low,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,fin_press.mttr_min,Fin press MTTR,high,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,fin_press.mttr_min,Fin press MTTR,low,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,fin_press.setup_min,Fin press setup,high,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,fin_press.setup_min,Fin press setup,low,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,flat_welding,Plenum: Flat Welding time,high,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,flat_welding,Plenum: Flat Welding time,low,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,plenum_assembly,Plenum Assembly time,high,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,plenum_assembly,Plenum Assembly time,low,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,prepare_headers,Prepare Headers time,high,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,prepare_headers,Prepare Headers time,low,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,press_brake,Plenum: Press Brake time,high,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+3.0,press_brake,Plenum: Press Brake time,low,23.08336,23.08336,0.0,0.0,0.0,0.0,False,0.0,0.525,False,0.0
+5.0,steeking_crew,Steeking crew (2 ± 1),high,24.6666,23.4606,-1.206,-1.25448,-1.15751,-4.88919,True,0.00385,0.80521,False,63.38814
+5.0,steeking_crew,Steeking crew (2 ± 1),low,24.6666,86.84874,62.18214,61.44517,62.91911,252.09044,True,-2.12865,1.75,True,63.38814
+5.0,steeking,Steeking time,high,24.6666,26.73596,2.06936,1.84755,2.29117,8.38933,True,-0.02904,0.9625,False,2.84025
+5.0,steeking,Steeking time,low,24.6666,23.89572,-0.77088,-0.81143,-0.73034,-3.12521,True,0.00346,0.80521,False,2.84025
+5.0,lead_times.procurement_tubing,Procure tubing lead time,high,24.6666,25.62675,0.96015,0.94092,0.97938,3.8925,True,0.00423,0.875,False,1.9367
+5.0,lead_times.procurement_tubing,Procure tubing lead time,low,24.6666,23.69005,-0.97655,-0.99683,-0.95627,-3.95899,True,0.00635,0.875,False,1.9367
+5.0,header_welding,Header Welding time,high,24.6666,25.24018,0.57358,0.54584,0.60133,2.32535,True,-0.00096,0.88521,False,0.89421
+5.0,header_welding,Header Welding time,low,24.6666,24.34598,-0.32062,-0.32774,-0.31351,-1.29983,True,-0.00038,0.875,False,0.89421
+5.0,lead_times.coating,Powder coating / galvanising lead time,high,24.6666,24.9709,0.3043,0.30044,0.30816,1.23365,True,-0.00058,0.875,False,0.61237
+5.0,lead_times.coating,Powder coating / galvanising lead time,low,24.6666,24.35853,-0.30807,-0.3139,-0.30224,-1.24894,True,-0.00038,0.875,False,0.61237
+5.0,weld_hairpins,Weld Hairpins time,high,24.6666,24.8022,0.1356,0.13286,0.13834,0.54974,True,-0.00192,0.875,False,0.27167
+5.0,weld_hairpins,Weld Hairpins time,low,24.6666,24.53054,-0.13606,-0.13815,-0.13398,-0.55161,True,0.00019,0.875,False,0.27167
+5.0,lead_times.engineering_release,Engineering drawing release lead time,high,24.6666,24.76874,0.10214,0.09915,0.10512,0.41406,True,-0.00212,0.875,False,0.20545
+5.0,lead_times.engineering_release,Engineering drawing release lead time,low,24.6666,24.56329,-0.10331,-0.10617,-0.10046,-0.41884,True,0.00058,0.875,False,0.20545
+5.0,complete_assembly,Complete Assembly time,high,24.6666,24.76896,0.10236,0.09976,0.10497,0.41498,True,-0.00115,0.875,False,0.20367
+5.0,complete_assembly,Complete Assembly time,low,24.6666,24.56529,-0.10131,-0.10292,-0.0997,-0.41072,True,0.00058,0.875,False,0.20367
+5.0,weld_return_bends,Weld Return Bends time,high,24.6666,24.75684,0.09024,0.08774,0.09274,0.36583,True,-0.0025,0.875,False,0.18202
+5.0,weld_return_bends,Weld Return Bends time,low,24.6666,24.57482,-0.09178,-0.09353,-0.09002,-0.37207,True,0.00058,0.875,False,0.18202
+5.0,pressure_test,Pressure Test time,high,24.6666,24.72336,0.05676,0.0544,0.05913,0.23013,True,-0.00115,0.875,False,0.11608
+5.0,pressure_test,Pressure Test time,low,24.6666,24.60729,-0.05931,-0.06128,-0.05735,-0.24046,True,0.0,0.875,False,0.11608
+5.0,expansion,Hydraulic Expanding time,high,24.6666,24.71079,0.04419,0.04199,0.04639,0.17916,True,-0.00115,0.875,False,0.09036
+5.0,expansion,Hydraulic Expanding time,low,24.6666,24.62043,-0.04617,-0.0473,-0.04504,-0.18718,True,0.00058,0.875,False,0.09036
+5.0,wash,Wash Bay time,high,24.6666,24.6955,0.0289,0.02769,0.0301,0.11715,True,0.00038,0.875,False,0.05822
+5.0,wash,Wash Bay time,low,24.6666,24.63728,-0.02932,-0.03071,-0.02793,-0.11887,True,0.00077,0.875,False,0.05822
+5.0,trim_tubes,Trim Tubes time,high,24.6666,24.69164,0.02504,0.0249,0.02517,0.1015,True,-0.00038,0.875,False,0.05097
+5.0,trim_tubes,Trim Tubes time,low,24.6666,24.64067,-0.02593,-0.02703,-0.02484,-0.10513,True,0.00077,0.875,False,0.05097
+5.0,lead_times.drip_tray_external,Drip tray: external bend & punch lead time,high,24.6666,24.66686,0.00026,-0.00011,0.00063,0.00105,False,0.0,0.875,False,0.00029
+5.0,lead_times.drip_tray_external,Drip tray: external bend & punch lead time,low,24.6666,24.66657,-3e-05,-8e-05,3e-05,-0.00011,False,0.0,0.875,False,0.00029
+5.0,lead_times.procurement_sheet_metal,Procure sheet metal (cut to size) lead time,high,24.6666,24.66671,0.00011,-6e-05,0.00027,0.00043,False,0.0,0.875,False,0.00013
+5.0,lead_times.procurement_sheet_metal,Procure sheet metal (cut to size) lead time,low,24.6666,24.66657,-3e-05,-8e-05,3e-05,-0.00011,False,0.0,0.875,False,0.00013
+5.0,drip_tray_weld,Drip Tray: Weld time,high,24.6666,24.66661,1e-05,-1e-05,2e-05,3e-05,False,0.0,0.875,False,2e-05
+5.0,drip_tray_weld,Drip Tray: Weld time,low,24.6666,24.66659,-1e-05,-2e-05,1e-05,-3e-05,False,0.0,0.875,False,2e-05
+5.0,drip_tray_assembly,Drip Tray Assembly time,high,24.6666,24.6666,0.0,-0.0,1e-05,1e-05,False,0.0,0.875,False,1e-05
+5.0,drip_tray_assembly,Drip Tray Assembly time,low,24.6666,24.6666,-0.0,-1e-05,0.0,-1e-05,False,0.0,0.875,False,1e-05
+5.0,boxing,Boxing (modules + end panels) time,high,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,boxing,Boxing (modules + end panels) time,low,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,fin_press.mtbf_min,Fin press MTBF,high,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,fin_press.mtbf_min,Fin press MTBF,low,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,fin_press.mttr_min,Fin press MTTR,high,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,fin_press.mttr_min,Fin press MTTR,low,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,fin_press.setup_min,Fin press setup,high,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,fin_press.setup_min,Fin press setup,low,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,flat_welding,Plenum: Flat Welding time,high,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,flat_welding,Plenum: Flat Welding time,low,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,plenum_assembly,Plenum Assembly time,high,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,plenum_assembly,Plenum Assembly time,low,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,prepare_headers,Prepare Headers time,high,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,prepare_headers,Prepare Headers time,low,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,press_brake,Plenum: Press Brake time,high,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0
+5.0,press_brake,Plenum: Press Brake time,low,24.6666,24.6666,0.0,0.0,0.0,0.0,False,0.0,0.875,False,0.0

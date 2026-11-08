@@ -42,5 +42,5 @@ jobs:
         run: pytest
       - name: Pipeline smoke test (10 replications)
         run: |
+          python -m evapsim handcalc
           python -m evapsim baseline --quick --reps 10
-          python -m evapsim validate --quick

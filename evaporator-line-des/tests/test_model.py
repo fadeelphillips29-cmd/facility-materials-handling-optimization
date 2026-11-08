@@ -165,3 +165,15 @@ def test_input_uncertainty_sampling(short_cfg):
     assert all(360 <= t <= 600 for t in th)
     assert len(set(th)) == 12
     assert simulate(cfg, rep=3).theta_steeking == th[3]
+
+
+def test_observed_data_independent_of_calibration(base_cfg):
+    """The synthetic 'real system' is built from the brief values, so calibrating the
+    model's tubing lead time must not change the observations (no circularity)."""
+    from evapsim.datagen import perturbed_config
+
+    other = apply_overrides(base_cfg, {"lead_times": {"procurement_tubing": {"mean_days": 12.0}}})
+    a, _ = perturbed_config(base_cfg)
+    b, _ = perturbed_config(other)
+    assert a.raw["lead_times"]["procurement_tubing"]["mean_days"] == pytest.approx(
+        b.raw["lead_times"]["procurement_tubing"]["mean_days"])

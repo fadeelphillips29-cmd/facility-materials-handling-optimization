@@ -2,11 +2,11 @@
   "baseline": {
     "base_seed": 20260521,
     "replications": 300,
-    "runtime_s": 9.5
+    "runtime_s": 10.6
   },
   "scenarios": {
     "replications": 300,
-    "runtime_s": 175.9
+    "runtime_s": 172.6
   },
   "sensitivity": {
     "replications": 100

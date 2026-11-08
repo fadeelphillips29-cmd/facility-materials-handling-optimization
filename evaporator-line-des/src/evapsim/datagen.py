@@ -52,6 +52,11 @@ def time_study(cfg: LineConfig, seed: int = TIME_STUDY_SEED) -> pd.DataFrame:
 def perturbed_config(cfg: LineConfig, seed: int = OBSERVED_SEED) -> tuple[LineConfig,
                                                                            pd.DataFrame]:
     """The 'real system': process means and procurement lead times randomly perturbed."""
+    # The "real system" is defined from the brief's nominal values, independent of any
+    # later calibration of the model; otherwise calibrating would move the observations.
+    reset = {k: {"mean_days": float(v["brief_mean_days"])}
+             for k, v in cfg.raw["lead_times"].items() if "brief_mean_days" in v}
+    cfg = apply_overrides(cfg, {"lead_times": reset})
     rng = np.random.default_rng(seed)
     ov: dict = {"operations": {}, "lead_times": {}, "fin_press": {}}
     rows = []

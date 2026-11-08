@@ -24,6 +24,40 @@ def log(msg: str) -> None:
     print(f"[evapsim] {msg}", flush=True)
 
 
+def deterministic_check(cfg) -> pd.DataFrame:
+    """Hand calculation vs the deterministic simulation (zero variance, no failures)."""
+    from .config import apply_overrides
+    from .model import simulate
+
+    rows = []
+    for label, ov in (("baseline (transfer batch 3)", {}),
+                      ("transfer batch 1", {"orders": {"transfer_batch": 1}})):
+        c = apply_overrides(cfg, {**ov, "simulation": {"deterministic": True}})
+        res = simulate(c)
+        o = res.orders[res.orders["completed_in_window"]]
+        rows.append({"case": label, "quantity": "order lead time (min)",
+                     "hand_calc": eq.deterministic_lead_time(c)["lead_time_min"],
+                     "simulated_min": o["lead_time_min"].min(),
+                     "simulated_max": o["lead_time_min"].max()})
+        if not ov:
+            act = res.resources.set_index("resource")["active"]
+            for r, u in eq.resource_loads(c).set_index("resource")["utilisation_at_demand"].items():
+                rows.append({"case": label, "quantity": f"utilisation {r}", "hand_calc": u,
+                             "simulated_min": act[r], "simulated_max": act[r]})
+            rows.append({"case": label, "quantity": "EVA per week", "hand_calc": c.demand,
+                         "simulated_min": float(res.weekly_output.min()),
+                         "simulated_max": float(res.weekly_output.max())})
+            rows.append({"case": label, "quantity": "fin press job (min)",
+                         "hand_calc": eq.fin_press(**c.fin_press).T_job,
+                         "simulated_min": float(res.fin_jobs["job_min"].min()),
+                         "simulated_max": float(res.fin_jobs["job_min"].max())})
+    df = pd.DataFrame(rows)
+    df["max_abs_diff"] = (df[["simulated_min", "simulated_max"]].sub(df["hand_calc"], axis=0)
+                          .abs().max(axis=1))
+    df["exact_match"] = df["max_abs_diff"] < 1e-6
+    return df
+
+
 def step_handcalc() -> None:
     """Phase 1/2 analytical outputs: hand-calc VSM, loads, critical path, fin press."""
     cfg = load_config()
@@ -35,6 +69,7 @@ def step_handcalc() -> None:
     plots.process_flow_figure(DOCS_DIR / "process_flow.png",
                               cfg.raw["flags"]["wash_before_test"],
                               cfg.raw["flags"]["include_outsourced_coating"])
+    deterministic_check(cfg).to_csv(out / "deterministic_check.csv", index=False)
     log(f"hand calc: bottleneck {eq.bottleneck(cfg)}, single-order lead time "
         f"{cp['lead_time_min']:.0f} min = {cp['lead_time_days']:.2f} working days")
 

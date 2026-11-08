@@ -86,9 +86,9 @@ This table is generated from `config/line_parameters.yaml` by `make report`.
 | ID | Assumption / decision | Rationale |
 |---|---|---|
 | A15 | Clock = **working minutes**: 480 per day, 5 days per week (2,400 per week). Nights and weekends are not simulated. Procurement and outsourcing lead times are in working days. | Brief. |
-| A16 | **Run length**: 8 warm-up weeks are discarded, then **52 weeks are measured** (one full year), so 60 simulated weeks in total. | A 52-week measured year is the planning horizon. A single order takes about 4.4 weeks in the empty system, so an 8-week warm-up fills the pipeline. |
+| A16 | **Run length**: 8 warm-up weeks are discarded, then **52 weeks are measured** (one full year), so 60 simulated weeks in total. | A 52-week measured year is the planning horizon. A single order takes about 4.5 weeks in the empty system, so an 8-week warm-up fills the pipeline. |
 | A17 | **Demand**: work orders arrive with mean interarrival B / demand weeks. The baseline is 1 order of 3 EVA per week (whiteboard, to be confirmed). Arrivals are lognormal with CV 0.25 (assumed order-intake variability). The demand sweep uses 3, 4, 5, 5.5 and 6 EVA/week. | The brief gives the rate. A small amount of arrival variability is realistic, and the Kingman check needs it. |
-| A18 | **Due date** = arrival + 6 weeks (assumed promised lead time), used for on-time delivery. | No promise date was given. The hand-calculated lead time of a single order is about 4.4 weeks, so 6 weeks includes some slack. |
+| A18 | **Due date** = arrival + 6 weeks (assumed promised lead time), used for on-time delivery. | No promise date was given. The hand-calculated lead time of a single order is about 4.5 weeks, so 6 weeks includes some slack. |
 | A19 | **Order lead time** runs from the order's arrival (before drawing release and any CONWIP wait) to the completion of its last EVA. EVA lead time runs from the order's arrival to that EVA's completion. | This is the customer-facing lead time. |
 | A20 | `time_scale_factor` multiplies every **process** time: operation times, rework, fin-press setup, run time (through the rate), reel reload and MTTR. MTBF is scaled too, so availability and OEE do not change. Calendar delays (engineering, procurement, outsourcing) are **not** scaled. | Lets the author anonymise touch times without changing the structure of the results. |
 
@@ -110,13 +110,13 @@ This table is generated from `config/line_parameters.yaml` by `make report`.
 | A27 | **Two-level Monte Carlo**: the outer loop samples the steeking mean from triangular(360, 420, 600) min/EVA (mean 460) once per replication. The variance decomposition uses a nested design (40 outer samples × 10 inner replications) and one-way random-effects ANOVA. The steeking cases at 6, 7, 16 and 20 h are run as separate deterministic-mean sensitivity cases. | Brief. Steeking is the least certain and most important input. |
 | A28 | Confidence intervals are Student-t intervals on replication means. Scenario differences use the paired-t method against S0, at the same demand level. | These are standard simulation output-analysis methods. |
 | A29 | **Bottleneck per replication** = the resource with the highest active share (busy + changeover + down). The resource with the longest mean queue time is reported as a second measure. | Brief: "highest utilisation or queue". |
-| A30 | **Value-added time** = the sum of in-house processing times per EVA (all operations and the fin press). Delays, queues and outsourced lead times count as non-value-added. VA ratio = VA time / order lead time. | Conventional VSM practice. |
+| A30 | **Value-added time** = the sum of in-house processing times per EVA (all operations and the fin press). Delays, queues and outsourced lead times count as non-value-added. VA ratio = mean VA minutes per EVA / mean EVA lead time (arrival to completion of that EVA). | Conventional VSM practice. |
 
 ## 6. Validation data
 
 | ID | Assumption / decision | Rationale |
 |---|---|---|
-| A31 | `data/observed_weekly_output.csv` contains 26 weeks of "measured" output and order lead times. It comes from one run of a **perturbed** model (process means × N(1, 0.04), procurement means × N(1, 0.06), seed 4242) after an 8-week warm-up. | The perturbation plays the role of real-world model error. |
+| A31 | `data/observed_weekly_output.csv` contains 26 weeks of "measured" output and order lead times. It comes from one run of a **perturbed** model (process means × N(1, 0.04), procurement means × N(1, 0.06), seed 4242) after an 8-week warm-up. The perturbation is applied to the brief's nominal values (`brief_mean_days`), never to calibrated values, so calibration cannot change the observations. | The perturbation plays the role of real-world model error. |
 | A32 | In a stable open system, throughput **equals demand**, so the weekly-output comparison is a consistency check. **Order lead time is the measure that discriminates between models**, with a target error of 5 % or less. | This is how open queueing networks behave. It is stated so the validation is not overclaimed. |
 
 ## 7. Repository

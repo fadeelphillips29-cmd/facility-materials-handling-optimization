@@ -1,0 +1,20 @@
+case,quantity,hand_calc,simulated_min,simulated_max,max_abs_diff,exact_match
+baseline (transfer batch 3),order lead time (min),10848.0,10848.0,10848.0,0.0,True
+baseline (transfer batch 3),utilisation steeking_crew,0.525,0.525,0.525,0.0,True
+baseline (transfer batch 3),utilisation header_welder,0.48,0.48,0.48,0.0,True
+baseline (transfer batch 3),utilisation hairpin_welder,0.27,0.27,0.27,0.0,True
+baseline (transfer batch 3),utilisation fin_press_operator,0.2202527648486295,0.22025276484863196,0.22025276484863196,2.4702462297909733e-15,True
+baseline (transfer batch 3),utilisation assembly_crew,0.1875,0.1875,0.1875,0.0,True
+baseline (transfer batch 3),utilisation return_bend_welder,0.18,0.18,0.18,0.0,True
+baseline (transfer batch 3),utilisation header_prep_operator,0.15,0.15,0.15,0.0,True
+baseline (transfer batch 3),utilisation sm_assembly_operator,0.13125,0.13125,0.13125,0.0,True
+baseline (transfer batch 3),utilisation drip_tray_welder,0.125,0.125,0.125,0.0,True
+baseline (transfer batch 3),utilisation test_bay,0.1125,0.1125,0.1125,0.0,True
+baseline (transfer batch 3),utilisation flat_welder,0.1125,0.1125,0.1125,0.0,True
+baseline (transfer batch 3),utilisation expander,0.10875,0.10875,0.10875,0.0,True
+baseline (transfer batch 3),utilisation wash_bay,0.05625,0.05625,0.05625,0.0,True
+baseline (transfer batch 3),utilisation trim_operator,0.05,0.05,0.05,0.0,True
+baseline (transfer batch 3),utilisation press_brake_operator,0.05,0.05,0.05,0.0,True
+baseline (transfer batch 3),EVA per week,3.0,3.0,3.0,0.0,True
+baseline (transfer batch 3),fin press job (min),228.60663563671085,228.60663563670823,228.60663563679554,8.469669410260394e-11,True
+transfer batch 1,order lead time (min),8536.0,8536.0,8536.0,0.0,True

@@ -1,6 +1,6 @@
 # evaporator-line-des - reproducible pipeline
-#   make all          full pipeline (500 replications per scenario, ~20-30 min on 4 cores)
-#   make quick        same pipeline in quick mode (50 replications) -> results/quick/
+#   make all          full pipeline (500 replications per scenario, ~22 min on 4 cores)
+#   make quick        same pipeline in quick mode (50 replications, ~5 min) -> results/quick/
 #   make dashboard    launch the Streamlit app
 
 PYTHON ?= python

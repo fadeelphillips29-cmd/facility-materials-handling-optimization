@@ -471,8 +471,14 @@ current sub-folder (A29).
   and the remaining hand-written numbers were checked against the CSV files in
   a final consistency pass.
 
-**Verification evidence.** `make all` was run from a clean clone, ruff
-reports "All checks passed!", and pytest is green.
+**Verification evidence.** `make all` was run from a fresh clone in a new
+virtual environment. It finished with exit code 0 in 22 min on 4 cores, ruff
+reported "All checks passed!", and pytest reported 40 passed. Every regenerated
+CSV in `results/` and `data/`, and every generated table in the README and
+docs, was byte-identical to the committed version. Only the run times in
+`run_metadata.json` and the notebook execution timestamps differed.
+`make quick` takes about 5 min. GitHub Actions is green on Python 3.11 and
+3.12.
 
 **Outputs.** `README.md`, `docs/*.md`, `notebooks/analysis.ipynb`, `Makefile`,
 `.github/workflows/ci.yml`.

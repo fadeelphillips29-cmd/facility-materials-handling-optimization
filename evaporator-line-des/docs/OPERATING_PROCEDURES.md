@@ -53,7 +53,7 @@ cores. To use fewer, set `EVAPSIM_WORKERS=2` or pass `--workers 2`.
 - [ ] The product `mix` sums to 1.0, there are *(stations - 1)* buffer capacities, and station ids run 1..N with no gaps (the loader rejects anything else).
 - [ ] `simulation.base_seed` is unchanged, unless you deliberately want a new random sample.
 - [ ] You picked the mode: **quick** (50 replications, `results/quick/`) for exploring, **full** (500 replications, `results/`) for reporting.
-- [ ] Enough time is available. A full `make all` takes about 20-25 minutes on 4 cores.
+- [ ] Enough time is available. A full `make all` takes about 22 minutes on 4 cores, and `make quick` about 5 minutes.
 
 ## 3. Running the baseline
 

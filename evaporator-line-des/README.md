@@ -257,8 +257,8 @@ cd facility-materials-handling-optimization/evaporator-line-des
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 make setup                    # install requirements and the evapsim package
 make test                     # ruff-clean code, pytest verification suite
-make quick                    # whole pipeline with 50 replications -> results/quick/  (~3 min)
-make all                      # full pipeline, 500 replications (~25 min on 4 cores)
+make quick                    # whole pipeline with 50 replications -> results/quick/  (~5 min)
+make all                      # full pipeline, 500 replications (~22 min on 4 cores)
 make dashboard                # http://localhost:8501
 ```
 

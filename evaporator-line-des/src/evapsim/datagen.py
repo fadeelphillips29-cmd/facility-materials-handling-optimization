@@ -39,6 +39,7 @@ def generate_time_study(cfg: LineConfig, seed: int = TIME_STUDY_SEED) -> pd.Data
         x = sample_lognormal(rng, st.ct_mean_s, st.ct_cv, OBSERVATIONS_PER_STATION)
         for i, val in enumerate(np.asarray(x)):
             ws = chr(ord("A") + i % st.servers)
+            study_day = FIRST_OBSERVED_DAY - dt.timedelta(days=14 - i // 10)
             rows.append(
                 {
                     "obs_id": f"TS-{st.id}-{i + 1:02d}",
@@ -46,7 +47,7 @@ def generate_time_study(cfg: LineConfig, seed: int = TIME_STUDY_SEED) -> pd.Data
                     "station_name": st.name,
                     "workstation": f"{st.id}{ws}",
                     "product": "Medium",
-                    "study_date": (FIRST_OBSERVED_DAY - dt.timedelta(days=14 - i // 10)).isoformat(),
+                    "study_date": study_day.isoformat(),
                     "observed_time_s": round(float(val), 1),
                 }
             )

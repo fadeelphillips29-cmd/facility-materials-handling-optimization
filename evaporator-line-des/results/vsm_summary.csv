@@ -1,0 +1,4 @@
+state,label,demand_eva_per_week,throughput_eva_week,order_lead_time_days,order_lead_time_p95_days,eva_lead_time_days,va_min_per_eva,va_ratio,wip_eva,on_time,steeking_queue_h,header_queue_h
+current,S0 baseline,3.0,2.9919,23.1225,28.2421,22.8097,2207.3135,0.2017,13.655,0.9717,9.5644,6.6267
+S0 at future demand,S0 @ 5,5.0,4.9786,24.722,30.0995,24.4093,2206.9715,0.1884,24.3632,0.9416,20.1503,7.1987
+future,S7 Recommended: S6 + one-piece flow,5.0,4.9842,18.4457,23.6032,17.4451,2116.4137,0.2528,17.4092,0.9976,5.8791,0.0066

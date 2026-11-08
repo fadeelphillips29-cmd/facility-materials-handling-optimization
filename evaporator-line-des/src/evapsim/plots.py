@@ -282,3 +282,164 @@ def validation_figure(obs_daily: np.ndarray, sim_period_means: np.ndarray, obs_b
                  ha="left", fontsize=13, fontweight="bold", color=INK)
     fig.tight_layout()
     return _save(fig, path)
+
+
+# ------------------------------------------------------------------- scenarios
+STATION_COLORS = {i + 1: c for i, c in enumerate(SERIES[:7])}
+
+
+def scenario_comparison_figure(summary: pd.DataFrame, paired: pd.DataFrame, path: Path) -> Path:
+    """Throughput per scenario vs demand (left) and paired gain vs S0 with 95% CI (right)."""
+    apply_style()
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 4.8), gridspec_kw={"width_ratios": [1, 1]})
+    labels = [f"{s}\n{n.split(' (')[0]}" for s, n in zip(summary["scenario"], summary["name"],
+                                                          strict=True)]
+    y = np.arange(len(summary))[::-1]
+    th = summary["throughput_per_day_mean"].to_numpy()
+    err = th - summary["throughput_per_day_ci_low"].to_numpy()
+    ax1.barh(y, th, xerr=err, color=SERIES[0], height=0.6, error_kw={"ecolor": INK, "lw": 1})
+    demand = float(summary["demand_per_day"].iloc[0])
+    ax1.axvline(demand, color=CRITICAL, lw=1.6)
+    ax1.text(demand, y.max() + 0.55, f"demand {demand:.0f}", color=INK, ha="center", fontsize=9)
+    for yi, v in zip(y, th, strict=True):
+        ax1.text(v - 4, yi, f"{v:.1f}", va="center", ha="right", color="white", fontsize=9)
+    ax1.set_yticks(y, labels, fontsize=8.5)
+    ax1.set_xlim(0, max(demand, th.max()) * 1.08)
+    ax1.set_xlabel("Throughput (good units/day, mean ± 95% CI)")
+    ax1.set_title("Daily throughput by scenario", loc="left")
+    ax1.grid(axis="y", visible=False)
+
+    d = paired[paired["metric"] == "throughput_per_day"].set_index("scenario")
+    d = d.loc[[s for s in summary["scenario"] if s in d.index]]
+    yy = np.arange(len(d))[::-1]
+    ax2.axvline(0, color=AXIS, lw=1)
+    for yi, (_sid, r) in zip(yy, d.iterrows(), strict=True):
+        ax2.plot([r["diff_ci_low"], r["diff_ci_high"]], [yi, yi], color=INK_2, lw=1.6)
+        ax2.plot(r["diff_mean"], yi, "o", ms=8, color=SERIES[0] if r["significant"] else SURFACE,
+                 mec=SERIES[0], mew=1.6)
+        ax2.text(r["diff_ci_high"] + 2, yi,
+                 f"{r['diff_mean']:+.1f} ({r['rel_change_pct']:+.1f}%)", va="center",
+                 color=INK_2, fontsize=9)
+    ax2.set_yticks(yy, list(d.index))
+    ax2.set_xlim(min(0, d["diff_ci_low"].min()) - 5, d["diff_ci_high"].max() * 1.3 + 5)
+    ax2.set_xlabel("Paired difference vs S0 (units/day, 95% CI; filled = significant)")
+    ax2.set_title("Throughput gain over baseline (common random numbers)", loc="left")
+    ax2.grid(axis="y", visible=False)
+    fig.tight_layout()
+    return _save(fig, path)
+
+
+def scenario_bottleneck_figure(bfreq: pd.DataFrame, path: Path) -> Path:
+    """Stacked share of replications in which each station is the bottleneck, per scenario."""
+    apply_style()
+    scen = list(dict.fromkeys(bfreq["scenario"]))
+    fig, ax = plt.subplots(figsize=(9, 0.55 * len(scen) + 1.6))
+    y = np.arange(len(scen))[::-1]
+    left = np.zeros(len(scen))
+    present = bfreq.groupby("station_id")["share"].sum()
+    for sid in sorted(bfreq["station_id"].unique()):
+        if present[sid] == 0:
+            continue
+        v = np.array([float(bfreq[(bfreq.scenario == s) & (bfreq.station_id == sid)]["share"]
+                            .iloc[0]) * 100 for s in scen])
+        ax.barh(y, v, left=left, color=STATION_COLORS[sid], edgecolor=SURFACE, linewidth=1.5,
+                height=0.6, label=f"S{sid}")
+        for yi, lft, w in zip(y, left, v, strict=True):
+            if w >= 8:
+                ax.text(lft + w / 2, yi, f"S{sid} {w:.0f}%", ha="center", va="center",
+                        color="white", fontsize=8.5)
+        left += v
+    ax.set_yticks(y, scen)
+    ax.set_xlim(0, 100)
+    ax.set_xlabel("Replications in which the station is the bottleneck (%)")
+    ax.grid(axis="y", visible=False)
+    ax.legend(ncol=7, loc="lower center", bbox_to_anchor=(0.5, 1.0))
+    ax.set_title("Bottleneck location by scenario (active-period method)", loc="left", pad=26)
+    return _save(fig, path)
+
+
+def scenario_states_figure(stations: pd.DataFrame, path: Path, station_id: int = 4) -> Path:
+    """State breakdown of one station across scenarios."""
+    apply_style()
+    st = stations[stations["station_id"] == station_id]
+    scen = list(st["scenario"])
+    y = np.arange(len(scen))[::-1]
+    fig, ax = plt.subplots(figsize=(9, 0.5 * len(scen) + 1.6))
+    left = np.zeros(len(scen))
+    for s in STATE_ORDER:
+        v = st[s].to_numpy() * 100
+        ax.barh(y, v, left=left, color=STATE_COLORS[s], edgecolor=SURFACE, linewidth=1.5,
+                height=0.6, label=s)
+        for yi, lft, w in zip(y, left, v, strict=True):
+            if w >= 6:
+                ax.text(lft + w / 2, yi, f"{w:.0f}", ha="center", va="center", fontsize=8,
+                        color=INK if s in ("changeover", "starved") else "white")
+        left += v
+    ax.set_yticks(y, scen)
+    ax.set_xlim(0, 100)
+    ax.set_xlabel("Share of scheduled time per machine (%)")
+    ax.grid(axis="y", visible=False)
+    ax.legend(ncol=5, loc="lower center", bbox_to_anchor=(0.5, 1.0))
+    name = st["station"].iloc[0]
+    ax.set_title(f"Station {station_id} ({name}) state breakdown by scenario", loc="left", pad=26)
+    return _save(fig, path)
+
+
+def tornado_figure(df: pd.DataFrame, base_th: float, n_reps: int, path: Path) -> Path:
+    """Tornado chart of throughput change for low/high level of each factor."""
+    apply_style()
+    order = list(dict.fromkeys(df["factor"]))
+    labels = {r.factor: r.label for r in df.itertuples()}
+    fig, ax = plt.subplots(figsize=(10, 0.36 * len(order) + 1.8))
+    y = np.arange(len(order))[::-1]
+    for lvl, color, lab in (("low", SERIES[0], "factor −10% (buffers −1)"),
+                            ("high", SERIES[1], "factor +10% (buffers +1)")):
+        sub = df[df["level"] == lvl].set_index("factor").loc[order]
+        ax.barh(y, sub["th_diff"], color=color, height=0.62, label=lab)
+        ax.errorbar(sub["th_diff"], y, xerr=[sub["th_diff"] - sub["th_diff_ci_low"],
+                                             sub["th_diff_ci_high"] - sub["th_diff"]],
+                    fmt="none", ecolor=INK_2, elinewidth=0.8, capsize=0)
+    ax.axvline(0, color=INK_2, lw=1)
+    ax.set_yticks(y, [labels[f] for f in order], fontsize=9)
+    ax.grid(axis="y", visible=False)
+    ax.set_xlabel(f"Change in throughput vs baseline {base_th:.1f} units/day "
+                  f"(paired mean, 95% CI, {n_reps} replications)")
+    ax.legend(loc="lower right")
+    ax.set_title("One-at-a-time sensitivity of daily throughput", loc="left")
+    return _save(fig, path)
+
+
+def conwip_figure(df: pd.DataFrame, path: Path) -> Path:
+    """Operating curves: throughput vs WIP and lead time vs CONWIP limit, per scenario."""
+    apply_style()
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.4))
+    for i, (sid, g) in enumerate(df.groupby("scenario", sort=False)):
+        c = SERIES[i]
+        ax1.plot(g["wip_avg"], g["throughput_per_day"], "-o", color=c, ms=6, mec=SURFACE,
+                 label=sid)
+        # merge labels of points whose WIP no longer changes (limit no longer binding)
+        pts = list(g.itertuples())
+        k = 0
+        while k < len(pts):
+            j = k
+            while j + 1 < len(pts) and abs(pts[j + 1].wip_avg - pts[k].wip_avg) < 0.6:
+                j += 1
+            lab = f"{pts[k].conwip_limit}" if j == k else f"≥{pts[k].conwip_limit}"
+            ax1.annotate(lab, (pts[k].wip_avg, pts[k].throughput_per_day),
+                         textcoords="offset points", xytext=(4, -11), fontsize=7.5,
+                         color=INK_2)
+            k = j + 1
+        ax2.plot(g["conwip_limit"], g["lt_mean_min"], "-o", color=c, ms=6, mec=SURFACE,
+                 label=f"{sid} mean")
+        ax2.plot(g["conwip_limit"], g["lt_p95_min"], "--", color=c, lw=1.2,
+                 label=f"{sid} P95")
+    ax1.set_xlabel("Average WIP in line (units)")
+    ax1.set_ylabel("Throughput (units/day)")
+    ax1.set_title("Throughput vs WIP (labels = CONWIP limit)", loc="left")
+    ax1.legend(loc="lower right")
+    ax2.set_xlabel("CONWIP limit (units)")
+    ax2.set_ylabel("Line lead time (min)")
+    ax2.set_title("Lead time vs CONWIP limit", loc="left")
+    ax2.legend(loc="upper left", ncol=2)
+    fig.tight_layout()
+    return _save(fig, path)

@@ -1,0 +1,50 @@
+station_id,station,count,share,scenario
+1,Tube Cut & Bend,0,0.0,S0
+2,Fin-Pack Assembly,0,0.0,S0
+3,Tube Expansion,0,0.0,S0
+4,Header Brazing,500,1.0,S0
+5,Pressure & Leak Test,0,0.0,S0
+6,Casing & Final Assembly,0,0.0,S0
+7,Inspection & Packing,0,0.0,S0
+1,Tube Cut & Bend,0,0.0,S1
+2,Fin-Pack Assembly,0,0.0,S1
+3,Tube Expansion,0,0.0,S1
+4,Header Brazing,500,1.0,S1
+5,Pressure & Leak Test,0,0.0,S1
+6,Casing & Final Assembly,0,0.0,S1
+7,Inspection & Packing,0,0.0,S1
+1,Tube Cut & Bend,0,0.0,S2
+2,Fin-Pack Assembly,0,0.0,S2
+3,Tube Expansion,0,0.0,S2
+4,Header Brazing,500,1.0,S2
+5,Pressure & Leak Test,0,0.0,S2
+6,Casing & Final Assembly,0,0.0,S2
+7,Inspection & Packing,0,0.0,S2
+1,Tube Cut & Bend,0,0.0,S3
+2,Fin-Pack Assembly,500,1.0,S3
+3,Tube Expansion,0,0.0,S3
+4,Header Brazing,0,0.0,S3
+5,Pressure & Leak Test,0,0.0,S3
+6,Casing & Final Assembly,0,0.0,S3
+7,Inspection & Packing,0,0.0,S3
+1,Tube Cut & Bend,0,0.0,S4
+2,Fin-Pack Assembly,0,0.0,S4
+3,Tube Expansion,0,0.0,S4
+4,Header Brazing,500,1.0,S4
+5,Pressure & Leak Test,0,0.0,S4
+6,Casing & Final Assembly,0,0.0,S4
+7,Inspection & Packing,0,0.0,S4
+1,Tube Cut & Bend,0,0.0,S5
+2,Fin-Pack Assembly,0,0.0,S5
+3,Tube Expansion,0,0.0,S5
+4,Header Brazing,500,1.0,S5
+5,Pressure & Leak Test,0,0.0,S5
+6,Casing & Final Assembly,0,0.0,S5
+7,Inspection & Packing,0,0.0,S5
+1,Tube Cut & Bend,0,0.0,S6
+2,Fin-Pack Assembly,500,1.0,S6
+3,Tube Expansion,0,0.0,S6
+4,Header Brazing,0,0.0,S6
+5,Pressure & Leak Test,0,0.0,S6
+6,Casing & Final Assembly,0,0.0,S6
+7,Inspection & Packing,0,0.0,S6

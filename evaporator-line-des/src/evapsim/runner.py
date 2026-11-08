@@ -10,10 +10,12 @@ quick-mode replications are the first 50 replications of the full run.
 
 from __future__ import annotations
 
+import atexit
 import multiprocessing
 import os
 from collections.abc import Callable
 from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures.process import BrokenProcessPool
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -71,6 +73,24 @@ def _worker(task: tuple[dict[str, Any], list[int]]) -> list[dict[str, Any]]:
     return [_one(cfg, r) for r in reps]
 
 
+_POOLS: dict[int, ProcessPoolExecutor] = {}
+
+
+def _pool(workers: int) -> ProcessPoolExecutor:
+    """Persistent process pool per worker count (avoids re-spawning for every run).
+
+    The ``spawn`` start method is safe in threaded hosts (Streamlit, pytest) and
+    is the default on macOS and Windows anyway.
+    """
+    ex = _POOLS.get(workers)
+    if ex is None:
+        ex = ProcessPoolExecutor(max_workers=workers,
+                                 mp_context=multiprocessing.get_context("spawn"))
+        _POOLS[workers] = ex
+        atexit.register(ex.shutdown)
+    return ex
+
+
 def default_workers() -> int:
     """Number of worker processes (``EVAPSIM_WORKERS`` env var or CPU count)."""
     env = os.environ.get("EVAPSIM_WORKERS")
@@ -106,12 +126,17 @@ def run_replications(
             if progress:
                 progress(len(outputs), n_reps)
     else:
-        ctx = multiprocessing.get_context("spawn")  # safe with threads (Streamlit, pytest)
-        with ProcessPoolExecutor(max_workers=workers, mp_context=ctx) as ex:
-            for part in ex.map(_worker, tasks):
+        try:
+            parts = _pool(workers).map(_worker, tasks)
+            for part in parts:
                 outputs += part
                 if progress:
                     progress(len(outputs), n_reps)
+        except BrokenProcessPool:
+            _POOLS.pop(workers, None)  # recreate on the next call, finish this one serially
+            outputs = []
+            for t in tasks:
+                outputs += _worker(t)
     return _assemble(label, cfg, outputs)
 
 

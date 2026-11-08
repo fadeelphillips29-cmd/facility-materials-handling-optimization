@@ -245,3 +245,116 @@ def bar_by_department(df: pd.DataFrame, value: str, label_col: str, dept_col: st
     dept_legend(ax, loc="lower center", bbox_to_anchor=(0.5, -0.32 - 2.2 / (len(d) + 4)),
                 fontsize=8)
     return save(fig, path)
+
+
+# --------------------------------------------------------------- run figures
+def resource_dept(cfg) -> dict[str, str]:
+    """Department of each resource (from the first operation it performs)."""
+    out = {}
+    for res in cfg.resources:
+        ops = [o for o in cfg.resource_ops(res) if o != "fin_press"]
+        out[res] = cfg.operations[ops[0]]["department"] if ops else "evaporator"
+    return out
+
+
+def state_bars(rs: pd.DataFrame, title: str, path: Path) -> Path:
+    """Stacked horizontal bars of resource state shares (sorted by active share)."""
+    apply_style()
+    d = rs.sort_values("active")
+    fig, ax = plt.subplots(figsize=(10, 0.4 * len(d) + 1.8))
+    left = np.zeros(len(d))
+    for s in STATE_ORDER:
+        v = d[s].to_numpy() * 100
+        ax.barh(d["label"], v, left=left, color=STATE_COLORS[s], edgecolor=SURFACE,
+                linewidth=1.2, height=0.65, label=s)
+        for y, (lft, w) in enumerate(zip(left, v, strict=True)):
+            if w >= 6:
+                ax.text(lft + w / 2, y, f"{w:.0f}", ha="center", va="center", fontsize=7.5,
+                        color=INK if s in ("changeover", "starved") else "white")
+        left += v
+    ax.set_xlim(0, 100)
+    ax.set_xlabel("Share of available server time (%)")
+    ax.grid(axis="y", visible=False)
+    ax.legend(ncol=5, loc="lower center", bbox_to_anchor=(0.5, 1.0))
+    ax.set_title(title, loc="left", pad=26)
+    return save(fig, path)
+
+
+def lead_time_hist(hists: dict[str, np.ndarray], edges: np.ndarray, title: str, path: Path,
+                   due_days: float | None = None) -> Path:
+    """Order lead-time distribution(s) as step histograms (share of orders per day bin)."""
+    apply_style()
+    fig, ax = plt.subplots(figsize=(9, 4))
+    hi = 0
+    for k, (lab, h) in enumerate(hists.items()):
+        c = h[:-1] / max(1, h.sum()) * 100
+        ax.step(edges[:-1], c, where="post", color=SERIES[k], lw=1.8, label=lab)
+        nz = np.nonzero(c > 0.05)[0]
+        hi = max(hi, int(nz.max()) + 3 if len(nz) else 0)
+    if due_days:
+        ax.axvline(due_days, color=CRITICAL, lw=1.3)
+        ax.text(due_days, ax.get_ylim()[1] * 0.95, f" due date {due_days:.0f} d",
+                color=CRITICAL, fontsize=8.5, va="top")
+    ax.set_xlim(edges[0], max(hi, (due_days or 0) + 3))
+    ax.set_xlabel("Order lead time (working days)")
+    ax.set_ylabel("Share of orders (%)")
+    ax.set_title(title, loc="left")
+    ax.legend(loc="upper right")
+    return save(fig, path)
+
+
+def convergence_figure(conv: pd.DataFrame, target: float, title: str, path: Path) -> Path:
+    """Running mean ± CI (top) and relative half-width (bottom) per metric."""
+    apply_style()
+    metrics = list(dict.fromkeys(conv["metric"]))
+    names = {"lt_mean_days": ("Mean order lead time", "working days"),
+             "throughput_eva_week": ("Throughput", "EVA/week"),
+             "lt_p90_days": ("P90 order lead time", "working days")}
+    fig, axes = plt.subplots(2, len(metrics), figsize=(5.2 * len(metrics), 6.2), squeeze=False)
+    for j, m in enumerate(metrics):
+        d = conv[conv["metric"] == m]
+        name, unit = names.get(m, (m, ""))
+        ax = axes[0, j]
+        ax.fill_between(d["n"], d["running_mean"] - d["ci_half_width"],
+                        d["running_mean"] + d["ci_half_width"], color=SERIES[0], alpha=0.18,
+                        lw=0, label="95% CI")
+        ax.plot(d["n"], d["running_mean"], color=SERIES[0], lw=1.6, label="running mean")
+        s = d[d["n"] >= 10]
+        lo = (s["running_mean"] - s["ci_half_width"]).min()
+        hi = (s["running_mean"] + s["ci_half_width"]).max()
+        ax.set_ylim(lo - 0.15 * (hi - lo), hi + 0.15 * (hi - lo))
+        ax.set_title(name, loc="left")
+        ax.set_ylabel(f"Running mean ({unit})")
+        ax.legend(loc="upper right", fontsize=8)
+        ax2 = axes[1, j]
+        ax2.plot(d["n"], d["rel_half_width_pct"], color=SERIES[1], lw=1.6)
+        ax2.axhline(target, color=INK_2, lw=1)
+        ax2.text(d["n"].max(), target, f"target ±{target:g}%", ha="right", va="bottom",
+                 fontsize=8.5, color=INK_2)
+        ax2.set_ylim(0, min(10, d["rel_half_width_pct"].max() * 1.05))
+        ax2.set_xlabel("Number of replications")
+        ax2.set_ylabel("CI half-width (% of mean)")
+    fig.suptitle(title, x=0.01, ha="left", fontsize=13, fontweight="bold", color=INK)
+    fig.tight_layout()
+    return save(fig, path)
+
+
+def utilisation_vs_handcalc(rs: pd.DataFrame, hc: pd.DataFrame, dept: dict[str, str],
+                            title: str, path: Path) -> Path:
+    """Simulated busy share vs hand-calculated utilisation per resource."""
+    apply_style()
+    d = rs.merge(hc[["resource", "utilisation_with_rework"]], on="resource").sort_values(
+        "active")
+    fig, ax = plt.subplots(figsize=(9.5, 0.42 * len(d) + 1.8))
+    y = np.arange(len(d))
+    ax.barh(y, d["active"] * 100, color=[DEPT_FILL[dept[r]] for r in d["resource"]],
+            edgecolor=[DEPT_EDGE[dept[r]] for r in d["resource"]], lw=1.2, height=0.62,
+            label="simulated active share (busy + changeover + down)")
+    ax.plot(d["utilisation_with_rework"] * 100, y, "|", ms=16, mew=2.2, color=INK,
+            label="hand calculation (incl. expected rework)")
+    ax.set_yticks(y, d["label"])
+    ax.set_xlabel("Utilisation at demand (%)")
+    ax.grid(axis="y", visible=False)
+    ax.set_title(title, loc="left")
+    ax.legend(loc="lower right", fontsize=8.5)
+    return save(fig, path)

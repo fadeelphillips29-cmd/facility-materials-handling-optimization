@@ -1,0 +1,16 @@
+scenario,resource,label,servers,busy,starved,blocked,down,changeover,active,mean_wait_min
+S0,steeking_crew,Steeking crew,1.0,0.52345,0.47655,0.0,0.0,0.0,0.52345,561.00312
+S0,header_welder,Header welder,1.0,0.48188,0.51812,0.0,0.0,0.0,0.48188,383.65939
+S0,hairpin_welder,Hairpin welder,1.0,0.26927,0.73073,0.0,0.0,0.0,0.26927,255.47964
+S0,fin_press_operator,Fin press / boxing operator,1.0,0.19607,0.78043,0.0,0.00784,0.01566,0.21957,95.66967
+S0,assembly_crew,Final assembly crew,1.0,0.1871,0.8129,0.0,0.0,0.0,0.1871,156.64922
+S0,return_bend_welder,Return-bend welder,1.0,0.17953,0.82047,0.0,0.0,0.0,0.17953,143.99289
+S0,header_prep_operator,Header preparation,1.0,0.14966,0.85034,0.0,0.0,0.0,0.14966,132.42779
+S0,sm_assembly_operator,Sheet-metal assembler,1.0,0.13076,0.86924,0.0,0.0,0.0,0.13076,57.40474
+S0,drip_tray_welder,Drip-tray welder,1.0,0.12467,0.87533,0.0,0.0,0.0,0.12467,106.18584
+S0,test_bay,Pressure-test bay,1.0,0.11682,0.88318,0.0,0.0,0.0,0.11682,87.99988
+S0,flat_welder,Flat welder,1.0,0.11207,0.88793,0.0,0.0,0.0,0.11207,90.66427
+S0,expander,Hydraulic expander,1.0,0.10842,0.89158,0.0,0.0,0.0,0.10842,87.08302
+S0,wash_bay,Wash bay,1.0,0.05611,0.94389,0.0,0.0,0.0,0.05611,45.00667
+S0,press_brake_operator,Press brake,1.0,0.04988,0.95012,0.0,0.0,0.0,0.04988,40.16327
+S0,trim_operator,Tube trimmer,1.0,0.04984,0.95016,0.0,0.0,0.0,0.04984,41.3425

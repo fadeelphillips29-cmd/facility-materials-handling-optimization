@@ -1,0 +1,5 @@
+demand_eva_per_week,model,lt_mean_days_mean,lt_mean_days_sd,lt_p95_days_mean,lt_p95_days_sd,throughput_eva_week_mean,throughput_eva_week_sd,on_time_mean,on_time_sd,steeking_util_mean
+3.0,process variability only (steeking 420),22.33381,0.39787,27.10479,1.16523,2.99135,0.11088,0.98508,0.01617,0.52345
+3.0,"two-level (steeking ~ tri(360,420,600))",22.68467,0.63485,27.48333,1.32633,2.99096,0.10991,0.9803,0.01953,0.57187
+5.0,process variability only (steeking 420),23.88655,0.5059,28.81015,1.06941,4.98295,0.13679,0.96717,0.02185,0.87163
+5.0,"two-level (steeking ~ tri(360,420,600))",28.34785,6.96261,35.15612,10.76299,4.84455,0.23603,0.73528,0.32558,0.92262

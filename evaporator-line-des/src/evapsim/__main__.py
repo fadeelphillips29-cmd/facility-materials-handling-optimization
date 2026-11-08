@@ -4,6 +4,10 @@ Steps
 -----
 handcalc     hand-calculated VSM, resource loads, critical path, process-flow figure
 analytic     fin-press calibration, OEE options, weld metrics, analytic Kingman
+data         regenerate data/time_study_samples.csv and data/observed_weekly_output.csv
+input        Phase 3 input analysis (distribution fitting)
+baseline     Phase 5 baseline Monte Carlo + convergence
+uncertainty  Phase 5 two-level Monte Carlo, variance decomposition, steeking cases
 report       regenerate README/docs tables from config and results
 """
 
@@ -37,6 +41,37 @@ def _analytic(args: argparse.Namespace) -> None:
     from .pipeline import step_analytic
 
     step_analytic()
+
+
+@step("data")
+def _data(args: argparse.Namespace) -> None:
+    from .datagen import write_observed, write_time_study
+
+    print(write_time_study())
+    print(write_observed())
+
+
+@step("input")
+def _input(args: argparse.Namespace) -> None:
+    from .input_analysis import run_input_analysis
+
+    d = run_input_analysis()
+    print(d[d["selected"]][["operation", "distribution", "delta_aic", "ks_pvalue"]]
+          .round(3).to_string(index=False))
+
+
+@step("baseline")
+def _baseline(args: argparse.Namespace) -> None:
+    from .pipeline import step_baseline
+
+    step_baseline(args.quick, args.reps, args.workers)
+
+
+@step("uncertainty")
+def _uncertainty(args: argparse.Namespace) -> None:
+    from .pipeline import step_uncertainty
+
+    step_uncertainty(args.quick, args.workers)
 
 
 @step("report")

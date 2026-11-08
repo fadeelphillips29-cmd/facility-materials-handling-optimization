@@ -1,0 +1,3 @@
+measure,unit,observed_mean,n_observed,simulated_mean,sim_pi95_low,sim_pi95_high,error_pct,within_target,prediction_interval_p,welch_t_p,verdict
+Mean weekly output,EVA/week,2.88462,26,2.97679,2.65385,3.34615,3.19556,True,0.78405,0.51447,valid
+Mean order lead time,working days,24.284,25,23.14178,21.93294,24.44605,-4.7036,True,0.09302,0.10378,valid

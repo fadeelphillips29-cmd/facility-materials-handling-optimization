@@ -1,9 +1,9 @@
 ,mean_eva
-wip_total,13.1831
-wip_peak,19.4833
+wip_total,13.655
+wip_peak,20.0767
 wip_engineering,0.6002
 wip_waiting_card,0.0
-wip_prep,5.8114
-wip_coil_line,4.5935
-wip_coating,1.7955
-wip_final_assembly,0.3825
+wip_prep,6.2656
+wip_coil_line,4.6109
+wip_coating,1.7956
+wip_final_assembly,0.3826

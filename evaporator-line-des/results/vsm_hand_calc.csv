@@ -1,7 +1,7 @@
 step,station,label,department,source,resource,operators,per_eva_min,per_lot_min,labour_min_per_eva,t_op_min,n_ops,ops_per_min,oee,capacity_eva_per_shift,capacity_eva_per_week,station_utilisation_at_demand,resource_utilisation_at_demand,is_bottleneck_resource,lead_time_days
 1,engineering_release,Engineering drawing release,engineering,assumed,(calendar delay),0,,480.0,,,,,,,,,,,1.0
 2,procurement_sheet_metal,Procure sheet metal (cut to size),outsourced,assumed,(calendar delay),0,,1920.0,,,,,,,,,,,4.0
-2,procurement_tubing,Procure tubing,outsourced,assumed,(calendar delay),0,,3840.0,,,,,,,,,,,8.0
+2,procurement_tubing,Procure tubing,outsourced,assumed,(calendar delay),0,,4200.0,,,,,,,,,,,8.75
 3,fin_press,Fin Press (setup + punching),evaporator,time study,fin_press_operator,1,76.2022,228.6066,76.2022,0.0133,4000.0,75.0,0.6999,6.299,31.4951,0.0953,0.2203,False,
 5,boxing,Boxing (modules + end panels),evaporator,assumed,fin_press_operator,1,100.0,300.0,100.0,,,,,4.8,24.0,0.125,0.2203,False,
 6,trim_tubes,Trim Tubes,evaporator,assumed,trim_operator,1,40.0,120.0,40.0,,,,,12.0,60.0,0.05,0.05,False,

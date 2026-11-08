@@ -1,0 +1,12 @@
+parameter,value,simulated_lt_mean_days,observed_lt_mean_days,error_pct,prediction_interval_p,passes,selected_min_change,best_fit
+lead_times.procurement_tubing.mean_days,8.0,22.35479,24.284,-7.94437,0.01993,False,False,False
+lead_times.procurement_tubing.mean_days,8.25,22.61989,24.284,-6.85271,0.01993,False,False,False
+lead_times.procurement_tubing.mean_days,8.5,22.87806,24.284,-5.78959,0.03322,False,False,False
+lead_times.procurement_tubing.mean_days,8.75,23.14178,24.284,-4.7036,0.09302,True,True,False
+lead_times.procurement_tubing.mean_days,9.0,23.40741,24.284,-3.60975,0.23256,True,False,False
+lead_times.procurement_tubing.mean_days,9.25,23.66802,24.284,-2.53655,0.33887,True,False,False
+lead_times.procurement_tubing.mean_days,9.5,23.92951,24.284,-1.45977,0.61794,True,False,False
+lead_times.procurement_tubing.mean_days,9.75,24.18612,24.284,-0.40307,0.83721,True,False,True
+lead_times.procurement_tubing.mean_days,10.0,24.45061,24.284,0.68608,0.83721,True,False,False
+lead_times.procurement_tubing.mean_days,10.25,24.71709,24.284,1.78343,0.59136,True,False,False
+lead_times.procurement_tubing.mean_days,10.5,24.9795,24.284,2.86402,0.34551,True,False,False

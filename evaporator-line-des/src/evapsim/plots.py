@@ -358,3 +358,36 @@ def utilisation_vs_handcalc(rs: pd.DataFrame, hc: pd.DataFrame, dept: dict[str, 
     ax.set_title(title, loc="left")
     ax.legend(loc="lower right", fontsize=8.5)
     return save(fig, path)
+
+
+def validation_figure(obs: pd.DataFrame, obs_lt: np.ndarray, sim_th: np.ndarray,
+                      sim_lt: np.ndarray, demand: float, path: Path) -> Path:
+    """Observed vs simulated: weekly output and the 26-week mean order lead time."""
+    apply_style()
+    fig, axes = plt.subplots(1, 3, figsize=(15.5, 4.2))
+    ax = axes[0]
+    ax.bar(obs["week"], obs["eva_completed"], color=SERIES[1], width=0.7, label="observed")
+    ax.axhline(demand, color=CRITICAL, lw=1.3, label=f"demand {demand:g}/week")
+    ax.axhline(obs["eva_completed"].mean(), color=INK_2, lw=1.1,
+               label=f"observed mean {obs['eva_completed'].mean():.2f}")
+    ax.set_xlabel("Week")
+    ax.set_ylabel("EVA completed per week")
+    ax.set_title("Observed weekly output", loc="left")
+    ax.legend(loc="upper right", fontsize=8)
+    for ax, sim, o, lab, unit in ((axes[1], sim_th, float(obs["eva_completed"].mean()),
+                                   "Mean weekly output", "EVA/week"),
+                                  (axes[2], sim_lt, float(np.mean(obs_lt)),
+                                   "Mean order lead time", "working days")):
+        ax.hist(sim, bins=30, color=SERIES[0], edgecolor=SURFACE, lw=1,
+                label="simulated 26-week means")
+        lo, hi = np.percentile(sim, [2.5, 97.5])
+        ax.axvspan(lo, hi, color=GRID, alpha=0.5, lw=0, zorder=0, label="95% prediction interval")
+        ax.axvline(o, color=SERIES[1], lw=2.2, label=f"observed {o:.2f}")
+        ax.set_xlabel(f"{lab} over 26 weeks ({unit})")
+        ax.set_ylabel("Replications")
+        ax.set_title(lab, loc="left")
+        ax.legend(loc="upper left", fontsize=8)
+    fig.suptitle("Validation: nominal model vs observed (illustrative) data", x=0.01, ha="left",
+                 fontsize=13, fontweight="bold", color=INK)
+    fig.tight_layout()
+    return save(fig, path)

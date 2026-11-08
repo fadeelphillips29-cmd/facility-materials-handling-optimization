@@ -2,12 +2,15 @@
   "baseline": {
     "base_seed": 20260521,
     "replications": 300,
-    "runtime_s": 10.3
+    "runtime_s": 9.5
   },
   "uncertainty": {
     "case_reps": 100,
     "inner": 10,
     "outer": 40,
     "two_level_reps": 300
+  },
+  "validate": {
+    "replications": 300
   }
 }

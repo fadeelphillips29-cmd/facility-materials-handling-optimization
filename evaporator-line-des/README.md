@@ -36,7 +36,7 @@ Hand-calculated VSM table:
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | Engineering drawing release | engineering | assumed | - | 1 d | - | - | - | - | - |
 | 2 | Procure sheet metal (cut to size) | outsourced | assumed | - | 4 d | - | - | - | - | - |
-| 2 | Procure tubing | outsourced | assumed | - | 8 d | - | - | - | - | - |
+| 2 | Procure tubing | outsourced | assumed | - | 8.75 d | - | - | - | - | - |
 | 3 | Fin Press (setup + punching) | evaporator | time study | 76.2 | 228.6 | 1 | 76.2 | 6.30 | 31.50 | 22.0 % |
 | 5 | Boxing (modules + end panels) | evaporator | assumed | 100.0 | 300.0 | 1 | 100.0 | 4.80 | 24.00 | 22.0 % |
 | 6 | Trim Tubes | evaporator | assumed | 40.0 | 120.0 | 1 | 40.0 | 12.00 | 60.00 | 5.0 % |

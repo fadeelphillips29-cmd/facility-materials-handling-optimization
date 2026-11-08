@@ -91,10 +91,13 @@ def test_kingman_and_littles_law():
 
 def test_critical_path_hand_calc(base_cfg):
     cp = eq.deterministic_lead_time(base_cfg)
-    # 480 release + 3840 tubing + 120 trim + 648 hairpins + 1260 steek + 432 + 261 + 1152
-    # + 135 wash + 270 test + 1440 coating + 450 assembly
+    tubing = base_cfg.lead_time_mean_min("procurement_tubing")
+    # release + tubing + 120 trim + 648 hairpins + 1260 steek + 432 + 261 + 1152
+    # + 135 wash + 270 test + 1440 coating + 450 assembly (critical path through tubing)
     assert cp["lead_time_min"] == pytest.approx(
-        480 + 3840 + 120 + 648 + 1260 + 432 + 261 + 1152 + 135 + 270 + 1440 + 450)
+        480 + tubing + 120 + 648 + 1260 + 432 + 261 + 1152 + 135 + 270 + 1440 + 450)
+    brief = apply_overrides(base_cfg, {"lead_times": {"procurement_tubing": {"mean_days": 8.0}}})
+    assert eq.deterministic_lead_time(brief)["lead_time_min"] == 10488   # whiteboard lead time
     tb1 = eq.deterministic_lead_time(apply_overrides(base_cfg, {"orders": {"transfer_batch": 1}}))
     assert tb1["lead_time_min"] < cp["lead_time_min"]
 
@@ -114,7 +117,7 @@ def test_hand_calc_table(base_cfg):
     assert t.loc["steeking", "per_lot_min"] == 1260
     assert bool(t.loc["steeking", "is_bottleneck_resource"])
     assert t.loc["header_welding", "capacity_eva_per_shift"] == pytest.approx(1.25)
-    assert t.loc["procurement_tubing", "lead_time_days"] == 8
+    assert t.loc["procurement_tubing", "lead_time_days"] == 8.75   # calibrated (Phase 6)
 
 
 @pytest.mark.parametrize("bad", [

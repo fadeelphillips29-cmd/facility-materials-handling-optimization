@@ -57,8 +57,13 @@ def input_register() -> str:
         rows.append({"Input": f"operations.{op}", "Value": f"{val}, CV {o['cv']}, crew {crew}",
                      "Unit": "per EVA", "Source": o["source"]})
     for k, lt in cfg.raw["lead_times"].items():
-        rows.append({"Input": f"lead_times.{k}", "Value": f"{lt['mean_days']} d, CV {lt['cv']}",
-                     "Unit": "working days", "Source": lt["source"]})
+        val = f"{lt['mean_days']} d, CV {lt['cv']}"
+        src = lt["source"]
+        if lt.get("calibrated"):
+            val += f" (brief {lt['brief_mean_days']} d)"
+            src += ", calibrated (A35)"
+        rows.append({"Input": f"lead_times.{k}", "Value": val, "Unit": "working days",
+                     "Source": src})
     rw = cfg.raw["rework"]
     rows.append({"Input": "rework", "Value": f"p = {rw['fail_prob']}, {rw['rework_min']} min",
                  "Unit": "-", "Source": rw["source"]})

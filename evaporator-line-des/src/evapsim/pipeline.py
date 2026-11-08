@@ -292,3 +292,23 @@ def step_uncertainty(quick: bool = False, workers: int | None = None) -> None:
     pd.DataFrame(cases).round(4).to_csv(out / "steeking_cases.csv", index=False)
     write_meta(out, "uncertainty", {"outer": n_out, "inner": n_in, "two_level_reps": n,
                                     "case_reps": ns})
+
+
+def step_validate(quick: bool = False, workers: int | None = None) -> None:
+    """Phase 6: validation vs observed data + Kingman cross-check."""
+    from .validation import calibration_grid, kingman_check, run_validation
+
+    cfg = load_config()
+    out, fig = out_dirs(quick)
+    n = n_reps(cfg, quick)
+    s = run_validation(out, fig, n, workers, cfg)
+    log("validation:\n" + s[["measure", "observed_mean", "simulated_mean", "error_pct",
+                             "prediction_interval_p", "verdict"]].round(3).to_string(index=False))
+    k = kingman_check(cfg, [3.0, 4.0, 5.0, 5.5], reps=10 if quick else 30)
+    k.round(4).to_csv(out / "kingman_check.csv", index=False)
+    grid = calibration_grid(cfg, n, workers)
+    grid.round(5).to_csv(out / "calibration_grid.csv", index=False)
+    sel = grid[grid["selected_min_change"]]
+    log(f"calibration: min-change value {float(sel['value'].iloc[0]) if len(sel) else 'none'}, "
+        f"best fit {float(grid[grid['best_fit']]['value'].iloc[0])}")
+    write_meta(out, "validate", {"replications": n})

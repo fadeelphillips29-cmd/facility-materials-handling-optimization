@@ -230,7 +230,7 @@ crew_efficiency: {1: 1.0, 2: 1.0, 3: 0.85, 4: 0.75}
 lead_times:
   engineering_release:     {label: "Engineering drawing release", department: engineering, mean_days: 1.0, cv: 0.30, source: assumed}
   procurement_sheet_metal: {label: "Procure sheet metal (cut to size)", department: outsourced, mean_days: 4.0, cv: 0.25, source: assumed}
-  procurement_tubing:      {label: "Procure tubing", department: outsourced, mean_days: 8.0, cv: 0.30, source: assumed}
+  procurement_tubing:      {label: "Procure tubing", department: outsourced, mean_days: 8.75, brief_mean_days: 8.0, calibrated: true, cv: 0.30, source: assumed}   # calibrated in Phase 6
   drip_tray_external:      {label: "Drip tray: external bend & punch", department: outsourced, mean_days: 5.0, cv: 0.30, source: assumed}
   coating:                 {label: "Powder coating / galvanising", department: outsourced, mean_days: 3.0, cv: 0.30, source: assumed}
 

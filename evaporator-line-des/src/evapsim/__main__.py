@@ -7,6 +7,7 @@ analytic     fin-press calibration, OEE options, weld metrics, analytic Kingman
 data         regenerate data/time_study_samples.csv and data/observed_weekly_output.csv
 input        Phase 3 input analysis (distribution fitting)
 baseline     Phase 5 baseline Monte Carlo + convergence
+validate     Phase 6 validation vs data/observed_weekly_output.csv + Kingman check
 uncertainty  Phase 5 two-level Monte Carlo, variance decomposition, steeking cases
 report       regenerate README/docs tables from config and results
 """
@@ -72,6 +73,13 @@ def _uncertainty(args: argparse.Namespace) -> None:
     from .pipeline import step_uncertainty
 
     step_uncertainty(args.quick, args.workers)
+
+
+@step("validate")
+def _validate(args: argparse.Namespace) -> None:
+    from .pipeline import step_validate
+
+    step_validate(args.quick, args.workers)
 
 
 @step("report")

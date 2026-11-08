@@ -1,76 +1,126 @@
-# Assumptions and design decisions
+# Assumptions, decisions and data dictionary
 
-> **All data in this project is fictional.** The line, its parameters, the
-> time-study samples and the "observed" line data were invented for a
-> portfolio project and do not describe any real company, plant or product.
+> **Illustrative and anonymised data.** The organisation is called "the
+> Company". Every time and probability below is an illustrative or anonymised
+> input, used to demonstrate the method. None of them is measured company
+> data. `time_scale_factor` in `config/line_parameters.yaml` rescales every
+> process time before publication.
 
-This file records every assumption made where the project brief was silent or
-ambiguous, so a reviewer can see exactly what was decided and why. IDs are
-referenced from code comments and the other documents.
+Each input has a **source tag**:
 
-## 1. Problem definition and scope
+| Tag | Meaning |
+|---|---|
+| **time study** | Taken from the (anonymised) time study or whiteboard |
+| **estimate** | An estimate that still needs a proper time study (steeking) |
+| **assumed** | An engineering assumption made for this model, to be replaced by data |
 
-| ID | Assumption | Rationale |
+## 1. Input register (data dictionary)
+
+This table is generated from `config/line_parameters.yaml` by `make report`.
+
+<!-- BEGIN:input_register -->
+| Input | Value | Unit | Source |
+|---|---|---|---|
+| fin_press.nominal_rate_fpm | 75 | fins/min | time study |
+| fin_press.good_fins_per_eva | 4000 | fins/EVA | time study |
+| fin_press.setup_min | 30 | min/job | time study |
+| fin_press.setup_cv | 0.25 | - | assumed |
+| fin_press.performance | 0.95 | - | time study |
+| fin_press.quality | 0.98 | - | time study |
+| fin_press.mtbf_min | 270 | min run time | time study |
+| fin_press.mttr_min | 30 | min | time study |
+| fin_press.mttr_cv | 0.5 | - | assumed |
+| fin_press.reel_fins | 8000 | fins/reel | time study |
+| fin_press.reload_min | 5 | min/reel | time study |
+| operations.boxing | 100 min, CV 0.15, crew 1 | per EVA | assumed |
+| operations.trim_tubes | 40 min, CV 0.15, crew 1 | per EVA | assumed |
+| operations.weld_hairpins | 54 x 4 min, CV 0.12, crew 1 | per EVA | time study |
+| operations.steeking | 420 min, CV 0.2, crew 2 | per EVA | estimate |
+| operations.weld_return_bends | 36 x 4 min, CV 0.12, crew 1 | per EVA | time study |
+| operations.expansion | 24 x 3 min + 15 min, CV 0.1, crew 1 | per EVA | time study |
+| operations.prepare_headers | 120 min, CV 0.15, crew 1 | per EVA | assumed |
+| operations.header_welding | 48 x 8 min, CV 0.15, crew 1 | per EVA | time study |
+| operations.wash | 45 min, CV 0.15, crew 1 | per EVA | assumed |
+| operations.pressure_test | 90 min, CV 0.15, crew 1 | per EVA | assumed |
+| operations.press_brake | 40 min, CV 0.15, crew 1 | per EVA | assumed |
+| operations.flat_welding | 90 min, CV 0.15, crew 1 | per EVA | assumed |
+| operations.plenum_assembly | 60 min, CV 0.15, crew 1 | per EVA | assumed |
+| operations.drip_tray_weld | 100 min, CV 0.15, crew 1 | per EVA | assumed |
+| operations.drip_tray_assembly | 45 min, CV 0.15, crew 1 | per EVA | assumed |
+| operations.complete_assembly | 150 min, CV 0.15, crew 2 | per EVA | assumed |
+| lead_times.engineering_release | 1.0 d, CV 0.3 | working days | assumed |
+| lead_times.procurement_sheet_metal | 4.0 d, CV 0.25 | working days | assumed |
+| lead_times.procurement_tubing | 8.0 d, CV 0.3 | working days | assumed |
+| lead_times.drip_tray_external | 5.0 d, CV 0.3 | working days | assumed |
+| lead_times.coating | 3.0 d, CV 0.3 | working days | assumed |
+| rework | p = 0.04, 60 min | - | assumed |
+| demand.eva_per_week | 3.0 | EVA/week | time study (whiteboard, to confirm) |
+| demand.interarrival_cv | 0.25 | - | assumed |
+| demand.due_date_weeks | 6.0 | weeks | assumed |
+| crew_efficiency | {1: 1.0, 2: 1.0, 3: 0.85, 4: 0.75} | eta(crew) | assumed |
+| input_uncertainty.steeking_triangular_min | [360, 420, 600] | min/EVA | estimate |
+<!-- END:input_register -->
+
+## 2. Process structure
+
+| ID | Assumption / decision | Rationale |
 |---|---|---|
-| A1 | The system boundary is the line from release into Station 1 to the exit of Station 7. Raw-material and finished-goods stores are outside the simulation and appear only on the VSM (`vsm.raw_material_stock_days`, `vsm.finished_goods_stock_days`). | The brief describes the seven stations and their buffers. Store levels are policy decisions that the line model cannot predict. |
-| A2 | The line is **saturated**: raw material is always available, so throughput is set by line capacity, not by order arrivals. | The brief gives an unlimited raw-material buffer. With demand above capacity (see A20), a demand-driven arrival process would make the queue grow without limit and lead time would depend on the horizon. |
-| A3 | Simulated time is **productive time only**. One day = 480 min of net productive time. The line freezes at the end of a shift and resumes with the same WIP the next day, so no events happen between shifts. | The brief states 480 net productive minutes after breaks. Nothing changes state between shifts on a one-shift line. |
-| A4 | "20 production days with 1 day warm-up" means **21 simulated days**. Day 1 is discarded and days 2-21 are measured. | This keeps 20 measured days in each replication, which matches the 20 days of observed data. |
-| A5 | Lead time is **line lead time**: the time from release into Station 1 to exit from Station 7, in productive minutes. It is also reported in shift-days (minutes / 480). | Lead time must be measured inside the model boundary (A1). The VSM door-to-door lead time adds the store days from A1. |
+| A1 | The unit of flow is the **EVA** (one evaporator). Work orders of B = 3 EVA are released together, so the process lot is 3. The transfer batch between stations is 3 in the baseline and can be set to 1. | Brief. |
+| A2 | **Order of cleaning and testing**: `wash_before_test: true` (Cleaning, step 11, comes before Pressure test, step 12), following the written steps. The original flowchart shows the reverse order, which `wash_before_test: false` reproduces. | The written steps are more specific than the flowchart. Both orders are supported and documented. |
+| A3 | **Engineering drawing release** is a calendar delay (lognormal, mean 1 working day, CV 0.30 assumed). It has no capacity limit. | No engineering capacity data were given. |
+| A4 | Sheet metal and tubing are **ordered at drawing release**. Fin-press setup and punching start at drawing release too, in parallel with procurement (step 3). | Brief, steps 2-3. |
+| A5 | **Tube-dependent steps** wait for tubing: boxing (modules are tubes), trim tubes, weld hairpins and **prepare headers** (header pipe is assumed to be part of the tubing order). Stainless strip for the fin press and the end panels are stock items. | Brief: "the order cannot start the tube-dependent steps until tubing arrives". Header material is not specified, so this is an assumption. |
+| A6 | **Boxing** is done by the fin-press operator. For each EVA it needs that EVA's fin pack *and* the tubing. The operator holds the fin press for the whole job (setup plus all B EVA), and then competes FIFO for boxing work with fin-press jobs of other orders. | Brief steps 4-5: "the same operator". |
+| A7 | **Joins.** Steeking of an EVA needs its fin pack, its boxed module and its circuits. Header welding needs the expanded coil and the prepared headers. Complete assembly needs the coil (after coating), the plenum and the drip tray of the same EVA. A join waits until every input is present (`test_join_never_starts_early`). | Brief. |
+| A8 | **Steeking** uses one steeking fixture worked by a crew. The elapsed time is labour content / (crew × eta(crew)), with labour = 420 min × 2 = 840 operator-min per EVA, eta(2) = 1 and eta(3) = 0.85. A third operator therefore gives 329.4 min/EVA. | Brief equation B. One coil is laced at a time. |
+| A9 | **Pressure-test failure**: each test fails independently with p = 0.04 (assumed). A failed coil is repaired for 60 min by the **header welder** (the rework resource, assumed), and then retested. It is not re-washed. | Brief: "60 min weld repair at the header/return-bend operator". Header joints are assumed to be the usual leak point. |
+| A10 | **Outsourced coating** (powder coat / galvanising, flag on by default) is a calendar delay applied to each transfer batch of coils after the final test. Outsourcing capacity is unlimited. | External suppliers' capacity is outside the model. |
+| A11 | **Drip tray**: the sheet plates go out for bending and punching as one lot per work order. After they return, they are welded (drip-tray welder) and assembled (the sheet-metal assembler, who also assembles plenums). | Brief step 14. |
+| A12 | **Complete assembly** uses a 2-person crew for 150 min elapsed per EVA (labour 300 operator-min). | Brief. |
+| A13 | Inter-station queues are **unlimited**, so no resource is ever *blocked*. The blocked state is still tracked (and is always 0) so the state model matches the brief. Its share is reported as 0 with this explanation. | A low-volume, engineer-to-order shop does not have kanban-limited buffers. Waiting WIP shows up as queue time instead. |
+| A14 | Queues are FIFO by request time. Rework jobs have priority at the header welder. | Neutral dispatching, plus fast repair of failed coils. |
 
-## 2. Products, orders and release
+## 3. Time base, calendar and demand
 
-| ID | Assumption | Rationale |
+| ID | Assumption / decision | Rationale |
 |---|---|---|
-| A6 | Orders are batches of 20 units of one model. The batch sequence is random, and each batch's model is drawn independently using the mix probabilities (30/50/20). | No sequencing rule was given. Independent draws are the neutral choice. The expected share of batches that switch model is 1 - (0.3² + 0.5² + 0.2²) = 62 %. |
-| A7 | Each unit's cycle time at every station is the station's lognormal variate multiplied by the model's multiplier (0.85 / 1.00 / 1.25). Rework, changeover and repair times do not depend on the model. | This follows the brief. The demand-weighted average multiplier is 1.005. |
-| A8 | **CONWIP**: Station 1 may start a new unit only while fewer than `conwip_limit` units are in the line. A unit holds its card from release until it exits or is scrapped. **Unlimited**: Station 1 starts a new unit whenever it is free. | This is the standard CONWIP card loop. Releasing a unit when Station 1 pulls it puts the authorisation point at the line entrance, which is where the WIP limit applies. |
-| A9 | A scrapped unit is not replaced, so its batch finishes short. | This is the simplest rule. Replacing scrapped units would need an order-management policy that the brief does not give. |
-| A10 | The line is set up for the first batch's model at time 0, so the first unit triggers no changeover. | This avoids an artificial changeover at the start. The warm-up period removes the effect either way. |
+| A15 | Clock = **working minutes**: 480 per day, 5 days per week (2,400 per week). Nights and weekends are not simulated. Procurement and outsourcing lead times are in working days. | Brief. |
+| A16 | **Run length**: 8 warm-up weeks are discarded, then **52 weeks are measured** (one full year), so 60 simulated weeks in total. | A 52-week measured year is the planning horizon. A single order takes about 4.4 weeks in the empty system, so an 8-week warm-up fills the pipeline. |
+| A17 | **Demand**: work orders arrive with mean interarrival B / demand weeks. The baseline is 1 order of 3 EVA per week (whiteboard, to be confirmed). Arrivals are lognormal with CV 0.25 (assumed order-intake variability). The demand sweep uses 3, 4, 5, 5.5 and 6 EVA/week. | The brief gives the rate. A small amount of arrival variability is realistic, and the Kingman check needs it. |
+| A18 | **Due date** = arrival + 6 weeks (assumed promised lead time), used for on-time delivery. | No promise date was given. The hand-calculated lead time of a single order is about 4.4 weeks, so 6 weeks includes some slack. |
+| A19 | **Order lead time** runs from the order's arrival (before drawing release and any CONWIP wait) to the completion of its last EVA. EVA lead time runs from the order's arrival to that EVA's completion. | This is the customer-facing lead time. |
+| A20 | `time_scale_factor` multiplies every **process** time: operation times, rework, fin-press setup, run time (through the rate), reel reload and MTTR. MTBF is scaled too, so availability and OEE do not change. Calendar delays (engineering, procurement, outsourcing) are **not** scaled. | Lets the author anonymise touch times without changing the structure of the results. |
 
-## 3. Stations, buffers and failures
+## 4. Fin press
 
-| ID | Assumption | Rationale |
+| ID | Assumption / decision | Rationale |
 |---|---|---|
-| A11 | The cycle-time mean and CV in the YAML refer to the **Medium** model (multiplier 1.00). Time-study samples are of the Medium model. | Engineering standards are usually set for a reference model. |
-| A12 | Breakdowns are **operation-dependent**. Each machine keeps an exponential time-to-failure clock (mean MTBF) that runs only while it is processing, including rework. Repair time is exponential (mean MTTR). A part being processed when the machine fails resumes after repair without losing work. | The brief says "exponential MTBF/MTTR, only while processing". Resuming work is the usual assumption for assembly operations. |
-| A13 | A changeover happens when the next *new* unit's model differs from the last model the machine processed. Its duration is lognormal with the configured mean and CV 0.10 (`simulation.changeover_cv`). Changeover time is not operating time, so it does not advance the failure clock. Each parallel machine changes over independently. | A small amount of variability is realistic. With CV set to 0, changeovers are fixed, as in verification mode. |
-| A14 | Inter-station buffers are finite (5 units in the baseline). A finished unit stays on its machine until the downstream buffer has space (**blocking after service**). Station 7 feeds an unlimited finished-goods area. | This follows the brief. |
-| A15 | Parallel servers (Station 6, and Station 4 in S3) share one input buffer, which they take from in FIFO order. | This is a standard multi-server queue. |
-| A16 | Scrap is decided when processing at a station finishes, by an independent Bernoulli trial at the station's scrap rate. A scrapped unit leaves the line right away and frees its CONWIP card. | This follows the brief. |
-| A17 | **Rework loop**: a unit that fails the Station 5 test (2.5 %) is reworked at Station 4 with probability 0.40 and is otherwise scrapped. Reworked units wait in a dedicated rework queue at Station 4 that has priority over new work and does not use buffer slots. Rework takes lognormal(90 s, CV 0.20), triggers no changeover and does not change the fixture set-up. After rework the unit goes back through the 4→5 buffer for a complete re-test. A unit that fails a second time is scrapped (`max_reworks_per_unit: 1`). | If returned units had to use the finite 4→5 buffer in reverse, the loop could deadlock: Station 5 would be blocked by a full Station 4 input while Station 4 was blocked by a full 4→5 buffer. A separate priority rework queue is a common real-life layout (a rework rack) and cannot deadlock. |
+| A21 | Calibrated parameters: F = 4,000 good fins per EVA, S = 30 min, P = 0.95, Q = 0.98, MTBF = 270 min of run time, MTTR = 30 min (A_u = 0.90), reel R = 8,000 fins, reload t_r = 5 min. Equations A1-A5 give **T_job = 228.6 min per 3 EVA** (76.2 min/EVA) and **OEE = 69.99 %**. The whiteboard figure of 229 min is this value rounded. All tables use the exact value, 228.6 min. | Brief eq. A8: F = 0.70 × 75 × 229 / 3 = 4,007.5 ≈ 4,000. |
+| A22 | Stochastic fin press (eq. A9). Setup is lognormal (CV 0.25). Scrap is Bernoulli(1 - Q) per fin, so the scrap count per EVA follows a negative binomial. Run time = gross fins / (r_n · P). Unplanned stops arrive at rate 1/MTBF of **run time**, with lognormal repairs (mean MTTR, CV 0.50 assumed). The reel is changed (t_r) every R gross fins, and the reel carries over between EVAs and jobs. Setup and reel changes are recorded as *changeover*, repairs as *down*. | Brief A9. The simulated mean must be within 1 % of T_job/B (test). |
+| A23 | **Scenario S4 (OEE 70 % → 85 %).** The analytical model shows that SMED alone (setup -40 %, to 18 min) only raises OEE to **73.9 %**. With S = 18 min, Q = 0.98 and a 5-min reel change, OEE is capped at 84.7 % even with perfect availability and speed. Reaching 85 % therefore needs a package: setup 18 min, MTBF 540 min, MTTR 10 min, P = 0.985, Q = 0.99 and a 2-min quick reel change, which gives OEE = 85.0 %. This is recorded as a deviation from the brief's "SMED + reduced stops", which cannot reach 85 % on its own. | Found while building the analytical model (BUILD_PHASES, Phase 2). |
 
-## 4. Statistical design
+## 5. Variability and statistics
 
-| ID | Assumption | Rationale |
+| ID | Assumption / decision | Rationale |
 |---|---|---|
-| A18 | Replication *r* of every scenario uses the same `SeedSequence(base_seed, spawn_key=(r, stream))` streams: one for orders and unit attributes, plus one per machine for failures and changeovers. Each unit carries its own pre-drawn normals and uniforms, so the same unit gets the same relative cycle times and quality outcomes in every scenario. | This gives **common random numbers** with good synchronisation, which reduces the variance of paired differences between scenarios. |
-| A19 | Confidence intervals are Student-t intervals on replication means. Scenario comparisons use the **paired-t** method on differences per replication against S0. | Replication means are independent and close to normal, by the CLT over 20 days. Pairing uses the CRN correlation. |
-| A20 | The baseline parameters are used **exactly as given in the brief** and were not tuned to look good. A static capacity check (see `docs/MODEL_DESCRIPTION.md`) shows the brazing station's effective time per unit, including breakdowns and changeovers, is far above takt. A large shortfall against takt is therefore expected, and it is what the brief asks the analysis to show. | Changing the parameters to shrink the gap would misrepresent the brief. Scenario S6 (an addition) tests what it takes to reach takt. |
+| A24 | Process times are **lognormal** with the standard time as the mean. CVs (assumed): fin-press job 0.10 (time-study data only; the DES builds the fin press up mechanistically, A22), hairpins 0.12, steeking 0.20, return bends 0.12, expansion 0.10, header welding 0.15, everything else 0.15. Phase 3 confirms the lognormal choice. | Brief. |
+| A25 | **Deterministic (verification) mode**: every CV is 0, there are no fin-press stops or scrap (the analytical T_eva is used instead), no test failures, arrivals are exactly periodic and calendar delays are at their means. | It must reproduce the hand calculation exactly. |
+| A26 | **Common random numbers.** Each work order draws its own standard normals and uniforms (for every operation of every EVA, its delays and its test outcomes), in arrival order, from stream `(rep, 0)`. The fin press uses its own stream `(rep, 1)`, and the outer-loop input sample uses `(rep, 9)`. Changing a mean, crew size, demand level or scenario therefore keeps the random events paired. | Variance reduction for the paired comparisons. |
+| A27 | **Two-level Monte Carlo**: the outer loop samples the steeking mean from triangular(360, 420, 600) min/EVA (mean 460) once per replication. The variance decomposition uses a nested design (40 outer samples × 10 inner replications) and one-way random-effects ANOVA. The steeking cases at 6, 7, 16 and 20 h are run as separate deterministic-mean sensitivity cases. | Brief. Steeking is the least certain and most important input. |
+| A28 | Confidence intervals are Student-t intervals on replication means. Scenario differences use the paired-t method against S0, at the same demand level. | These are standard simulation output-analysis methods. |
+| A29 | **Bottleneck per replication** = the resource with the highest active share (busy + changeover + down). The resource with the longest mean queue time is reported as a second measure. | Brief: "highest utilisation or queue". |
+| A30 | **Value-added time** = the sum of in-house processing times per EVA (all operations and the fin press). Delays, queues and outsourced lead times count as non-value-added. VA ratio = VA time / order lead time. | Conventional VSM practice. |
 
-## 5. Metrics
+## 6. Validation data
 
-| ID | Assumption | Rationale |
+| ID | Assumption / decision | Rationale |
 |---|---|---|
-| A21 | **Bottleneck detection** uses the *active-period* share = busy + down + changeover, which equals 1 - starved - blocked. The station with the highest active share in a replication is that replication's bottleneck. The brief's literal "busy + blocked" share is also computed and reported, but it is **not** used, because it ranks stations that are blocked by the bottleneck (Stations 1-3) above the bottleneck itself. See BUILD_PHASES, Phase 4. | A blocked station is waiting for its downstream neighbour, which is a symptom of a constraint downstream, not a constraint itself. |
-| A22 | Utilisation = share of scheduled time a machine spends processing (busy), averaged over the station's parallel servers. | This is the conventional definition. Down and changeover time are reported separately. |
-| A23 | First-pass yield (line) = units that leave Station 7 without ever failing a test or being scrapped / units that finished (left the line good or scrapped) during the measurement window. Station FPY = 1 - scrap (or fail) share at that station. | These are the standard FPY and RTY definitions. |
-| A24 | VSM value-added time = the processing time at each station (cycle time), as on a conventional VSM. Test, inspection and packing are counted as processing time. The line VA ratio is mean VA time per good unit / mean line lead time. The door-to-door VA ratio also includes the raw-material and finished-goods store days from A1. | This is conventional VSM practice. The lean distinction between value-adding and necessary non-value-adding work is listed under limitations. |
-| A25 | Days of stock = average units in a buffer / daily customer demand (380). | This is the standard VSM conversion. |
-| A26 | Takt compliance = share of measured days with output >= 380 good units. | This follows the brief. |
+| A31 | `data/observed_weekly_output.csv` contains 26 weeks of "measured" output and order lead times. It comes from one run of a **perturbed** model (process means × N(1, 0.04), procurement means × N(1, 0.06), seed 4242) after an 8-week warm-up. | The perturbation plays the role of real-world model error. |
+| A32 | In a stable open system, throughput **equals demand**, so the weekly-output comparison is a consistency check. **Order lead time is the measure that discriminates between models**, with a target error of 5 % or less. | This is how open queueing networks behave. It is stated so the validation is not overclaimed. |
 
-## 6. Data generation
+## 7. Repository
 
-| ID | Assumption | Rationale |
+| ID | Assumption / decision | Rationale |
 |---|---|---|
-| A27 | Time-study samples: 40 stopwatch readings per station of the Medium model, drawn from lognormal(mean, CV) with seed 1101 and rounded to 0.1 s. Station 6 readings alternate between workstations 6A and 6B. | This follows the brief. Rounding mimics stopwatch resolution. |
-| A28 | "Observed" line data: one 21-day run (day 1 discarded) of a **perturbed** model, with seed 7707. Each station's mean cycle time is multiplied by N(1, 0.02), and its MTBF and MTTR by N(1, 0.08). It is exported as an MES-style long table (daily output, daily station utilisation, lead time of each completed batch), with dates on weekdays from 2 March 2026. | The perturbation stands in for real-world model error, so the validation has something to detect without being trivially exact. |
-
-## 7. Repository and tooling
-
-| ID | Assumption | Rationale |
-|---|---|---|
-| A29 | The project lives in the `evaporator-line-des/` folder of an existing portfolio repository, which already had git history, so no new `git init` was needed. The project keeps its own `.github/workflows/ci.yml`, so it can be split into a standalone repository. A copy at the repository root (`.github/workflows/evaporator-line-des-ci.yml`) runs the same checks inside the folder so CI works in its current location. | GitHub Actions only reads workflows from the repository root. |
-| A30 | `observed_line_data.csv` was designed in Phase 1 (the data dictionary and perturbation spec above), but it is generated by the simulation engine, so it was produced and committed with Phase 3, once the engine existed. | The brief asks for data from "a slightly perturbed version of the model", so the model has to exist first. |
-| A31 | A seventh scenario, **S6 = S5 + second brazing fixture**, was added beyond the S0-S5 brief. | S5 does not reach takt (see results). S6 shows what a recommendation that closes the gap would need. |
-| A32 | Sensitivity analysis and the CONWIP-limit sweep use 100 replications per run, not 500, and CRN against a baseline with the same 100 replications. Buffer size is varied by ±1 unit on all buffers (5 → 4 / 6), because ±10 % of 5 is not an integer. | Paired CRN differences are precise enough at 100 replications, and 36 runs × 500 replications would take hours. |
+| A33 | This is **version 2** of `evaporator-line-des` and it replaces the earlier flow-line prototype (v1, still in the git history at commit `09a967f`). It lives in a sub-folder of an existing repository, so there was no new `git init`. A root-level CI workflow runs the checks inside the folder. | The brief's "git init" does not apply inside an existing repository. |
+| A34 | Sensitivity and sweep runs use 100 replications per point (`simulation.sensitivity_replications`) instead of 300. All points are paired through CRN. | Paired differences are precise at n = 100. Runtime stays reasonable. |

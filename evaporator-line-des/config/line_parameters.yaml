@@ -1,182 +1,259 @@
 # =============================================================================
-# Evaporator Coil Assembly Line - model inputs (ALL DATA FICTIONAL)
+# Evaporator production system of "the Company" - model inputs
 # =============================================================================
-# Every parameter the simulation uses lives in this file. Units are stated in
-# the field names (_s = seconds, _min = minutes, _pct = percent, rates are
-# fractions 0-1). See README "Inputs reference" for valid ranges.
+# DATA STATUS: ILLUSTRATIVE AND ANONYMISED. Values are whiteboard / time-study
+# style figures and engineering assumptions used to demonstrate the method.
+# They are not measured company data. Each input carries a `source` tag:
+#   time study  - from the (anonymised) time study / whiteboard
+#   estimate    - an estimate pending a proper time study
+#   assumed     - an engineering assumption made for this model
+# Clock: WORKING MINUTES. 1 working day = calendar.minutes_per_day.
 # =============================================================================
 
 meta:
-  line_name: "Evaporator Coil Assembly Line"
-  data_status: "FICTIONAL - illustrative values, not measured at any real plant"
-  config_version: "1.0.0"
+  model_name: "Evaporator production system"
+  company: "the Company"
+  data_status: "ILLUSTRATIVE AND ANONYMISED - not measured company data"
+  config_version: "2.0.0"
 
-shift:
-  shifts_per_day: 1
-  net_productive_minutes: 480        # per shift, after breaks
+# Multiplies EVERY process (touch) time: operation times, fin-press setup,
+# run time, reel reload and repair time (MTBF is scaled too so that the
+# availability is unchanged). Procurement/outsourcing/engineering lead times
+# are calendar delays and are NOT scaled.
+time_scale_factor: 1.0
+
+calendar:
+  minutes_per_day: 480                 # productive minutes per shift (1 shift/day)
+  days_per_week: 5
 
 demand:
-  units_per_day: 380                 # customer demand -> takt = 480*60/380 = 75.8 s
+  eva_per_week: 3.0                    # baseline: 1 work order of 3 EVA per week (whiteboard; to confirm)
+  interarrival_cv: 0.25                # variability of work-order arrivals (assumed)
+  due_date_weeks: 6.0                  # promised order lead time for on-time delivery (assumed)
+  sweep_eva_per_week: [3.0, 4.0, 5.0, 5.5, 6.0]
+  scenario_eva_per_week: [3.0, 5.0]    # demand levels at which scenarios are evaluated
 
 orders:
-  batch_size: 20                     # units per released batch (single model)
-
-products:                            # mix must sum to 1.0
-  - name: Small
-    mix: 0.30
-    ct_multiplier: 0.85
-  - name: Medium
-    mix: 0.50
-    ct_multiplier: 1.00
-  - name: Large
-    mix: 0.20
-    ct_multiplier: 1.25
+  lot_size: 3                          # B: EVA per work order = process lot
+  transfer_batch: 3                    # EVA moved together between stations (1 = one-piece flow)
 
 release:
-  rule: conwip                       # conwip | unlimited
-  conwip_limit: 40                   # max units released and not yet finished/scrapped
+  rule: push                           # push | conwip
+  conwip_limit_orders: 3               # max work orders on the shop floor (card held from
+                                       # fin-press start to pressure-test pass)
 
-buffers:
-  # Finite inter-station buffers (blocking-after-service). Entry i sits between
-  # station i+1 and station i+2, so there are (number of stations - 1) entries.
-  capacities: [5, 5, 5, 5, 5, 5]
+flags:
+  include_outsourced_coating: true     # outsourced powder coating / galvanising of the coil
+  wash_before_test: true               # written steps: Cleaning (11) before Pressure test (12)
 
-stations:
-  - id: 1
-    name: "Tube Cut & Bend"
-    ct_mean_s: 42
-    ct_cv: 0.15
-    servers: 1
-    mtbf_min: 240
-    mttr_min: 18
-    scrap_rate: 0.005
-    changeover: false
-    changeover_min: 0
-    vsm:                             # gemba-walk snapshot (fictional), used for VSM comparison
-      operators: 1
-      value_added_time_s: 42
-      inventory_in_front_units: 0    # raw material is tracked in vsm.raw_material_stock_days
-      uptime_pct: 93.0
-      first_pass_yield_pct: 99.5
-  - id: 2
-    name: "Fin-Pack Assembly"
-    ct_mean_s: 55
-    ct_cv: 0.18
-    servers: 1
-    mtbf_min: 300
-    mttr_min: 15
-    scrap_rate: 0.005
-    changeover: true
-    changeover_min: 10
-    vsm:
-      operators: 2
-      value_added_time_s: 55
-      inventory_in_front_units: 5
-      uptime_pct: 95.2
-      first_pass_yield_pct: 99.5
-  - id: 3
-    name: "Tube Expansion"
-    ct_mean_s: 48
-    ct_cv: 0.12
-    servers: 1
-    mtbf_min: 360
-    mttr_min: 20
-    scrap_rate: 0.010
-    changeover: false
-    changeover_min: 0
-    vsm:
-      operators: 1
-      value_added_time_s: 48
-      inventory_in_front_units: 5
-      uptime_pct: 94.7
-      first_pass_yield_pct: 99.0
-  - id: 4
-    name: "Header Brazing"
-    ct_mean_s: 78
-    ct_cv: 0.20
-    servers: 1
-    mtbf_min: 180
-    mttr_min: 25
-    scrap_rate: 0.015
-    changeover: true
-    changeover_min: 12
-    vsm:
-      operators: 1
-      value_added_time_s: 78
-      inventory_in_front_units: 5
-      uptime_pct: 87.8
-      first_pass_yield_pct: 98.5
-  - id: 5
-    name: "Pressure & Leak Test"
-    ct_mean_s: 60
-    ct_cv: 0.10
-    servers: 1
-    mtbf_min: 420
-    mttr_min: 30
-    scrap_rate: 0.025                # test failure rate; see rework block
-    changeover: false
-    changeover_min: 0
-    vsm:
-      operators: 1
-      value_added_time_s: 60
-      inventory_in_front_units: 1
-      uptime_pct: 93.3
-      first_pass_yield_pct: 97.5
-  - id: 6
-    name: "Casing & Final Assembly"
-    ct_mean_s: 120
-    ct_cv: 0.15
-    servers: 2
-    mtbf_min: null                   # null = no breakdowns modelled
-    mttr_min: null
-    scrap_rate: 0.003
-    changeover: false
-    changeover_min: 0
-    vsm:
-      operators: 2
-      value_added_time_s: 120
-      inventory_in_front_units: 1
-      uptime_pct: 100.0
-      first_pass_yield_pct: 99.7
-  - id: 7
-    name: "Inspection & Packing"
-    ct_mean_s: 45
-    ct_cv: 0.12
-    servers: 1
-    mtbf_min: null
-    mttr_min: null
-    scrap_rate: 0.002
-    changeover: false
-    changeover_min: 0
-    vsm:
-      operators: 1
-      value_added_time_s: 45
-      inventory_in_front_units: 0
-      uptime_pct: 100.0
-      first_pass_yield_pct: 99.8
+fin_press:
+  source: "time study"
+  nominal_rate_fpm: 75                 # r_n, fins per minute
+  good_fins_per_eva: 4000              # F (calibrated, eq. A8)
+  setup_min: 30                        # S, per job (tooling change)
+  setup_cv: 0.25
+  performance: 0.95                    # P
+  quality: 0.98                        # Q (good-fin share)
+  mtbf_min: 270                        # mean RUN time between unplanned stops
+  mttr_min: 30
+  mttr_cv: 0.50                        # assumed
+  reel_fins: 8000                      # R, gross fins per strip reel
+  reload_min: 5                        # t_r per reel change
+  resource: fin_press_operator         # operator shared with Boxing
+
+# Operations. Time per EVA is either `mean_min`, or n_ops * t_op_min + handling_min.
+# For crew resources `mean_min` is the ELAPSED time with `crew_basis` operators.
+operations:
+  boxing:
+    step: 5
+    label: "Boxing (modules + end panels)"
+    department: evaporator
+    resource: fin_press_operator
+    mean_min: 100
+    cv: 0.15
+    source: assumed
+  trim_tubes:
+    step: 6
+    label: "Trim Tubes"
+    department: evaporator
+    resource: trim_operator
+    mean_min: 40
+    cv: 0.15
+    source: assumed
+  weld_hairpins:
+    step: 6
+    label: "Weld Hairpins"
+    department: evaporator
+    resource: hairpin_welder
+    t_op_min: 4
+    n_ops: 54
+    handling_min: 0
+    cv: 0.12
+    source: "time study"
+  steeking:
+    step: 7
+    label: "Steeking"
+    department: evaporator
+    resource: steeking_crew
+    mean_min: 420
+    crew_basis: 2
+    cv: 0.20
+    source: estimate
+  weld_return_bends:
+    step: 8
+    label: "Weld Return Bends"
+    department: evaporator
+    resource: return_bend_welder
+    t_op_min: 4
+    n_ops: 36
+    handling_min: 0
+    cv: 0.12
+    source: "time study"
+  expansion:
+    step: 9
+    label: "Hydraulic Expanding"
+    department: evaporator
+    resource: expander
+    t_op_min: 3
+    n_ops: 24
+    handling_min: 15
+    cv: 0.10
+    source: "time study"
+  prepare_headers:
+    step: 10
+    label: "Prepare Headers"
+    department: evaporator
+    resource: header_prep_operator
+    mean_min: 120
+    cv: 0.15
+    source: assumed
+  header_welding:
+    step: 10
+    label: "Header Welding"
+    department: evaporator
+    resource: header_welder
+    t_op_min: 8
+    n_ops: 48
+    handling_min: 0
+    cv: 0.15
+    source: "time study"
+  wash:
+    step: 11
+    label: "Wash Bay"
+    department: evaporator
+    resource: wash_bay
+    mean_min: 45
+    cv: 0.15
+    source: assumed
+  pressure_test:
+    step: 12
+    label: "Pressure Test"
+    department: evaporator
+    resource: test_bay
+    mean_min: 90
+    cv: 0.15
+    source: assumed
+  press_brake:
+    step: 13
+    label: "Plenum: Press Brake"
+    department: sheet_metal
+    resource: press_brake_operator
+    mean_min: 40
+    cv: 0.15
+    source: assumed
+  flat_welding:
+    step: 13
+    label: "Plenum: Flat Welding"
+    department: sheet_metal
+    resource: flat_welder
+    mean_min: 90
+    cv: 0.15
+    source: assumed
+  plenum_assembly:
+    step: 13
+    label: "Plenum Assembly"
+    department: sheet_metal
+    resource: sm_assembly_operator
+    mean_min: 60
+    cv: 0.15
+    source: assumed
+  drip_tray_weld:
+    step: 14
+    label: "Drip Tray: Weld"
+    department: sheet_metal
+    resource: drip_tray_welder
+    mean_min: 100
+    cv: 0.15
+    source: assumed
+  drip_tray_assembly:
+    step: 14
+    label: "Drip Tray Assembly"
+    department: sheet_metal
+    resource: sm_assembly_operator
+    mean_min: 45
+    cv: 0.15
+    source: assumed
+  complete_assembly:
+    step: 15
+    label: "Complete Assembly"
+    department: assembly
+    resource: assembly_crew
+    mean_min: 150
+    crew_basis: 2
+    cv: 0.15
+    source: assumed
+
+resources:
+  fin_press_operator:   {label: "Fin press / boxing operator", servers: 1, crew: 1}
+  trim_operator:        {label: "Tube trimmer",                servers: 1, crew: 1}
+  hairpin_welder:       {label: "Hairpin welder",              servers: 1, crew: 1}
+  steeking_crew:        {label: "Steeking crew",               servers: 1, crew: 2}
+  return_bend_welder:   {label: "Return-bend welder",          servers: 1, crew: 1}
+  expander:             {label: "Hydraulic expander",          servers: 1, crew: 1}
+  header_prep_operator: {label: "Header preparation",          servers: 1, crew: 1}
+  header_welder:        {label: "Header welder",               servers: 1, crew: 1}
+  wash_bay:             {label: "Wash bay",                    servers: 1, crew: 1}
+  test_bay:             {label: "Pressure-test bay",           servers: 1, crew: 1}
+  press_brake_operator: {label: "Press brake",                 servers: 1, crew: 1}
+  flat_welder:          {label: "Flat welder",                 servers: 1, crew: 1}
+  drip_tray_welder:     {label: "Drip-tray welder",            servers: 1, crew: 1}
+  sm_assembly_operator: {label: "Sheet-metal assembler",       servers: 1, crew: 1}
+  assembly_crew:        {label: "Final assembly crew",         servers: 1, crew: 2}
+
+# Crew efficiency eta(c): elapsed = labour content / (c * eta(c)) (diminishing returns)
+crew_efficiency: {1: 1.0, 2: 1.0, 3: 0.85, 4: 0.75}
+
+# Calendar delays (working days, lognormal), no in-house resource
+lead_times:
+  engineering_release:     {label: "Engineering drawing release", department: engineering, mean_days: 1.0, cv: 0.30, source: assumed}
+  procurement_sheet_metal: {label: "Procure sheet metal (cut to size)", department: outsourced, mean_days: 4.0, cv: 0.25, source: assumed}
+  procurement_tubing:      {label: "Procure tubing", department: outsourced, mean_days: 8.0, cv: 0.30, source: assumed}
+  drip_tray_external:      {label: "Drip tray: external bend & punch", department: outsourced, mean_days: 5.0, cv: 0.30, source: assumed}
+  coating:                 {label: "Powder coating / galvanising", department: outsourced, mean_days: 3.0, cv: 0.30, source: assumed}
 
 rework:
-  test_station: 5                    # station whose failures can be reworked
-  rework_station: 4                  # where failed units are repaired
-  rework_share: 0.40                 # share of test failures reworked (rest scrapped)
-  rework_time_s: 90                  # mean rework operation time at the rework station
-  rework_cv: 0.20
-  max_reworks_per_unit: 1            # a unit failing its re-test is scrapped
+  fail_prob: 0.04                      # pressure-test failure probability per test (assumed)
+  rework_min: 60                       # weld repair
+  cv: 0.15
+  resource: header_welder              # repair done by the header welder (assumed)
+  source: assumed
 
 simulation:
-  days: 20                           # measured production days per replication
-  warmup_days: 1                     # discarded before measurement starts
-  replications: 500                  # full mode
-  quick_replications: 50             # quick mode (make quick / --quick)
-  sensitivity_replications: 100      # per one-at-a-time sensitivity run
-  base_seed: 20260415
-  changeover_cv: 0.10                # lognormal CV of changeover durations
-  deterministic: false               # true = zero variance (verification mode)
-  breakdowns: true                   # false = disable all failures (verification mode)
+  measure_weeks: 52                    # measured horizon
+  warmup_weeks: 8                      # discarded before measurement
+  replications: 300
+  quick_replications: 30
+  sensitivity_replications: 100
+  base_seed: 20260521
+  deterministic: false                 # true: zero variance, no stops/scrap/test failures
+
+input_uncertainty:
+  enabled: false                       # true: sample the steeking mean per replication (outer loop)
+  steeking_triangular_min: [360, 420, 600]   # min / mode / max of the steeking mean, min per EVA
+  outer_samples: 40
+  inner_replications: 10
+  steeking_cases_hours: [6, 7, 16, 20] # stakeholder guesses (elapsed h per EVA)
 
 vsm:
-  raw_material_stock_days: 3.0       # coil stock & fin strip ahead of Station 1 (snapshot)
-  finished_goods_stock_days: 2.0     # packed coils awaiting shipment (snapshot)
-  supplier: "Tube & fin stock supplier"
-  customer: "HVAC unit assembly customer"
-  shipments_per_week: 5
+  customer: "Customer (HVAC contractor)"
+  supplier: "Tube, strip & sheet suppliers"

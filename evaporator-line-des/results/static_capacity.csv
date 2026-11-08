@@ -1,8 +1,0 @@
-station_id,station,servers,ct_mix_s,failure_factor,changeover_s_per_unit,rework_s_per_unit,t_eff_s,capacity_per_day,load_vs_takt
-1,Tube Cut & Bend,1,42.21,1.075,0.0,0.0,45.376,634.7,0.599
-2,Fin-Pack Assembly,1,55.275,1.05,18.6,0.0,76.639,375.789,1.011
-3,Tube Expansion,1,48.24,1.056,0.0,0.0,50.92,565.593,0.672
-4,Header Brazing,1,78.39,1.139,22.32,0.9,112.622,255.722,1.486
-5,Pressure & Leak Test,1,60.3,1.071,0.0,0.0,64.607,445.771,0.852
-6,Casing & Final Assembly,2,120.6,1.0,0.0,0.0,60.3,477.612,0.796
-7,Inspection & Packing,1,45.225,1.0,0.0,0.0,45.225,636.816,0.597

@@ -1,8 +1,10 @@
-"""evapsim - discrete-event simulation of a fictional evaporator coil assembly line.
+"""evapsim - DES and Monte Carlo analysis of the Company's evaporator production system.
 
-The package models the line as a stochastic serial flow line in SimPy and
-provides Monte Carlo replication, metrics, validation, scenario and
-sensitivity analysis, and value-stream-map (VSM) visualisation.
+All data are illustrative and anonymised. The package contains the analytical
+(hand-calculation) model, a SimPy network model of the evaporator line with its
+sheet-metal and outsourced feeder flows, a Monte Carlo runner with common random
+numbers and two-level input uncertainty, and the scenario, sensitivity, VSM and
+reporting tools.
 """
 
-__version__ = "1.0.0"
+__version__ = "2.0.0"

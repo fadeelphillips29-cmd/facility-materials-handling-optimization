@@ -1,7 +1,0 @@
-metric,target_rel_half_width_pct,required_replications,replications_run,achieved_rel_half_width_pct
-throughput_per_day,0.5,152,500,0.2735
-throughput_per_day,1.0,40,500,0.2735
-throughput_per_day,2.0,12,500,0.2735
-lt_mean_min,0.5,175,500,0.2938
-lt_mean_min,1.0,46,500,0.2938
-lt_mean_min,2.0,14,500,0.2938

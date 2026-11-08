@@ -1,8 +1,0 @@
-scenario,name,description
-S0,Baseline,Current state as described in line_parameters.yaml.
-S1,Larger buffers,All inter-station buffers increased from 5 to 10 units.
-S2,SMED,Changeover times reduced by 40% at Fin-Pack (St 2) and Header Brazing (St 4).
-S3,Second brazing fixture,Header Brazing (St 4) capacity increased to 2 parallel fixtures.
-S4,Preventive maintenance,TPM programme: MTBF +25% and MTTR -15% at stations 1-5.
-S5,Combined (SMED + PM + buffers 8),"S2 and S4 together, with all buffers set to 8 units."
-S6,Combined + second fixture (extension),S5 plus a second brazing fixture (S3). Added beyond the brief to test whether takt is reachable.

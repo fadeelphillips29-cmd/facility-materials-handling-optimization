@@ -1,17 +1,18 @@
-"""Configuration loading, validation and scenario overrides.
+"""Configuration loading, validation, time scaling and scenario overrides.
 
-The model is driven entirely by ``config/line_parameters.yaml``. This module
-turns that YAML into typed, validated dataclasses (:class:`LineConfig`) and
-applies scenario overrides from ``config/scenarios.yaml``.
-
-Overrides are applied to the plain-dict form of the configuration and the
-result is re-validated, so a scenario can never produce an inconsistent model.
+The model is driven by ``config/line_parameters.yaml``. :class:`LineConfig`
+wraps that YAML dictionary, validates it, and gives the derived quantities the
+model needs, for example operation means per EVA after ``time_scale_factor``
+and the crew-size adjustment, or calendar delays in working minutes. Scenario
+overrides in ``config/scenarios.yaml`` are applied to the plain dictionary,
+and the result is validated again.
 """
 
 from __future__ import annotations
 
 import copy
-from dataclasses import asdict, dataclass, field
+import math
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -26,172 +27,16 @@ FIGURES_DIR = RESULTS_DIR / "figures"
 DATA_DIR = PROJECT_ROOT / "data"
 DOCS_DIR = PROJECT_ROOT / "docs"
 
+DEPARTMENTS = ("engineering", "evaporator", "sheet_metal", "outsourced", "assembly")
+SOURCES = ("time study", "estimate", "assumed")
+
 
 class ConfigError(ValueError):
-    """Raised when a configuration file is missing fields or has invalid values."""
+    """Raised when a configuration is missing fields or has invalid values."""
 
 
-@dataclass(frozen=True)
-class Product:
-    """A product model (coil size) in the mix."""
-
-    name: str
-    mix: float
-    ct_multiplier: float
-
-
-@dataclass(frozen=True)
-class VSMFields:
-    """Gemba-walk snapshot shown on a VSM process box (fictional observed values)."""
-
-    operators: int = 1
-    value_added_time_s: float = 0.0
-    inventory_in_front_units: float = 0.0
-    uptime_pct: float = 100.0
-    first_pass_yield_pct: float = 100.0
-
-
-@dataclass(frozen=True)
-class Station:
-    """A processing station in the flow line.
-
-    Attributes:
-        id: 1-based station number (also the routing order).
-        name: Descriptive name.
-        ct_mean_s: Mean cycle time of the Medium model, seconds.
-        ct_cv: Coefficient of variation of the lognormal cycle time.
-        servers: Number of identical parallel machines/workstations.
-        mtbf_min: Mean operating time between failures, minutes (None = no failures).
-        mttr_min: Mean time to repair, minutes (None = no failures).
-        scrap_rate: Probability a unit is scrapped at this station (fraction).
-        changeover: Whether a model switch triggers a changeover here.
-        changeover_min: Mean changeover duration, minutes.
-        vsm: Observed VSM box data.
-    """
-
-    id: int
-    name: str
-    ct_mean_s: float
-    ct_cv: float
-    servers: int = 1
-    mtbf_min: float | None = None
-    mttr_min: float | None = None
-    scrap_rate: float = 0.0
-    changeover: bool = False
-    changeover_min: float = 0.0
-    vsm: VSMFields = field(default_factory=VSMFields)
-
-    @property
-    def has_breakdowns(self) -> bool:
-        """True when both MTBF and MTTR are defined and positive."""
-        return bool(self.mtbf_min) and bool(self.mttr_min)
-
-    @property
-    def short(self) -> str:
-        """Short label such as ``S4``."""
-        return f"S{self.id}"
-
-
-@dataclass(frozen=True)
-class Release:
-    """Order release rule at the line entrance."""
-
-    rule: str = "conwip"
-    conwip_limit: int = 40
-
-
-@dataclass(frozen=True)
-class Rework:
-    """Rework loop from a test station back to an upstream station."""
-
-    test_station: int = 5
-    rework_station: int = 4
-    rework_share: float = 0.4
-    rework_time_s: float = 90.0
-    rework_cv: float = 0.2
-    max_reworks_per_unit: int = 1
-
-
-@dataclass(frozen=True)
-class SimSettings:
-    """Run-length, replication and randomness settings."""
-
-    days: int = 20
-    warmup_days: int = 1
-    replications: int = 500
-    quick_replications: int = 50
-    sensitivity_replications: int = 100
-    base_seed: int = 20260415
-    changeover_cv: float = 0.1
-    deterministic: bool = False
-    breakdowns: bool = True
-
-
-@dataclass(frozen=True)
-class VSMGlobal:
-    """VSM data outside the simulated scope (stock levels, supplier, customer)."""
-
-    raw_material_stock_days: float = 3.0
-    finished_goods_stock_days: float = 2.0
-    supplier: str = "Supplier"
-    customer: str = "Customer"
-    shipments_per_week: int = 5
-
-
-@dataclass(frozen=True)
-class LineConfig:
-    """Complete, validated model input."""
-
-    line_name: str
-    shift_minutes: float
-    shifts_per_day: int
-    demand_per_day: float
-    batch_size: int
-    products: tuple[Product, ...]
-    stations: tuple[Station, ...]
-    buffer_capacities: tuple[int, ...]
-    release: Release
-    rework: Rework
-    sim: SimSettings
-    vsm: VSMGlobal
-    raw: dict[str, Any] = field(repr=False, compare=False, default_factory=dict)
-
-    # ------------------------------------------------------------------ derived
-    @property
-    def day_seconds(self) -> float:
-        """Productive seconds per day (all shifts)."""
-        return self.shift_minutes * 60.0 * self.shifts_per_day
-
-    @property
-    def takt_s(self) -> float:
-        """Takt time in seconds = available time / customer demand."""
-        return self.day_seconds / self.demand_per_day
-
-    @property
-    def mix_ct_multiplier(self) -> float:
-        """Demand-weighted average cycle-time multiplier of the product mix."""
-        return sum(p.mix * p.ct_multiplier for p in self.products)
-
-    @property
-    def n_stations(self) -> int:
-        """Number of stations."""
-        return len(self.stations)
-
-    def station(self, station_id: int) -> Station:
-        """Return the station with the given 1-based id."""
-        for st in self.stations:
-            if st.id == station_id:
-                return st
-        raise KeyError(f"No station with id {station_id}")
-
-    def to_dict(self) -> dict[str, Any]:
-        """Return the YAML-shaped dictionary this config was built from."""
-        return copy.deepcopy(self.raw)
-
-
-# --------------------------------------------------------------------------- IO
 def load_yaml(path: str | Path) -> dict[str, Any]:
-    """Read a YAML file into a dictionary."""
+    """Read a YAML mapping from ``path``."""
     with open(path, encoding="utf-8") as fh:
         data = yaml.safe_load(fh)
     if not isinstance(data, dict):
@@ -199,205 +44,309 @@ def load_yaml(path: str | Path) -> dict[str, Any]:
     return data
 
 
-def load_config(path: str | Path = DEFAULT_LINE_FILE) -> LineConfig:
-    """Load and validate ``line_parameters.yaml``."""
-    return config_from_dict(load_yaml(path))
+class LineConfig:
+    """Validated model input with derived (scaled) quantities.
+
+    Args:
+        raw: YAML-shaped dictionary (see ``config/line_parameters.yaml``).
+    """
+
+    def __init__(self, raw: dict[str, Any]) -> None:
+        self.raw = copy.deepcopy(raw)
+        self.raw["crew_efficiency"] = {int(k): float(v)
+                                       for k, v in self.raw.get("crew_efficiency", {}).items()}
+        validate(self)
+
+    # ---------------------------------------------------------------- sections
+    def __getitem__(self, key: str) -> Any:
+        return self.raw[key]
+
+    def to_dict(self) -> dict[str, Any]:
+        """Deep copy of the underlying dictionary."""
+        return copy.deepcopy(self.raw)
+
+    @property
+    def tsf(self) -> float:
+        """Global ``time_scale_factor`` applied to every process time."""
+        return float(self.raw.get("time_scale_factor", 1.0))
+
+    @property
+    def day_min(self) -> float:
+        """Working minutes per day."""
+        return float(self.raw["calendar"]["minutes_per_day"])
+
+    @property
+    def week_min(self) -> float:
+        """Working minutes per week."""
+        return self.day_min * float(self.raw["calendar"]["days_per_week"])
+
+    @property
+    def demand(self) -> float:
+        """Demand in EVA per week."""
+        return float(self.raw["demand"]["eva_per_week"])
+
+    @property
+    def lot(self) -> int:
+        """Work-order size B (EVA per order = process lot)."""
+        return int(self.raw["orders"]["lot_size"])
+
+    @property
+    def transfer_batch(self) -> int:
+        """Transfer batch between stations (EVA)."""
+        return int(self.raw["orders"]["transfer_batch"])
+
+    @property
+    def interarrival_min(self) -> float:
+        """Mean time between work-order arrivals (working minutes)."""
+        return self.lot / self.demand * self.week_min
+
+    @property
+    def takt_min(self) -> float:
+        """Takt time per EVA = available time / demand (working minutes)."""
+        return self.week_min / self.demand
+
+    @property
+    def deterministic(self) -> bool:
+        """Zero-variance verification mode."""
+        return bool(self.raw["simulation"].get("deterministic", False))
+
+    @property
+    def operations(self) -> dict[str, dict[str, Any]]:
+        """Operation definitions keyed by operation id."""
+        return self.raw["operations"]
+
+    @property
+    def resources(self) -> dict[str, dict[str, Any]]:
+        """Resource definitions keyed by resource id."""
+        return self.raw["resources"]
+
+    # ------------------------------------------------------------- derivations
+    def eta(self, crew: int) -> float:
+        """Crew efficiency eta(c); beyond the table the last value is used."""
+        table = self.raw["crew_efficiency"]
+        if crew in table:
+            return table[crew]
+        return table[max(table)]
+
+    def op_base_min(self, op: str) -> float:
+        """Standard time per EVA of ``op`` at its basis crew, before scaling."""
+        o = self.operations[op]
+        if "t_op_min" in o:
+            return float(o["n_ops"]) * float(o["t_op_min"]) + float(o.get("handling_min", 0.0))
+        return float(o["mean_min"])
+
+    def op_labour_min(self, op: str) -> float:
+        """Labour content (operator-minutes per EVA), scaled."""
+        o = self.operations[op]
+        basis = int(o.get("crew_basis", 1))
+        return self.op_base_min(op) * basis * self.raw["crew_efficiency"].get(basis, 1.0) * self.tsf
+
+    def op_crew(self, op: str) -> int:
+        """Crew size of the resource that performs ``op``."""
+        return int(self.resources[self.operations[op]["resource"]].get("crew", 1))
+
+    def op_mean_min(self, op: str) -> float:
+        """Mean ELAPSED time per EVA of ``op`` with the configured crew (scaled).
+
+        elapsed = labour content / (crew * eta(crew))
+        """
+        crew = self.op_crew(op)
+        return self.op_labour_min(op) / (crew * self.eta(crew))
+
+    def op_cv(self, op: str) -> float:
+        """Coefficient of variation of the operation time (0 in deterministic mode)."""
+        return 0.0 if self.deterministic else float(self.operations[op].get("cv", 0.0))
+
+    def lead_time_mean_min(self, key: str) -> float:
+        """Mean calendar delay ``key`` in working minutes (NOT time-scaled)."""
+        return float(self.raw["lead_times"][key]["mean_days"]) * self.day_min
+
+    def lead_time_cv(self, key: str) -> float:
+        """CV of the calendar delay (0 in deterministic mode)."""
+        return 0.0 if self.deterministic else float(self.raw["lead_times"][key].get("cv", 0.0))
+
+    @property
+    def fin_press(self) -> dict[str, float]:
+        """Fin-press parameters with time scaling applied.
+
+        Times (setup, reload, MTTR, MTBF and the run time through the rate) are
+        multiplied by ``time_scale_factor``. Availability and OEE are unchanged.
+        """
+        fp = self.raw["fin_press"]
+        k = self.tsf
+        return {
+            "r_n": float(fp["nominal_rate_fpm"]) / k,
+            "F": float(fp["good_fins_per_eva"]),
+            "S": float(fp["setup_min"]) * k,
+            "setup_cv": 0.0 if self.deterministic else float(fp["setup_cv"]),
+            "P": float(fp["performance"]),
+            "Q": float(fp["quality"]),
+            "MTBF": float(fp["mtbf_min"]) * k,
+            "MTTR": float(fp["mttr_min"]) * k,
+            "mttr_cv": float(fp.get("mttr_cv", 0.5)),
+            "R": float(fp["reel_fins"]),
+            "t_r": float(fp["reload_min"]) * k,
+            "B": float(self.lot),
+        }
+
+    @property
+    def rework(self) -> dict[str, Any]:
+        """Rework parameters (time scaled, failure probability 0 when deterministic)."""
+        rw = self.raw["rework"]
+        return {"fail_prob": 0.0 if self.deterministic else float(rw["fail_prob"]),
+                "rework_min": float(rw["rework_min"]) * self.tsf,
+                "cv": 0.0 if self.deterministic else float(rw.get("cv", 0.0)),
+                "resource": rw["resource"]}
+
+    def resource_label(self, res: str) -> str:
+        """Human-readable resource name."""
+        return str(self.resources[res].get("label", res))
+
+    def resource_ops(self, res: str) -> list[str]:
+        """Operations performed by resource ``res`` (fin press included)."""
+        ops = [o for o, d in self.operations.items() if d["resource"] == res]
+        if self.raw["fin_press"]["resource"] == res:
+            ops = ["fin_press", *ops]
+        return ops
 
 
-def _req(d: dict[str, Any], key: str, ctx: str) -> Any:
-    if key not in d:
-        raise ConfigError(f"Missing field '{key}' in {ctx}")
-    return d[key]
-
-
-def config_from_dict(d: dict[str, Any]) -> LineConfig:
-    """Build a :class:`LineConfig` from a YAML-shaped dictionary and validate it."""
-    d = copy.deepcopy(d)
-    products = tuple(
-        Product(name=str(p["name"]), mix=float(p["mix"]), ct_multiplier=float(p["ct_multiplier"]))
-        for p in _req(d, "products", "root")
-    )
-    stations = []
-    for s in _req(d, "stations", "root"):
-        vsm_raw = s.get("vsm", {}) or {}
-        stations.append(
-            Station(
-                id=int(_req(s, "id", "station")),
-                name=str(_req(s, "name", "station")),
-                ct_mean_s=float(_req(s, "ct_mean_s", "station")),
-                ct_cv=float(_req(s, "ct_cv", "station")),
-                servers=int(s.get("servers", 1)),
-                mtbf_min=None if s.get("mtbf_min") is None else float(s["mtbf_min"]),
-                mttr_min=None if s.get("mttr_min") is None else float(s["mttr_min"]),
-                scrap_rate=float(s.get("scrap_rate", 0.0)),
-                changeover=bool(s.get("changeover", False)),
-                changeover_min=float(s.get("changeover_min", 0.0) or 0.0),
-                vsm=VSMFields(**vsm_raw),
-            )
-        )
-    stations.sort(key=lambda st: st.id)
-    rel = d.get("release", {}) or {}
-    rw = d.get("rework", {}) or {}
-    sim = d.get("simulation", {}) or {}
-    vsm = d.get("vsm", {}) or {}
-    cfg = LineConfig(
-        line_name=str(d.get("meta", {}).get("line_name", "Flow line")),
-        shift_minutes=float(_req(d["shift"], "net_productive_minutes", "shift")),
-        shifts_per_day=int(d["shift"].get("shifts_per_day", 1)),
-        demand_per_day=float(_req(d["demand"], "units_per_day", "demand")),
-        batch_size=int(_req(d["orders"], "batch_size", "orders")),
-        products=products,
-        stations=tuple(stations),
-        buffer_capacities=tuple(int(c) for c in _req(d["buffers"], "capacities", "buffers")),
-        release=Release(**rel),
-        rework=Rework(**rw),
-        sim=SimSettings(**sim),
-        vsm=VSMGlobal(**vsm),
-        raw=d,
-    )
-    validate(cfg)
-    return cfg
-
-
+# ------------------------------------------------------------------ validation
 def validate(cfg: LineConfig) -> None:
-    """Check ranges and internal consistency; raise :class:`ConfigError` on failure."""
+    """Check ranges and consistency; raise :class:`ConfigError` listing every problem."""
+    r = cfg.raw
     errs: list[str] = []
-    if cfg.shift_minutes <= 0:
-        errs.append("shift.net_productive_minutes must be > 0")
-    if cfg.shifts_per_day < 1:
-        errs.append("shift.shifts_per_day must be >= 1")
-    if cfg.demand_per_day <= 0:
-        errs.append("demand.units_per_day must be > 0")
-    if cfg.batch_size < 1:
-        errs.append("orders.batch_size must be >= 1")
-    if not cfg.products:
-        errs.append("at least one product is required")
-    mix = sum(p.mix for p in cfg.products)
-    if abs(mix - 1.0) > 1e-6:
-        errs.append(f"product mix must sum to 1.0 (got {mix:.4f})")
-    for p in cfg.products:
-        if p.mix < 0 or p.ct_multiplier <= 0:
-            errs.append(f"product {p.name}: mix >= 0 and ct_multiplier > 0 required")
-    ids = [s.id for s in cfg.stations]
-    if ids != list(range(1, len(ids) + 1)):
-        errs.append(f"station ids must be 1..N without gaps (got {ids})")
-    for s in cfg.stations:
-        if s.ct_mean_s <= 0:
-            errs.append(f"{s.short}: ct_mean_s must be > 0")
-        if not 0 <= s.ct_cv <= 2:
-            errs.append(f"{s.short}: ct_cv must be in [0, 2]")
-        if s.servers < 1:
-            errs.append(f"{s.short}: servers must be >= 1")
-        if (s.mtbf_min is None) != (s.mttr_min is None):
-            errs.append(f"{s.short}: give both mtbf_min and mttr_min or neither")
-        if s.mtbf_min is not None and (s.mtbf_min <= 0 or (s.mttr_min or 0) <= 0):
-            errs.append(f"{s.short}: mtbf_min and mttr_min must be > 0")
-        if not 0 <= s.scrap_rate < 1:
-            errs.append(f"{s.short}: scrap_rate must be in [0, 1)")
-        if s.changeover_min < 0:
-            errs.append(f"{s.short}: changeover_min must be >= 0")
-    if len(cfg.buffer_capacities) != max(len(cfg.stations) - 1, 0):
-        errs.append(
-            f"buffers.capacities needs {len(cfg.stations) - 1} entries "
-            f"(got {len(cfg.buffer_capacities)})"
-        )
-    if any(c < 1 for c in cfg.buffer_capacities):
-        errs.append("buffer capacities must be >= 1")
-    if cfg.release.rule not in {"conwip", "unlimited"}:
-        errs.append("release.rule must be 'conwip' or 'unlimited'")
-    if cfg.release.rule == "conwip" and cfg.release.conwip_limit < 1:
-        errs.append("release.conwip_limit must be >= 1")
-    rw = cfg.rework
-    if rw.rework_share > 0:
-        if rw.test_station not in ids or rw.rework_station not in ids:
-            errs.append("rework stations must be valid station ids")
-        elif not 2 <= rw.rework_station < rw.test_station:
-            errs.append("rework_station must be >= 2 and upstream of test_station")
-    if not 0 <= rw.rework_share <= 1:
-        errs.append("rework.rework_share must be in [0, 1]")
-    if cfg.sim.days < 1 or cfg.sim.warmup_days < 0:
-        errs.append("simulation.days >= 1 and warmup_days >= 0 required")
-    if cfg.sim.replications < 2 or cfg.sim.quick_replications < 2:
-        errs.append("replication counts must be >= 2 (needed for confidence intervals)")
+
+    def need(cond: bool, msg: str) -> None:
+        if not cond:
+            errs.append(msg)
+
+    for sec in ("calendar", "demand", "orders", "release", "flags", "fin_press", "operations",
+                "resources", "lead_times", "rework", "simulation"):
+        need(sec in r, f"missing section '{sec}'")
+    if errs:
+        raise ConfigError("Invalid configuration:\n  - " + "\n  - ".join(errs))
+    need(cfg.tsf > 0, "time_scale_factor must be > 0")
+    need(cfg.day_min > 0, "calendar.minutes_per_day must be > 0")
+    need(r["calendar"]["days_per_week"] >= 1, "calendar.days_per_week must be >= 1")
+    need(cfg.demand > 0, "demand.eva_per_week must be > 0")
+    need(r["demand"].get("interarrival_cv", 0) >= 0, "demand.interarrival_cv must be >= 0")
+    need(r["demand"].get("due_date_weeks", 1) > 0, "demand.due_date_weeks must be > 0")
+    need(cfg.lot >= 1, "orders.lot_size must be >= 1")
+    need(1 <= cfg.transfer_batch <= cfg.lot, "orders.transfer_batch must be in 1..lot_size")
+    need(r["release"]["rule"] in ("push", "conwip"), "release.rule must be push or conwip")
+    need(int(r["release"].get("conwip_limit_orders", 1)) >= 1,
+         "release.conwip_limit_orders must be >= 1")
+    fp = r["fin_press"]
+    for k in ("nominal_rate_fpm", "good_fins_per_eva", "mtbf_min", "mttr_min", "reel_fins"):
+        need(float(fp[k]) > 0, f"fin_press.{k} must be > 0")
+    for k in ("performance", "quality"):
+        need(0 < float(fp[k]) <= 1, f"fin_press.{k} must be in (0, 1]")
+    need(float(fp["setup_min"]) >= 0 and float(fp["reload_min"]) >= 0,
+         "fin_press setup/reload must be >= 0")
+    need(fp["resource"] in r["resources"], "fin_press.resource must be a defined resource")
+    for name, res in r["resources"].items():
+        need(int(res.get("servers", 1)) >= 1, f"resource {name}: servers must be >= 1")
+        need(int(res.get("crew", 1)) >= 1, f"resource {name}: crew must be >= 1")
+    for name, o in r["operations"].items():
+        need(o.get("resource") in r["resources"], f"operation {name}: unknown resource")
+        need(o.get("department") in DEPARTMENTS, f"operation {name}: unknown department")
+        need(o.get("source") in SOURCES, f"operation {name}: source must be one of {SOURCES}")
+        if "t_op_min" in o:
+            need(float(o["t_op_min"]) > 0 and int(o["n_ops"]) >= 1,
+                 f"operation {name}: t_op_min > 0 and n_ops >= 1 required")
+        else:
+            need(float(o.get("mean_min", -1)) > 0, f"operation {name}: mean_min must be > 0")
+        need(0 <= float(o.get("cv", 0)) <= 2, f"operation {name}: cv must be in [0, 2]")
+    required_ops = {"boxing", "trim_tubes", "weld_hairpins", "steeking", "weld_return_bends",
+                    "expansion", "prepare_headers", "header_welding", "wash", "pressure_test",
+                    "press_brake", "flat_welding", "plenum_assembly", "drip_tray_weld",
+                    "drip_tray_assembly", "complete_assembly"}
+    missing = required_ops - set(r["operations"])
+    need(not missing, f"operations missing: {sorted(missing)}")
+    for key in ("engineering_release", "procurement_sheet_metal", "procurement_tubing",
+                "drip_tray_external", "coating"):
+        lt = r["lead_times"].get(key)
+        need(lt is not None, f"lead_times.{key} missing")
+        if lt is not None:
+            need(float(lt["mean_days"]) >= 0 and float(lt.get("cv", 0)) >= 0,
+                 f"lead_times.{key}: mean_days >= 0 and cv >= 0 required")
+    need(0 <= float(r["rework"]["fail_prob"]) < 1, "rework.fail_prob must be in [0, 1)")
+    need(r["rework"]["resource"] in r["resources"], "rework.resource must be a defined resource")
+    eff = r["crew_efficiency"]
+    need(1 in eff and all(0 < v <= 1 for v in eff.values()),
+         "crew_efficiency must define crew 1 and values in (0, 1]")
+    sim = r["simulation"]
+    need(sim["measure_weeks"] >= 1 and sim["warmup_weeks"] >= 0,
+         "simulation.measure_weeks >= 1 and warmup_weeks >= 0 required")
+    need(sim["replications"] >= 2 and sim["quick_replications"] >= 2,
+         "replication counts must be >= 2")
+    iu = r.get("input_uncertainty", {})
+    if iu:
+        lo, mode, hi = iu["steeking_triangular_min"]
+        need(0 < lo <= mode <= hi, "input_uncertainty.steeking_triangular_min must be ordered")
     if errs:
         raise ConfigError("Invalid configuration:\n  - " + "\n  - ".join(errs))
 
 
-# -------------------------------------------------------------------- overrides
-def _station_selector(key: Any, n: int) -> list[int]:
-    """Expand a station selector (id, 'a-b', 'all', list) into station ids."""
-    if isinstance(key, int):
-        return [key]
-    if isinstance(key, (list, tuple)):
-        out: list[int] = []
-        for k in key:
-            out += _station_selector(k, n)
-        return out
-    k = str(key).strip().lower()
-    if k == "all":
-        return list(range(1, n + 1))
-    if "-" in k:
-        a, b = (int(x) for x in k.split("-", 1))
-        return list(range(a, b + 1))
-    return [int(k)]
+def load_config(path: str | Path = DEFAULT_LINE_FILE) -> LineConfig:
+    """Load and validate the line configuration."""
+    return LineConfig(load_yaml(path))
+
+
+# ------------------------------------------------------------------- overrides
+def _is_operator(v: Any) -> bool:
+    return isinstance(v, dict) and bool(v) and set(v) <= {"scale", "add"}
 
 
 def _apply_value(current: Any, new: Any) -> Any:
-    """Apply a literal or an operator ({scale: x} / {add: x}) to ``current``."""
-    if isinstance(new, dict) and set(new) <= {"scale", "add"} and new:
+    if _is_operator(new):
         if current is None:
-            return None  # scaling a disabled feature keeps it disabled
+            return None
         val = current
         if "scale" in new:
             val = val * new["scale"]
         if "add" in new:
             val = val + new["add"]
         return val
-    return new
+    return copy.deepcopy(new)
 
 
 def _merge(base: dict[str, Any], upd: dict[str, Any]) -> None:
     for k, v in upd.items():
-        if isinstance(v, dict) and isinstance(base.get(k), dict) and not (
-            set(v) <= {"scale", "add"} and v
-        ):
+        if isinstance(v, dict) and not _is_operator(v) and isinstance(base.get(k), dict):
             _merge(base[k], v)
         else:
             base[k] = _apply_value(base.get(k), v)
 
 
-def apply_overrides(cfg: LineConfig | dict[str, Any], overrides: dict[str, Any]) -> LineConfig:
-    """Return a new validated config with ``overrides`` applied.
+def apply_overrides(cfg: LineConfig | dict[str, Any], overrides: dict[str, Any] | None
+                    ) -> LineConfig:
+    """Return a new validated config with nested ``overrides`` merged in.
 
-    Args:
-        cfg: Base configuration (dataclass or YAML-shaped dict).
-        overrides: Mapping in the format documented in ``config/scenarios.yaml``.
+    Values may be literals or operators ``{scale: x}`` / ``{add: x}``. Integer
+    fields (servers, crew, batch sizes) are rounded after the operator is applied.
     """
     d = cfg.to_dict() if isinstance(cfg, LineConfig) else copy.deepcopy(cfg)
-    ov = copy.deepcopy(overrides or {})
-    n = len(d["stations"])
-    st_ov = ov.pop("stations", None) or {}
-    for sel, fields in st_ov.items():
-        for sid in _station_selector(sel, n):
-            target = next((s for s in d["stations"] if int(s["id"]) == sid), None)
-            if target is None:
-                raise ConfigError(f"Override refers to unknown station {sid}")
-            _merge(target, fields)
-    buf_ov = ov.pop("buffers", None) or {}
-    if "all" in buf_ov:
-        caps = d["buffers"]["capacities"]
-        d["buffers"]["capacities"] = [
-            int(round(_apply_value(c, buf_ov["all"]))) for c in caps
-        ]
-    if "capacities" in buf_ov:
-        d["buffers"]["capacities"] = [int(c) for c in buf_ov["capacities"]]
-    _merge(d, ov)
-    return config_from_dict(d)
+    _merge(d, copy.deepcopy(overrides or {}))
+    for res in d["resources"].values():
+        for k in ("servers", "crew"):
+            if k in res:
+                res[k] = int(round(res[k]))
+    for k in ("lot_size", "transfer_batch"):
+        d["orders"][k] = int(round(d["orders"][k]))
+    if "conwip_limit_orders" in d["release"]:
+        d["release"]["conwip_limit_orders"] = int(round(d["release"]["conwip_limit_orders"]))
+    return LineConfig(d)
+
+
+def with_demand(cfg: LineConfig, eva_per_week: float) -> LineConfig:
+    """Copy of ``cfg`` at a different demand level."""
+    return apply_overrides(cfg, {"demand": {"eva_per_week": float(eva_per_week)}})
 
 
 @dataclass(frozen=True)
 class Scenario:
-    """A named scenario: id, label, description and the resolved config."""
+    """A named scenario with its resolved configuration."""
 
     sid: str
     name: str
@@ -405,44 +354,32 @@ class Scenario:
     config: LineConfig
 
 
-def load_scenarios(
-    base: LineConfig | None = None,
-    path: str | Path = DEFAULT_SCENARIO_FILE,
-) -> dict[str, Scenario]:
-    """Load all scenarios, resolving ``extends`` chains, in file order."""
+def load_scenarios(base: LineConfig | None = None,
+                   path: str | Path = DEFAULT_SCENARIO_FILE) -> dict[str, Scenario]:
+    """Load all scenarios (resolving ``extends`` chains) in file order."""
     base = base or load_config()
     spec = load_yaml(path).get("scenarios", {})
-    resolved: dict[str, Scenario] = {}
 
-    def overrides_chain(sid: str, seen: tuple[str, ...] = ()) -> list[dict[str, Any]]:
+    def chain(sid: str, seen: tuple[str, ...] = ()) -> list[dict[str, Any]]:
         if sid in seen:
-            raise ConfigError(f"Circular 'extends' in scenario {sid}")
+            raise ConfigError(f"circular 'extends' at scenario {sid}")
         if sid not in spec:
-            raise ConfigError(f"Unknown scenario '{sid}'")
-        chain: list[dict[str, Any]] = []
+            raise ConfigError(f"unknown scenario '{sid}'")
+        out: list[dict[str, Any]] = []
         for parent in spec[sid].get("extends", []) or []:
-            chain += overrides_chain(parent, (*seen, sid))
-        chain.append(spec[sid].get("overrides", {}) or {})
-        return chain
+            out += chain(parent, (*seen, sid))
+        out.append(spec[sid].get("overrides", {}) or {})
+        return out
 
+    result = {}
     for sid, s in spec.items():
         cfg = base
-        for ov in overrides_chain(sid):
+        for ov in chain(sid):
             cfg = apply_overrides(cfg, ov)
-        resolved[sid] = Scenario(
-            sid=sid,
-            name=str(s.get("name", sid)),
-            description=str(s.get("description", "")),
-            config=cfg,
-        )
-    return resolved
+        result[sid] = Scenario(sid, str(s.get("name", sid)), str(s.get("description", "")), cfg)
+    return result
 
 
-def station_table(cfg: LineConfig) -> list[dict[str, Any]]:
-    """Flat per-station parameter records (for tables and the dashboard)."""
-    rows = []
-    for s in cfg.stations:
-        r = asdict(s)
-        r.pop("vsm")
-        rows.append(r)
-    return rows
+def isclose(a: float, b: float, rel: float = 1e-9) -> bool:
+    """Relative float comparison helper."""
+    return math.isclose(a, b, rel_tol=rel, abs_tol=1e-12)

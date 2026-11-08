@@ -1,4 +1,0 @@
-measure,unit,observed_mean,n_observed,simulated_mean,n_sim_periods,sim_pi95_low,sim_pi95_high,error_pct,within_target,prediction_interval_p,welch_t_p,verdict
-Mean daily output,units/day,230.4,20.0,231.0969,500.0,215.1925,245.0025,0.3025,True,0.8703,0.8618,valid
-Mean batch lead time,min,72.031,242.0,71.3771,500.0,67.5423,76.7513,-0.9078,True,0.6906,0.6217,valid
-Station utilisation (mean abs. error),percentage points,0.468,,0.4624,,,,0.8947,True,,,valid

@@ -206,6 +206,10 @@ class ReplicationResult:
     failures_by_station: np.ndarray     # whole run
     changeovers_by_station: np.ndarray  # whole run
     batch_records: list[dict[str, Any]]
+    total_released: int = 0             # whole run (incl. warm-up), for conservation checks
+    total_departed: int = 0             # whole run, good + scrap
+    wip_end: int = 0                    # units still in the line at the end
+    max_wip: int = 0                    # highest WIP level reached (whole run)
     units: list[dict[str, Any]] | None = None
 
     @property
@@ -275,6 +279,7 @@ class LineModel:
         self.scrap_by_station = np.zeros(self.n, dtype=int)
         self.processed_by_station = np.zeros(self.n, dtype=int)
         self.unit_log: list[dict[str, Any]] = []
+        self.total_released = self.total_departed = self.max_wip = 0
 
         for si, st in enumerate(cfg.stations):
             for k in range(st.servers):
@@ -304,6 +309,8 @@ class LineModel:
         )
         self.batches[self.batch_id]["released"] += 1
         self.wip.change(self.env.now, +1)
+        self.total_released += 1
+        self.max_wip = max(self.max_wip, self.wip.level)
         if self._in_window(self.env.now):
             self.released += 1
         return unit
@@ -312,6 +319,7 @@ class LineModel:
         """Remove a unit from the line (exit or scrap) and update all statistics."""
         now = self.env.now
         self.wip.change(now, -1)
+        self.total_departed += 1
         if self.conwip is not None:
             self.conwip.put(1)
         b = self.batches[unit.batch]
@@ -503,6 +511,10 @@ class LineModel:
             changeovers_by_station=np.array(
                 [sum(s.changeovers for s in row) for row in self.servers]),
             batch_records=batch_records,
+            total_released=self.total_released,
+            total_departed=self.total_departed,
+            wip_end=self.wip.level,
+            max_wip=self.max_wip,
             units=self.unit_log if self.keep_units else None,
         )
 

@@ -6,6 +6,7 @@ data         regenerate the fictional data sets in data/
 input        Phase 2 input analysis (distribution fitting)
 capacity     static capacity hand-calculation (results/static_capacity.csv)
 baseline     Phase 4-5 baseline Monte Carlo run + convergence analysis
+validate     Phase 6 validation against data/observed_line_data.csv
 """
 
 from __future__ import annotations
@@ -57,11 +58,22 @@ def _baseline(args: argparse.Namespace) -> None:
     pipeline.step_baseline(quick=args.quick, reps=args.reps, workers=args.workers)
 
 
+def _validate(args: argparse.Namespace) -> None:
+    from .validation import run_validation
+
+    out, fig = pipeline.out_dirs(args.quick)
+    if not (out / "baseline_replications.csv").exists():
+        pipeline.step_baseline(quick=args.quick, reps=args.reps, workers=args.workers)
+    summary = run_validation(out, fig)
+    print(summary.round(3).to_string(index=False))
+
+
 STEPS = {
     "data": _data,
     "input": _input,
     "capacity": _capacity,
     "baseline": _baseline,
+    "validate": _validate,
 }
 
 

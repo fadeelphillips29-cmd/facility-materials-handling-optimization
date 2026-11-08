@@ -10,6 +10,7 @@ quick-mode replications are the first 50 replications of the full run.
 
 from __future__ import annotations
 
+import multiprocessing
 import os
 from collections.abc import Callable
 from concurrent.futures import ProcessPoolExecutor
@@ -105,7 +106,8 @@ def run_replications(
             if progress:
                 progress(len(outputs), n_reps)
     else:
-        with ProcessPoolExecutor(max_workers=workers) as ex:
+        ctx = multiprocessing.get_context("spawn")  # safe with threads (Streamlit, pytest)
+        with ProcessPoolExecutor(max_workers=workers, mp_context=ctx) as ex:
             for part in ex.map(_worker, tasks):
                 outputs += part
                 if progress:

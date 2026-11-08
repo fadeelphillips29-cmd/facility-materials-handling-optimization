@@ -237,3 +237,48 @@ def convergence_figure(conv: pd.DataFrame, target_pct: float, title: str, path: 
     fig.suptitle(title, x=0.01, ha="left", fontsize=13, fontweight="bold", color=INK)
     fig.tight_layout()
     return _save(fig, path)
+
+
+# ------------------------------------------------------------------ validation
+def validation_figure(obs_daily: np.ndarray, sim_period_means: np.ndarray, obs_blt: np.ndarray,
+                      sim_blt: np.ndarray, util: pd.DataFrame, path: Path) -> Path:
+    """Observed vs simulated: 20-day mean output, batch lead-time ECDF, utilisation."""
+    apply_style()
+    fig, axes = plt.subplots(1, 3, figsize=(15.5, 4.4))
+    ax = axes[0]
+    ax.hist(sim_period_means, bins=30, color=SERIES[0], edgecolor=SURFACE, linewidth=1.0,
+            label="Simulated 20-day means")
+    om = float(np.mean(obs_daily))
+    ax.axvline(om, color=SERIES[1], lw=2.2, label=f"Observed mean {om:.1f}")
+    lo, hi = np.percentile(sim_period_means, [2.5, 97.5])
+    ax.axvspan(lo, hi, color=GRID, alpha=0.5, lw=0, label="95% prediction interval", zorder=0)
+    ax.set_xlabel("Mean daily output over 20 days (units/day)")
+    ax.set_ylabel("Replications (count)")
+    ax.set_title("Daily output", loc="left")
+    ax.legend(loc="upper left", fontsize=8)
+
+    ax = axes[1]
+    for x, c, lab in ((np.sort(sim_blt), SERIES[0], "Simulated (50 reps)"),
+                      (np.sort(obs_blt), SERIES[1], f"Observed ({len(obs_blt)} batches)")):
+        ax.step(x, np.arange(1, len(x) + 1) / len(x), where="post", color=c, lw=1.8, label=lab)
+    ax.set_xlim(0, np.percentile(np.concatenate([sim_blt, obs_blt]), 99.5))
+    ax.set_xlabel("Batch lead time (min)")
+    ax.set_ylabel("Cumulative share of batches")
+    ax.set_title("Batch lead time (ECDF)", loc="left")
+    ax.legend(loc="lower right", fontsize=8)
+
+    ax = axes[2]
+    x = np.arange(len(util))
+    ax.bar(x - 0.19, util["observed_utilisation"] * 100, width=0.36, color=SERIES[1],
+           label="Observed")
+    ax.bar(x + 0.19, util["simulated_utilisation"] * 100, width=0.36, color=SERIES[0],
+           label="Simulated")
+    ax.set_xticks(x, [f"S{i}" for i in util["station_id"]])
+    ax.set_xlabel("Station")
+    ax.set_ylabel("Utilisation, busy share (%)")
+    ax.set_title("Station utilisation", loc="left")
+    ax.legend(loc="upper right", fontsize=8)
+    fig.suptitle("Validation: nominal model vs observed line data (fictional)", x=0.01,
+                 ha="left", fontsize=13, fontweight="bold", color=INK)
+    fig.tight_layout()
+    return _save(fig, path)

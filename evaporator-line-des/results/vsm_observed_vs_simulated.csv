@@ -1,0 +1,8 @@
+station_id,station,observed_uptime_pct,simulated_uptime_pct,observed_fpy_pct,simulated_fpy_pct,observed_inventory_units,simulated_inventory_units
+1,Tube Cut & Bend,93.0,93.249,99.5,99.498,0,
+2,Fin-Pack Assembly,95.2,95.282,99.5,99.5,5,4.862
+3,Tube Expansion,94.7,94.89,99.0,99.004,5,3.597
+4,Header Brazing,87.8,87.806,98.5,98.495,5,4.529
+5,Pressure & Leak Test,93.3,93.247,97.5,97.486,1,0.209
+6,Casing & Final Assembly,100.0,100.0,99.7,99.7,1,0.015
+7,Inspection & Packing,100.0,100.0,99.8,99.798,0,0.017

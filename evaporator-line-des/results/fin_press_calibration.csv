@@ -1,0 +1,2 @@
+t_ideal_min,F_g,T_run,A_u,reloads_per_eva,T_eva,T_job,per_eva,A_tot,OEE,OEE_check,r_eff,X_eva_per_min,whiteboard_T_job_min,whiteboard_OEE,calibrated_F_from_A8,F_used,T_job_error_vs_whiteboard_pct
+0.013333,4081.632653,57.286072,0.9,0.510204,66.202212,228.606636,76.202212,0.751764,0.699892,0.699892,52.491915,0.013123,229.0,0.7,4007.5,4000.0,-0.171775

@@ -3,6 +3,7 @@
 Steps
 -----
 handcalc     hand-calculated VSM, resource loads, critical path, process-flow figure
+analytic     fin-press calibration, OEE options, weld metrics, analytic Kingman
 report       regenerate README/docs tables from config and results
 """
 
@@ -29,6 +30,13 @@ def _handcalc(args: argparse.Namespace) -> None:
     from .pipeline import step_handcalc
 
     step_handcalc()
+
+
+@step("analytic")
+def _analytic(args: argparse.Namespace) -> None:
+    from .pipeline import step_analytic
+
+    step_analytic()
 
 
 @step("report")

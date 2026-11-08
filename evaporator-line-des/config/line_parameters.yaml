@@ -1,0 +1,182 @@
+# =============================================================================
+# Evaporator Coil Assembly Line - model inputs (ALL DATA FICTIONAL)
+# =============================================================================
+# Every parameter the simulation uses lives in this file. Units are stated in
+# the field names (_s = seconds, _min = minutes, _pct = percent, rates are
+# fractions 0-1). See README "Inputs reference" for valid ranges.
+# =============================================================================
+
+meta:
+  line_name: "Evaporator Coil Assembly Line"
+  data_status: "FICTIONAL - illustrative values, not measured at any real plant"
+  config_version: "1.0.0"
+
+shift:
+  shifts_per_day: 1
+  net_productive_minutes: 480        # per shift, after breaks
+
+demand:
+  units_per_day: 380                 # customer demand -> takt = 480*60/380 = 75.8 s
+
+orders:
+  batch_size: 20                     # units per released batch (single model)
+
+products:                            # mix must sum to 1.0
+  - name: Small
+    mix: 0.30
+    ct_multiplier: 0.85
+  - name: Medium
+    mix: 0.50
+    ct_multiplier: 1.00
+  - name: Large
+    mix: 0.20
+    ct_multiplier: 1.25
+
+release:
+  rule: conwip                       # conwip | unlimited
+  conwip_limit: 40                   # max units released and not yet finished/scrapped
+
+buffers:
+  # Finite inter-station buffers (blocking-after-service). Entry i sits between
+  # station i+1 and station i+2, so there are (number of stations - 1) entries.
+  capacities: [5, 5, 5, 5, 5, 5]
+
+stations:
+  - id: 1
+    name: "Tube Cut & Bend"
+    ct_mean_s: 42
+    ct_cv: 0.15
+    servers: 1
+    mtbf_min: 240
+    mttr_min: 18
+    scrap_rate: 0.005
+    changeover: false
+    changeover_min: 0
+    vsm:                             # gemba-walk snapshot (fictional), used for VSM comparison
+      operators: 1
+      value_added_time_s: 42
+      inventory_in_front_units: 0    # raw material is tracked in vsm.raw_material_stock_days
+      uptime_pct: 93.0
+      first_pass_yield_pct: 99.5
+  - id: 2
+    name: "Fin-Pack Assembly"
+    ct_mean_s: 55
+    ct_cv: 0.18
+    servers: 1
+    mtbf_min: 300
+    mttr_min: 15
+    scrap_rate: 0.005
+    changeover: true
+    changeover_min: 10
+    vsm:
+      operators: 2
+      value_added_time_s: 55
+      inventory_in_front_units: 5
+      uptime_pct: 95.2
+      first_pass_yield_pct: 99.5
+  - id: 3
+    name: "Tube Expansion"
+    ct_mean_s: 48
+    ct_cv: 0.12
+    servers: 1
+    mtbf_min: 360
+    mttr_min: 20
+    scrap_rate: 0.010
+    changeover: false
+    changeover_min: 0
+    vsm:
+      operators: 1
+      value_added_time_s: 48
+      inventory_in_front_units: 5
+      uptime_pct: 94.7
+      first_pass_yield_pct: 99.0
+  - id: 4
+    name: "Header Brazing"
+    ct_mean_s: 78
+    ct_cv: 0.20
+    servers: 1
+    mtbf_min: 180
+    mttr_min: 25
+    scrap_rate: 0.015
+    changeover: true
+    changeover_min: 12
+    vsm:
+      operators: 1
+      value_added_time_s: 78
+      inventory_in_front_units: 5
+      uptime_pct: 87.8
+      first_pass_yield_pct: 98.5
+  - id: 5
+    name: "Pressure & Leak Test"
+    ct_mean_s: 60
+    ct_cv: 0.10
+    servers: 1
+    mtbf_min: 420
+    mttr_min: 30
+    scrap_rate: 0.025                # test failure rate; see rework block
+    changeover: false
+    changeover_min: 0
+    vsm:
+      operators: 1
+      value_added_time_s: 60
+      inventory_in_front_units: 1
+      uptime_pct: 93.3
+      first_pass_yield_pct: 97.5
+  - id: 6
+    name: "Casing & Final Assembly"
+    ct_mean_s: 120
+    ct_cv: 0.15
+    servers: 2
+    mtbf_min: null                   # null = no breakdowns modelled
+    mttr_min: null
+    scrap_rate: 0.003
+    changeover: false
+    changeover_min: 0
+    vsm:
+      operators: 2
+      value_added_time_s: 120
+      inventory_in_front_units: 1
+      uptime_pct: 100.0
+      first_pass_yield_pct: 99.7
+  - id: 7
+    name: "Inspection & Packing"
+    ct_mean_s: 45
+    ct_cv: 0.12
+    servers: 1
+    mtbf_min: null
+    mttr_min: null
+    scrap_rate: 0.002
+    changeover: false
+    changeover_min: 0
+    vsm:
+      operators: 1
+      value_added_time_s: 45
+      inventory_in_front_units: 0
+      uptime_pct: 100.0
+      first_pass_yield_pct: 99.8
+
+rework:
+  test_station: 5                    # station whose failures can be reworked
+  rework_station: 4                  # where failed units are repaired
+  rework_share: 0.40                 # share of test failures reworked (rest scrapped)
+  rework_time_s: 90                  # mean rework operation time at the rework station
+  rework_cv: 0.20
+  max_reworks_per_unit: 1            # a unit failing its re-test is scrapped
+
+simulation:
+  days: 20                           # measured production days per replication
+  warmup_days: 1                     # discarded before measurement starts
+  replications: 500                  # full mode
+  quick_replications: 50             # quick mode (make quick / --quick)
+  sensitivity_replications: 100      # per one-at-a-time sensitivity run
+  base_seed: 20260415
+  changeover_cv: 0.10                # lognormal CV of changeover durations
+  deterministic: false               # true = zero variance (verification mode)
+  breakdowns: true                   # false = disable all failures (verification mode)
+
+vsm:
+  raw_material_stock_days: 3.0       # coil stock & fin strip ahead of Station 1 (snapshot)
+  finished_goods_stock_days: 2.0     # packed coils awaiting shipment (snapshot)
+  supplier: "Tube & fin stock supplier"
+  customer: "HVAC unit assembly customer"
+  shipments_per_week: 5
